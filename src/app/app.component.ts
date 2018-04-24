@@ -86,7 +86,14 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      //http://www.codingandclimbing.co.uk/blog/ionic-2-fix-splash-screen-white-screen-issue
+      // Fix issue where you see a blank screen after your splash screen disappears.
+      
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 100);
+      
+      //this.splashScreen.hide();
 
       // Set intro page
       this.storage.get('introShown').then((result) => {
@@ -173,6 +180,11 @@ export class MyApp {
     this.events.subscribe('user:logout', () => {
       this.authService.logout();
       this.nav.setRoot('LoginPage');
+    });
+
+    // Subscribe to picture events
+    this.events.subscribe('picture:updated', (profilePiture) => { 
+      this.profilePicture = profilePiture;
     });
     
   }

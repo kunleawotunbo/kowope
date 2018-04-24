@@ -10,6 +10,10 @@ so remove the --release makes it work
 
 ionic cordova build android --prod
 
+#To run on android emulator
+
+ionic cordova run android
+
 # To display detail arrow on list
 3.  Add details-push to the list item and if it doesn't show, override the variale.scss
 http://technotip.com/5051/details-arrow-ionic-2/

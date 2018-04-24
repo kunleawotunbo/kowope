@@ -104,7 +104,6 @@ export class LoginPage {
         }
         this.loading.dismiss();
 
-        this.presentToast(error);
         this.presentToast(message);
       },
       () => {
@@ -114,8 +113,7 @@ export class LoginPage {
 
         //var loggedInType = 1;
         //console.log("result :: " + result);
-        //console.log("result.user :: " + result.user);
-        this.presentToast('Login successful...');
+        //console.log("result.user :: " + result.user);        
         this.storage.set('currentUser', JSON.stringify(result.user));
         this.storage.set('token', result.token);
         localStorage.setItem('token', result.token);

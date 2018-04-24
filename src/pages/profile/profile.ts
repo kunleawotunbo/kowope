@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, ActionSheetController } from 'ionic-angular';
+import { NavController, IonicPage, ActionSheetController, Events } from 'ionic-angular';
 //import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
@@ -27,6 +27,7 @@ export class ProfilePage {
     public imagePicker: ImagePicker,
     public cropService: Crop,
     public authService: AuthService,
+    public events: Events
   ) {
     this.username = "Olakunle";
     this.profilePiture = "assets/images/avatar.png";
@@ -134,6 +135,9 @@ export class ProfilePage {
        // this.photos.push(newImage);
         this.profilePiture = newImage;
         this.pictureTaken = true;
+        // Notify events
+        this.events.publish('picture:updated', this.profilePiture);
+        
       }, error => console.error("Error cropping image", error));
     }, function(error) {
       console.log(error);
