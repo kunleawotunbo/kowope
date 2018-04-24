@@ -81,13 +81,13 @@ $toolbar-background:color($colors, primary);
 
 
 // Manage Menu Style
-$menu_bg_color:color($colors, light);
+$menu_bg_color:color($colors, primary);
 $menu_font_color:$rsecondary;
 $menu_font_size:$size_normal;
 $menu_separator_line_color:#4f0306;
 $menu_avatar_bg_color:color($colors, light);
 $menu_avatar_font_color:color($colors, dark);
-$menu_avatar_text_color:color($colors, deep);
+$menu_avatar_text_color:color($colors, dblack);
 $menu_avatar_text_color2:coloor($colors, dblack);
 
 
