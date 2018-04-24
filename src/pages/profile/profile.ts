@@ -6,6 +6,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
 //import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { AuthService } from '../../providers/auth-service';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -21,17 +22,20 @@ export class ProfilePage {
   profilePiture: string;
   username: string;
   pictureTaken: boolean;
+  currentUser: any;
+  isLoaded: boolean;
 
   constructor(public navCtrl: NavController, private camera: Camera,
     public actionSheetCtrl: ActionSheetController,
     public imagePicker: ImagePicker,
     public cropService: Crop,
     public authService: AuthService,
-    public events: Events
+    public events: Events,
+    public storage: Storage
   ) {
     this.username = "Olakunle";
     this.profilePiture = "assets/images/avatar.png";
-    
+     
   }
 
   changePassword(){
@@ -137,7 +141,7 @@ export class ProfilePage {
         this.pictureTaken = true;
         // Notify events
         this.events.publish('picture:updated', this.profilePiture);
-        
+
       }, error => console.error("Error cropping image", error));
     }, function(error) {
       console.log(error);

@@ -5,10 +5,8 @@
         <ion-avatar menuClose (click)="editAccount()" item-left>    
            <img [src]="profilePicture">          
         </ion-avatar>
-        <!-- <h2 *ngIf="isLoaded">{{currentUser?.first_name}}</h2> -->
-        <h2 *ngIf="isLoaded">{{name}}</h2>
-        <!-- <h2>Olakunle Awotunbo</h2> -->
-        <p>{{clientId}}</p>
+        <h2 *ngIf="isLoaded">{{currentUser.first_name}}</h2>
+        <!-- <p>{{clientId}}</p> -->
       </ion-item>
       <ion-buttons end>
         <button ion-button icon-only >
@@ -35,9 +33,8 @@
         <ion-avatar menuClose (click)="editAccount()" item-left>    
            <img [src]="profilePicture">          
         </ion-avatar>
-        <!-- <h2 *ngIf="isLoaded">{{currentUser.first_name}}</h2> -->
-        <h2 *ngIf="isLoaded">{{name}}</h2>
-        <p>{{clientId}}</p>
+        <h2 *ngIf="isLoaded">{{currentUser.first_name}}</h2>
+        <!-- <p>{{clientId}}</p> -->
       </ion-item>
       <ion-buttons end>
         <button ion-button icon-only >

@@ -121,9 +121,13 @@ export class LoginPage {
         //Publish login event
         // Events is a publish-subscribe style event system for sending and responding 
         //to application-level events across your app.
-        this.events.publish('user:login');
 
         this.currentUser = result.user;
+        //console.log("In Login page :: currentUser :: " + this.currentUser);
+        this.events.publish('user:login', this.currentUser);
+        //this.events.publish('user:login');
+
+        
         //console.log("this.currentUser.user_type :: " + this.currentUser.user_type);
         var loggedInType = parseInt(this.currentUser.user_type);
         this.utilityService.determineMenu(loggedInType);

@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { AuthService } from '../providers/auth-service';
+import { UtilityService } from '../utility/utility.service';
 
 export interface PageInterface {
   title: string;
@@ -55,7 +56,8 @@ export class MyApp {
     public storage: Storage,
     public menuCtrl: MenuController,
     public events: Events,
-    public authService: AuthService
+    public authService: AuthService,
+    public utilityService: UtilityService
   ) {
     this.initializeApp();
 
@@ -130,7 +132,7 @@ export class MyApp {
   }
 
   ngAfterViewInit() {
-    this.getCurrentUser();
+   // this.getCurrentUser();
   }
 
   getCurrentUser() {
@@ -153,7 +155,7 @@ export class MyApp {
   listenToEvents(){
     
     // Subscribe to user:login event to set the person name in the side menu
-    this.events.subscribe('user:login', () => {
+    this.events.subscribe('user:loginTEST', (currentUser) => {
       // this.currentUser = this.storage.get('currentUser');
       /*
       this.getCurrentUser();
@@ -172,8 +174,31 @@ export class MyApp {
       }, 5000);
       */
 
-      this.name = "Babatunde";
-      this.isLoaded = true;
+      /*
+      this.storage.get('currentUser').then(result => {
+        console.log("Inside storage then...");
+        console.log("result :: " + result);
+        this.currentUser = result;
+        if (this.currentUser === null){
+          this.isLoaded = false;
+        } else {
+          this.isLoaded = true;
+        }
+        
+      });
+      */
+
+      //this.name = "Babatunde";
+      //this.isLoaded = true;
+    });
+
+    this.events.subscribe('user:login', (currentUser) => { 
+      this.currentUser = currentUser;
+      if (this.currentUser === undefined){
+        this.isLoaded = false;
+      } else {
+        this.isLoaded = true;
+      }
     });
 
     

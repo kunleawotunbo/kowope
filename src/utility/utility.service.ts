@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Network } from '@ionic-native/network';
 import { Platform, ToastController, LoadingController, MenuController} from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 declare var Connection;
 declare var navigator;
@@ -17,12 +18,19 @@ export class UtilityService {
     public toastCtrl: ToastController,
      public loadingCtrl: LoadingController,
      public menuCtrl: MenuController,
+     public storage: Storage
     ) {
 
     // To detect if app is running on iOS or Android
     this.onDevice = this.platform.is('cordova');
   }
 
+
+  getCurrentUser(): Promise<any> {
+    return this.storage.ready().then(() => {
+      this.storage.get('currentUser');
+    });
+  }
   
 
   /**
