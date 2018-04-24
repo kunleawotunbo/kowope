@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Fleet Management</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="addVehicle()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <button ion-item *ngFor="let item of subItemsList" (click)="itemSelected(item)" detail-push>
+      <ion-icon name="{{item.icon}}" item-start></ion-icon> {{ item.title }}
+    </button>
+  </ion-list>
+</ion-content>

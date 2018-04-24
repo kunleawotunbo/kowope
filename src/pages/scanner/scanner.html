@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Scanner</ion-title>
+      <!-- <ion-buttons end>
+          <button ion-button icon-only color="royal" (click)="addVehicle()">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-buttons> -->
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <h1>
+        <button ion-button color="dark" full round (click)="scan()">Start Scan</button>
+      </h1>
+      
+      <ion-card *ngIf="productFound">
+        <ion-card-header>
+          <h2>Price: $ {{selectedProduct.price}}</h2>
+        </ion-card-header>
+        <ion-card-content>
+          <ul>
+            <li>{{selectedProduct.plu}}</li>
+            <li>{{selectedProduct.name}}</li>
+            <li>{{selectedProduct.desc}}</li>
+          </ul>
+        </ion-card-content>
+      </ion-card>
+</ion-content>

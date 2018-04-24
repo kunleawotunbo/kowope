@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<!-- <ion-content class="outer-content"> -->
+<ion-content padding>
+
+  <div padding-top text-center *ngIf="username">
+    <!-- <img src="http://www.gravatar.com/avatar?d=mm&s=140" alt="avatar"> -->
+    <img src="{{profilePiture}}" alt="avatar" (click)="updatePicture()">
+    <h2>{{username}}</h2>
+
+    <ion-list inset>
+      <button ion-item (click)="updatePicture()">Update Picture</button>
+      <button ion-item (click)="changeUsername()">Change Username</button>
+      <button ion-item (click)="changePassword()">Change Password</button>
+      <!-- <button ion-item (click)="support()">Support</button> -->
+      <button ion-item (click)="logout()">Logout</button>
+    </ion-list>
+  </div>
+
+  <h3>The profile page</h3>
+  <button ion-button secondary (click)="takePicture()">Take Piture</button>
+
+  Latest Picture:
+  <img [src]="base64Image" *ngIf="base64Image" />
+
+  <ion-card *ngFor="let photo of photos">
+    <img src="{{photo}}" />
+  </ion-card>
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button block (click)="presentActionSheet()">Select Pictures</button>
+  </ion-toolbar>
+</ion-footer>

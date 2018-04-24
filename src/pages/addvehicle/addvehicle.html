@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add Vehicle</ion-title>
+    <!-- <ion-buttons end>
+        <button ion-button icon-only color="royal">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>Model No</ion-label>
+        <ion-input type="text" formControlName="modelNo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Plate Number</ion-label>
+        <ion-input type="plateNo" formControlName="plateNo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Color</ion-label>
+        <ion-input type="text" formControlName="color"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Driver</ion-label>
+        <ion-select formControlName="driverId">
+          <ion-option *ngFor="let item of driverList" [value]="item.id">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label stacked>Date Purchased</ion-label>
+        <ion-input type="date" formControlName="datePurchased"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+
+    <button ion-button block round type="submit" [disabled]="!form.valid">Submit</button>
+  </form>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Vehicle Management</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="addVehicle()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-list>
+
+    <button ion-item *ngFor="let item of vehiclesList" (click)="itemSelected(item)">
+      <h2> {{ item.plate_no }} </h2>
+      <p> {{item.model_no}}</p>
+      <ion-note item-end color="success">{{item.color}}</ion-note>
+    </button>
+  </ion-list>
+
+
+
+  <!-- <ion-list>
+        <ion-item *ngFor="let item of vehiclesList" (click)="itemSelected(item)">
+          <h2> {{ item.plate_no }} </h2>
+          <p> {{item.model_no}}</p>
+          <ion-note item-end color="success">{{item.color}}</ion-note>
+        </ion-item>
+      </ion-list> -->
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-header>
+  <!-- <ion-navbar  hideBackButton="true">
+      <ion-buttons end>
+       <button ion-button icon-right color="light" (click)="dashboardPage()">SKIP<ion-icon name="ios-arrow-forward"></ion-icon></button>
+     </ion-buttons>
+    </ion-navbar> -->
+</ion-header>
+<ion-content padding>
+  <ion-list no-lines padding-top>
+
+    <ion-item>
+      <ion-input type="text" placeholder="First Name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" placeholder="Last Name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="email" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" placeholder="Password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" placeholder="Confirm Password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button block round color="primary">Submit</button>
+
+  <div padding-top>
+      <!-- <p text-right ion-text color="secondary" tappable (click)="loginPage()"><strong>If already have an account ? Login</strong></p>
+      <p text-right ion-text color="secondary" tappable (click)="forgotPasswordPage()"><strong>Forgot Password?</strong></p> -->
+    <button ion-button block color="secondary" clear (click)="loginPage();">If already have an account ? LOGIN</button>
+    <button ion-button block color="secondary" clear (click)="forgotPasswordPage();">Forgot Password</button>
+  </div>
+
+</ion-content>

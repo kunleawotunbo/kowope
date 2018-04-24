@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add Transaction</ion-title>
+    <!-- <ion-buttons end>
+      <button ion-button icon-only color="royal">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>Vehicle</ion-label>
+        <ion-select formControlName="vehicleId">
+          <ion-option *ngFor="let item of vehiclesList" [value]="item.id"> {{item.plate_no}} - {{item.model_no}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Date</ion-label>
+        <ion-input type="date" formControlName="date"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Transaction Type</ion-label>
+        <ion-select formControlName="txnType">
+          <ion-option value="I">Income</ion-option>
+          <ion-option value="E">Expense</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Amount</ion-label>
+        <ion-input type="text" formControlName="amount"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Narrative</ion-label>
+        <ion-input type="text" formControlName="narrative"></ion-input>
+      </ion-item>
+    </ion-list>
+
+
+    <button ion-button block round type="submit" [disabled]="!form.valid">Submit</button>
+  </form>
+</ion-content>

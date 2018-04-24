@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Payment</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding>
+   
+<div class="progress-wrapper">
+    <div class="current" [ngStyle]="getOverlayStyle()">{{ current }}%</div>
+      <!--<round-progress [current]="current" [max]="max"></round-progress>-->
+    
+      <round-progress
+        [current]="current"
+        [max]="max"
+        [color]="color"
+        [background]="'#eaeaea'"
+        [radius]="125"
+        [stroke]="15"
+        [semicircle]="false"
+        [rounded]="false"
+        [clockwise]="true"
+        [responsive]="false"
+        [duration]="800"
+        [animation]="'easeOutCubic'"
+        [animationDelay]="0"
+        (onRender)="doSomethingWithCurrentValue($event)"></round-progress>
+    
+    </div>
+    
+     <h1>Balance to be paid :: {{balancePercent}}%</h1>
+    
+     <button ion-button full (click)="payWithPaystack()" color="primary" class="login-button">Pay</button>
+    
+    </ion-content>
+    
