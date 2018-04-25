@@ -1,18 +1,45 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>Support</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  
-  <ion-content padding>
-    Support page
-
-    <button ion-item color="primary" (click)="presentLoadingCustom()">
-      Show Custom
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-title>Support</ion-title>
+  </ion-navbar>
 
-  </ion-content>
+  <ion-toolbar>
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button round outline>Input new rate</button>
+
+        </ion-col>
+        <ion-col>
+          <button ion-button round outline>Previous rates</button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
+      <ion-segment-button  value="all">
+        All
+      </ion-segment-button>
+      <ion-segment-button  value="favorites">
+        Favorites
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-toolbar>
+  
+</ion-header>
+
+
+<ion-content padding>
+  Support page
+
+  <button ion-item color="primary" (click)="presentLoadingCustom()">
+    Show Custom
+  </button>
+
+</ion-content>

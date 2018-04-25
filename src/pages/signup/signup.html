@@ -20,29 +20,29 @@
     </ion-item>
   </ion-list>
   <button ion-button block round color="primary">Submit</button> -->
-  <form [formGroup]="form" (ngSubmit)="submitForm()" >
+  <form [formGroup]="form" (ngSubmit)="submitForm(form.value)" >
    
 
     <ion-list>       
 
       <ion-item>
         <ion-label stacked>First Name</ion-label>
-        <ion-input type="text" formControlName="firstName"></ion-input>
+        <ion-input type="text" formControlName="firstName" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked>Last Name</ion-label>
-        <ion-input type="text" formControlName="lastName"></ion-input>
+        <ion-input type="text" formControlName="lastName" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked>Phone Number</ion-label>
-        <ion-input type="text" formControlName="phoneNo"></ion-input>
+        <ion-input type="text" formControlName="phoneNo" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked>Address</ion-label>
-        <ion-input type="text" formControlName="address"></ion-input>
+        <ion-input type="text" formControlName="address" required></ion-input>
       </ion-item>
 
       <!-- <ion-item>
@@ -52,13 +52,26 @@
 
       <ion-item>
         <ion-label stacked>Email</ion-label>
-        <ion-input type="email" formControlName="email"></ion-input>
+        <ion-input type="text" formControlName="email" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked>Password</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
+        <ion-input type="password" formControlName="password" required></ion-input>
       </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Retype Password</ion-label>
+        <ion-input type="password" formControlName="confirmPassword" required></ion-input>
+      </ion-item>
+
+      <ion-checkbox color="primary"  formControlName="accepterms"></ion-checkbox> 
+      I have read and accept <button (click)="terms()">Terms &amp; Conditions </button>
+      <!-- <ion-item>
+        <ion-label>Daenerys Targaryen</ion-label>
+        <ion-checkbox color="dark"  formControlName="accepterms"></ion-checkbox>
+      </ion-item> -->
+      
 
     </ion-list>
 

@@ -14,7 +14,8 @@ import { AuthService } from '../../providers/auth-service';
 export class SignupPage {
 
   private form: FormGroup;
-  public firstName: AbstractControl; lastName; phoneNo; address; userType; email; password;
+  public firstName: AbstractControl; lastName; phoneNo; address; userType; email; password; confirmPassword;
+  public accepterms: AbstractControl;
 
   constructor(
     public navCtrl: NavController,
@@ -28,19 +29,23 @@ export class SignupPage {
       lastName: ['', Validators.required],
       phoneNo: ['', Validators.required],
       address: ['', Validators.required],
-      //driverId: ['', Validators.required],
-      //userType: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      accepterms: [false, Validators.required]
+      
+    },{
+      validator: matchingPasswords('password', 'confirmPassword')
     });
 
     this.firstName = this.form.controls['firstName'];
     this.lastName = this.form.controls['lastName'];
     this.phoneNo = this.form.controls['phoneNo'];
-    this.address = this.form.controls['address'];
-    this.userType = this.form.controls['userType'];
+    this.address = this.form.controls['address'];    
     this.email = this.form.controls['email'];
     this.password = this.form.controls['password'];
+    this.confirmPassword = this.form.controls['confirmPassword'];
+    this.accepterms = this.form.controls['accepterms'];
 
   }
 
@@ -59,22 +64,38 @@ export class SignupPage {
     this.navCtrl.push('ForgotPasswordPage');  
   }
 
-  submitForm(){
+  submitForm(values: any){
+    console.log("values :: " + JSON.stringify(values));
+    console.log("firstname :: " + this.firstName.value);
+    console.log("lastName :: " + this.lastName.value);
+    console.log("phoneNo :: " + this.phoneNo.value);
+    console.log("address :: " + this.address.value);    
+    console.log("email :: " + this.email.value);
+    console.log("password :: " + this.password.value);
+    console.log("accepterms :: " + this.accepterms.value);
     //  Check if form is valid
-    this.signUp(this.firstName.value, this.lastName.value,
-      this.phoneNo.value,
-     this.address.value,this.userType.value, this.email.value, this.password.value);
+
+    if(!this.accepterms.value){
+      this.utilityService.showNotification('Please accept terms and conditions');
+      return false;
+    }
+    if (this.form.valid) {
+      var userType = "2"; // driver
+      this.signUp(this.firstName.value, this.lastName.value,
+        this.phoneNo.value,
+       this.address.value, userType, this.email.value, this.password.value);
+
+       this.form.reset();
+    }
+    
   }
 
   signUp(first_name, last_name, phone_no, address, user_type, email, password){
 
     this.utilityService.presentLoading();
     var result;
-    // (first_name, last_name, phone_no, address, user_type, email, password) {
-    this.authService.signUp(this.firstName.value, this.lastName.value,
-       this.phoneNo.value,
-      this.address.value,this.userType.value, this.email.value, this.password.value
-    ).map((response: Response) => response).subscribe(
+    this.authService.signUp(first_name, last_name, phone_no, address, user_type, email, password)
+      .map((response: Response) => response).subscribe(
       data => {
         result = data;
       },
@@ -93,4 +114,19 @@ export class SignupPage {
 
   }
 
+  terms(){
+    this.navCtrl.push('TermsPage');
+  }
+
+}
+
+
+export function matchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+  return (group: FormGroup) => {
+    const password = group.controls[passwordKey];
+    const passwordConfirmation = group.controls[passwordConfirmationKey];
+    if (password.value !== passwordConfirmation.value) {
+      return passwordConfirmation.setErrors({ mismatchedPasswords: true })
+    }
+  }
 }
