@@ -5,8 +5,12 @@
         <ion-avatar menuClose (click)="editAccount()" item-left>    
            <img [src]="profilePicture">          
         </ion-avatar>
-        <h2 *ngIf="isLoaded">{{currentUser.first_name}}</h2>
-        <!-- <p>{{clientId}}</p> -->
+        <!-- <h2 *ngIf="isLoaded">{{currentUser.first_name}}</h2> -->
+        <div *ngIf="isLoaded">
+          <h2>{{currentUser.first_name}}</h2>
+          <p>{{currentUser.phone_no}}</p>
+        </div>
+        
       </ion-item>
       <ion-buttons end>
         <button ion-button icon-only >

@@ -23,3 +23,7 @@ http://technotip.com/5051/details-arrow-ionic-2/
 ionic cordova resources
 5.  When splashscreen is blank
 https://stackoverflow.com/questions/36132883/ionic-app-splash-screen-are-not-shown
+
+6.  Inspect devices
+
+chrome://inspect/#devices
