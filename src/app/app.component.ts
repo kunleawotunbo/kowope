@@ -19,10 +19,6 @@ export class MyApp {
 
   rootPage: any;
   activePage: any;
-  // pages: Array<{ title: string, icon: string, component: any }>;
-  // driverMenu: Array<{ title: string, icon: string, component: any }>;
-  clientId: string; name;
-  //profilePicture: any = "https://www.gravatar.com/avatar/";
   profilePicture: string;
   currentUser: any;
   isLoaded: boolean;
@@ -34,18 +30,15 @@ export class MyApp {
     { title: 'Scanner', icon: 'qr-scanner', component: 'ScannerPage' },
     { title: 'Support', icon: 'chatbubbles', component: 'SupportPage' },
     { title: 'Payment', icon: 'card', component: 'PaymentPage' },
-    { title: 'Log out', icon: 'log-out', component: 'LoginPage' }
   ];
   driverPages: PageInterface[] = [
     { title: 'Home', icon: 'home', component: 'HomePage' },
     { title: 'Profile', icon: 'contact', component: 'ProfilePage' },
     { title: 'Journals', icon: 'card', component: 'JournalsPage' },
-    { title: 'Log out', icon: 'log-out', component: 'LoginPage' }
   ];
 
   loggedOutPages: PageInterface[] = [
-    { title: 'Home', icon: 'home', component: 'HomePage' },
-    { title: 'Log out', icon: 'log-out', component: 'LoginPage' }
+    { title: 'Login', icon: 'log-in', component: 'LoginPage' },
   ];
 
 
@@ -61,22 +54,10 @@ export class MyApp {
   ) {
     this.initializeApp();
 
-    this.clientId = "11151989";
     this.profilePicture = "assets/images/avatar.png";
 
     // Listen to events
     this.listenToEvents();
-
-    //this.getLoginUserDetails();
-
-    /*
-    this.clientId = "11151989";
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.currentUser) {
-      this.isLoaded = true;
-    }
-    */
-
 
     // Set active page to first page
     this.activePage = this.pages[0];
@@ -142,55 +123,12 @@ export class MyApp {
   }
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad app.component");
-    // this.clientId = "11151989";
-    /*
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.currentUser) {
-      this.isLoaded = true;
-    }
-    */
+    //console.log("ionViewDidLoad app.component");    
   }
 
   listenToEvents(){
     
-    // Subscribe to user:login event to set the person name in the side menu
-    this.events.subscribe('user:loginTEST', (currentUser) => {
-      // this.currentUser = this.storage.get('currentUser');
-      /*
-      this.getCurrentUser();
-      this.currentUser = JSON.parse(this.currentUser);
-      console.log("this.currentUser :: " + this.currentUser);
-      console.log("this.currentUser.first_name :: " + this.currentUser.first_name);
-      */
-
-      /*
-      setTimeout(function () {
-        this.storage.get('currentUser').then(result => {
-          this.currentUser = result;
-        });
-        console.log("this.currentUser  :: " + this.currentUser );
-        this.isLoaded = true;
-      }, 5000);
-      */
-
-      /*
-      this.storage.get('currentUser').then(result => {
-        console.log("Inside storage then...");
-        console.log("result :: " + result);
-        this.currentUser = result;
-        if (this.currentUser === null){
-          this.isLoaded = false;
-        } else {
-          this.isLoaded = true;
-        }
-        
-      });
-      */
-
-      //this.name = "Babatunde";
-      //this.isLoaded = true;
-    });
+    // Subscribe to user:login event to set the person name in the side menu    
 
     this.events.subscribe('user:login', (currentUser) => { 
       this.currentUser = currentUser;
@@ -230,5 +168,10 @@ export class MyApp {
     }, 5000);
 
     });
+  }
+
+  logout(){
+    //this.authService.logout();
+      this.nav.setRoot('LoginPage');
   }
 }

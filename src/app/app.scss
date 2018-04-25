@@ -25,7 +25,7 @@ ion-menu{
                 ion-item{
                 background: transparent;
                 h2{font-size:$size_large;font-weight: normal; color:$menu_avatar_text_color;}
-                p{font-size:$size_small;font-weight: bold; color:$menu_avatar_text_color2;}
+                p{font-size:$size_small;font-weight: bold; color:$menu_avatar_text_color;}
                 ion-avatar{
                     background:$menu_avatar_bg_color;
                     border-radius:50%;
@@ -46,14 +46,15 @@ ion-menu{
 
      ion-content{
         
-            // background-color:$menu_bg_color !important;
+            background-color:$menu_bg_color !important;
              
              ion-list{
-                    //.item{background:transparent; color:$menu_font_color;font-size:$menu_font_size;}
+                    // .item{background:transparent; color:$menu_font_color;font-size:$menu_font_size;}
+                    .item{background:transparent; color:$menu_font_color; font-size:$menu_font_size;}
                     .item-inner{
-                       // border-bottom: 1px solid $menu_separator_line_color !important;
+                       border-bottom: 1px solid $menu_separator_line_color !important;
                         img{width: 25px;height: 25px;vertical-align: middle;margin-right: 10px;margin-bottom: 5px;}
-                        ion-icon{width:30px; height:30px; vertical-align: middle;  font-size:1.9em;  }
+                        ion-icon{width:30px; height:30px; vertical-align: middle;  font-size:1.9em;  color:$menu_icon_color}
                     }
 
             }
@@ -87,5 +88,5 @@ ion-menu{
   }
 
   .activeHighlight{
-    background-color: map-get($colors, deep);
+    background-color: map-get($colors, dblack) !important;
 }

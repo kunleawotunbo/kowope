@@ -60,6 +60,8 @@ $colors: (
   deep:       #3BB9FF,
   dblack:    black,
   success:   #32db64,
+  dgrey:     #505050,
+  dwhite:  #FFFFFF	
 );
 
 $size_extrasmall:1.0rem;
@@ -81,14 +83,15 @@ $toolbar-background:color($colors, primary);
 
 
 // Manage Menu Style
-$menu_bg_color:color($colors, primary);
-$menu_font_color:$rsecondary;
+$menu_bg_color:color($colors, dgrey);
+$menu_font_color:color($colors,dwhite);
 $menu_font_size:$size_normal;
 $menu_separator_line_color:#4f0306;
 $menu_avatar_bg_color:color($colors, light);
 $menu_avatar_font_color:color($colors, dark);
-$menu_avatar_text_color:color($colors, dblack);
+$menu_avatar_text_color:color($colors, dwhite);
 $menu_avatar_text_color2:coloor($colors, dblack);
+$menu_icon_color:color($colors, primary);
 
 
 // App iOS Variables

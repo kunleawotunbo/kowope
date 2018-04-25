@@ -1,19 +1,18 @@
-<ion-menu id="adminMenu" [content]="content" type="overlay"  persistent="true">
-    <ion-header>
+<ion-menu id="adminMenu" [content]="content" type="overlay" persistent="true">
+  <ion-header>
     <ion-toolbar>
       <ion-item no-lines>
-        <ion-avatar menuClose (click)="editAccount()" item-left>    
-           <img [src]="profilePicture">          
+        <ion-avatar menuClose (click)="editAccount()" item-left>
+          <img [src]="profilePicture">
         </ion-avatar>
-        <!-- <h2 *ngIf="isLoaded">{{currentUser.first_name}}</h2> -->
         <div *ngIf="isLoaded">
           <h2>{{currentUser.first_name}}</h2>
           <p>{{currentUser.phone_no}}</p>
         </div>
-        
+
       </ion-item>
       <ion-buttons end>
-        <button ion-button icon-only >
+        <button menuClose ion-button icon-only tappable (click)="editAccount()">
           <ion-icon name="settings"></ion-icon>
         </button>
       </ion-buttons>
@@ -22,26 +21,35 @@
 
   <ion-content>
     <ion-list no-lines>
-      <button menuClose ion-item *ngFor="let p of pages" [class.activeHighlight]="checkActive(p)" (click)="openPage(p)">
+      <button menuClose ion-item *ngFor="let p of pages" [class.activeHighlight]="checkActive(p)" (click)="openPage(p)" detail-none>
         <ion-icon name="{{p.icon}}"></ion-icon> {{p.title}}
       </button>
     </ion-list>
   </ion-content>
 
+  <ion-footer >
+    <button menuClose ion-item (click)="logout()" color="danger" detail-none>
+      <ion-icon name="log-out"></ion-icon>
+      Log Out
+    </button>
+  </ion-footer>
+
 </ion-menu>
 
-<ion-menu id="driverMenu" [content]="content" type="overlay"  persistent="true">
-    <ion-header>
+<ion-menu id="driverMenu" [content]="content" type="overlay" persistent="true">
+  <ion-header>
     <ion-toolbar>
       <ion-item no-lines>
-        <ion-avatar menuClose (click)="editAccount()" item-left>    
-           <img [src]="profilePicture">          
+        <ion-avatar menuClose (click)="editAccount()" item-left>
+          <img [src]="profilePicture">
         </ion-avatar>
-        <h2 *ngIf="isLoaded">{{currentUser.first_name}}</h2>
-        <!-- <p>{{clientId}}</p> -->
+        <div *ngIf="isLoaded">
+          <h2>{{currentUser.first_name}}</h2>
+          <p>{{currentUser.phone_no}}</p>
+        </div>
       </ion-item>
       <ion-buttons end>
-        <button ion-button icon-only >
+        <button menuClose ion-button icon-only tappable (click)="editAccount()">
           <ion-icon name="settings"></ion-icon>
         </button>
       </ion-buttons>
@@ -50,16 +58,23 @@
 
   <ion-content>
     <ion-list no-lines>
-      <button menuClose ion-item *ngFor="let p of driverPages" [class.activeHighlight]="checkActive(p)" (click)="openPage(p)">
+      <button menuClose ion-item *ngFor="let p of driverPages" [class.activeHighlight]="checkActive(p)" (click)="openPage(p)" detail-none>
         <ion-icon name="{{p.icon}}"></ion-icon> {{p.title}}
       </button>
     </ion-list>
   </ion-content>
 
+  <ion-footer >
+    <button menuClose ion-item (click)="logout()" color="danger" detail-none>
+      <ion-icon name="log-out"></ion-icon>
+      Log Out
+    </button>
+  </ion-footer>
+
 </ion-menu>
 
-<ion-menu id="loggedOutMenu" [content]="content" type="overlay"  persistent="true">
-    <ion-header>
+<ion-menu id="loggedOutMenu" [content]="content" type="overlay" persistent="true">
+  <ion-header>
     <!-- <ion-toolbar>
       <ion-item no-lines>
         <ion-avatar menuClose (click)="editAccount()" item-left>    
@@ -78,7 +93,7 @@
 
   <ion-content>
     <ion-list no-lines>
-      <button menuClose ion-item *ngFor="let p of loggedOutPages" [class.activeHighlight]="checkActive(p)" (click)="openPage(p)">
+      <button menuClose ion-item *ngFor="let p of loggedOutPages" [class.activeHighlight]="checkActive(p)" (click)="openPage(p)" detail-none>
         <ion-icon name="{{p.icon}}"></ion-icon> {{p.title}}
       </button>
     </ion-list>
