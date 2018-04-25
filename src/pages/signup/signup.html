@@ -1,12 +1,7 @@
 <ion-header>
-  <!-- <ion-navbar  hideBackButton="true">
-      <ion-buttons end>
-       <button ion-button icon-right color="light" (click)="dashboardPage()">SKIP<ion-icon name="ios-arrow-forward"></ion-icon></button>
-     </ion-buttons>
-    </ion-navbar> -->
 </ion-header>
 <ion-content padding>
-  <ion-list no-lines padding-top>
+  <!-- <ion-list no-lines padding-top>
 
     <ion-item>
       <ion-input type="text" placeholder="First Name"></ion-input>
@@ -24,11 +19,53 @@
       <ion-input type="password" placeholder="Confirm Password"></ion-input>
     </ion-item>
   </ion-list>
-  <button ion-button block round color="primary">Submit</button>
+  <button ion-button block round color="primary">Submit</button> -->
+  <form [formGroup]="form" (ngSubmit)="submitForm()" >
+   
 
+    <ion-list>       
+
+      <ion-item>
+        <ion-label stacked>First Name</ion-label>
+        <ion-input type="text" formControlName="firstName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Last Name</ion-label>
+        <ion-input type="text" formControlName="lastName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Phone Number</ion-label>
+        <ion-input type="text" formControlName="phoneNo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Address</ion-label>
+        <ion-input type="text" formControlName="address"></ion-input>
+      </ion-item>
+
+      <!-- <ion-item>
+        <ion-label stacked>userType</ion-label>
+        <ion-input type="text" formControlName="userType"></ion-input>
+      </ion-item> -->
+
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+
+    <button ion-button block round type="submit" [disabled]="!form.valid">Submit</button>
+  </form>
   <div padding-top>
-      <!-- <p text-right ion-text color="secondary" tappable (click)="loginPage()"><strong>If already have an account ? Login</strong></p>
-      <p text-right ion-text color="secondary" tappable (click)="forgotPasswordPage()"><strong>Forgot Password?</strong></p> -->
     <button ion-button block color="secondary" clear (click)="loginPage();">If already have an account ? LOGIN</button>
     <button ion-button block color="secondary" clear (click)="forgotPasswordPage();">Forgot Password</button>
   </div>

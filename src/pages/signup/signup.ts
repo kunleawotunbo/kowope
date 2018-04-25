@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
-import { Slides } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+import { UtilityService } from '../../utility/utility.service';
+import { AuthService } from '../../providers/auth-service';
+
 
 @IonicPage()
 @Component({
@@ -9,41 +12,42 @@ import { Slides } from 'ionic-angular';
   templateUrl: 'signup.html'
 })
 export class SignupPage {
-  @ViewChild(Slides) slides: Slides;
-  items = [
-    'LANDLORD',
-    'TENANT',
-    'VIEW'    
-  ]; 
 
-  constructor(public navCtrl: NavController) {
+  private form: FormGroup;
+  public firstName: AbstractControl; lastName; phoneNo; address; userType; email; password;
+
+  constructor(
+    public navCtrl: NavController,
+    public authService: AuthService,    
+     public formBuilder: FormBuilder, 
+    public utilityService: UtilityService
+  ) {
+
+    this.form = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phoneNo: ['', Validators.required],
+      address: ['', Validators.required],
+      //driverId: ['', Validators.required],
+      //userType: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+
+    this.firstName = this.form.controls['firstName'];
+    this.lastName = this.form.controls['lastName'];
+    this.phoneNo = this.form.controls['phoneNo'];
+    this.address = this.form.controls['address'];
+    this.userType = this.form.controls['userType'];
+    this.email = this.form.controls['email'];
+    this.password = this.form.controls['password'];
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserSignup');
-    //this.slides.lockSwipes(true);
   }
 
-  goToSlide() {
-    this.slides.slideTo(2, 500);
-  }
-
-  slideChanged() {
-    let currentIndex = this.slides.getActiveIndex();
-    console.log('Current index is', currentIndex);
-  }
-
-  slideNext(){
-    let currentIndex = this.slides.getActiveIndex();
-    let nextSlideIndex = currentIndex + 1;
-    this.slides.slideTo(nextSlideIndex, 500);
-  }
-  slidePrevious(){
-    let currentIndex = this.slides.getActiveIndex();
-    let nextSlideIndex = currentIndex - 1;
-    this.slides.slideTo(nextSlideIndex, 500);
-  }
 
   dashboardPage(){ 
     this.navCtrl.push('HomePage'); 
@@ -55,15 +59,37 @@ export class SignupPage {
     this.navCtrl.push('ForgotPasswordPage');  
   }
 
-  itemSelected(item: string) {
-    console.log("Selected Item", item);
-    let currentIndex = this.slides.getActiveIndex();
-    let nextSlideIndex = currentIndex + 1;
-    this.slides.slideTo(nextSlideIndex, 500);
-    
+  submitForm(){
+    //  Check if form is valid
+    this.signUp(this.firstName.value, this.lastName.value,
+      this.phoneNo.value,
+     this.address.value,this.userType.value, this.email.value, this.password.value);
   }
 
-  signup(){
+  signUp(first_name, last_name, phone_no, address, user_type, email, password){
+
+    this.utilityService.presentLoading();
+    var result;
+    // (first_name, last_name, phone_no, address, user_type, email, password) {
+    this.authService.signUp(this.firstName.value, this.lastName.value,
+       this.phoneNo.value,
+      this.address.value,this.userType.value, this.email.value, this.password.value
+    ).map((response: Response) => response).subscribe(
+      data => {
+        result = data;
+      },
+      error => {
+        console.log(error);
+        this.utilityService.loadingDismiss();
+      },
+      () => {
+        //console.log("result :: "  + result);
+       // this.loader.dismiss();
+       this.utilityService.loadingDismiss();
+        this.utilityService.showNotification("User created successfully");
+      }
+    );
+    
 
   }
 

@@ -10,8 +10,8 @@ import { UtilityService } from '../../utility/utility.service';
   templateUrl: 'addvehicle.html'
 })
 export class AddvehiclePage {
-  txnsList: any;
-  loader: any; driverList;
+  txnsList: any; driverList;
+  //loader: any; driverList;
   private form: FormGroup;
   public modelNo: AbstractControl; plateNo; color; datePurchased; driverId;
 
@@ -70,7 +70,7 @@ export class AddvehiclePage {
       },
       error => {
         console.log(error);
-        this.loader.dismiss();
+        this.utilityService.loadingDismiss();
       },
       () => {
         //console.log("result :: "  + result);
@@ -82,7 +82,7 @@ export class AddvehiclePage {
     this.form.reset();
   }
   getTxnsList(){
-    this.presentLoading();
+    this.utilityService.presentLoading();
     var result;
     this.quickbooksService.getTxnsList().subscribe(
       data => {
@@ -91,21 +91,14 @@ export class AddvehiclePage {
       error => {
         console.log(error);
         console.log("Error - something went wrong");
-        this.loader.dismiss();
+        this.utilityService.loadingDismiss();
       },
       () => {
         //console.log("result :: " + result.txns);
         this.txnsList = result.txns;
-        this.loader.dismiss();
+        this.utilityService.loadingDismiss();
       });
   }
 
-  presentLoading() {
-    this.loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
-    });
-    this.loader.present();
-  }
 
 }

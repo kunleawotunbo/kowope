@@ -21,34 +21,34 @@ export class AuthService {
     this.API_URL = configService.getAPIURL();
   }
 
-  /*
-  signIn(loginDetails: any) {
-    let headers = new Headers({
-      'X-Requested-With': 'XMLHttpRequest', // to suppress 401 browser popup     
+  signUp(first_name, last_name, phone_no, address, user_type, email, password) {
+
+    var payLoad = {
+      first_name: first_name,
+      last_name: last_name,
+      phone_no: phone_no,
+      address: address,
+      user_type: user_type,
+      email:  email,
+      password: password
+    };
+
+    const token = this.getToken();
+    const headers = new Headers({
+      'Content-Type': 'application/json'
     });
-    var credentials = {
-      email: loginDetails.username,
-      password: loginDetails.password
-    }
-    return this.http.post(this.API_URL + 'user/signin',
-      credentials,
-      { headers: headers })
-      .map((response: Response) => {
-        // login successful if there's a jwt token in the response
-        let resp = response.json();
-        if (resp.user && resp.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-         // localStorage.setItem('currentUser', JSON.stringify(resp.user));
-         // localStorage.setItem('token', resp.token);
-         
-        // localStorage.setItem('currentUser', JSON.stringify(resp.user));
-         //localStorage.setItem('token', resp.token);
-         this.storage.set('currentUser', JSON.stringify(resp.user));
-         this.storage.set('token', resp.token);
-        }
-      });
+
+    let options = new RequestOptions({
+      headers: headers
+    });
+
+    const body = JSON.stringify(payLoad);
+
+    var api = this.API_URL + 'user/signup';
+    return this.http.post(api, body, options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
-  */
 
   signIn(loginDetails: any) {
     let headers = new Headers({
@@ -68,25 +68,6 @@ export class AuthService {
       .map(this.extractData)
       .catch(this.handleError);
 
-    /*
-    return this.http.post(this.API_URL + 'user/signin',
-      credentials,
-      { headers: headers })
-      .map((response: Response) => {
-        // login successful if there's a jwt token in the response
-        let resp = response.json();
-        if (resp.user && resp.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-         // localStorage.setItem('currentUser', JSON.stringify(resp.user));
-         // localStorage.setItem('token', resp.token);
-         
-        // localStorage.setItem('currentUser', JSON.stringify(resp.user));
-         //localStorage.setItem('token', resp.token);
-         this.storage.set('currentUser', JSON.stringify(resp.user));
-         this.storage.set('token', resp.token);
-        }
-      });
-      */
   }
 
   clearStorage(){
