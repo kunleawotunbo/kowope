@@ -19,8 +19,10 @@
 
 ion-menu{
     .header::after{background-image:none;} /*Hide toolbar shadow*/
+    //background-image:url('../assets/images/bg-pattern.png');
      ion-toolbar{         
-        .toolbar-background{background:$menu_bg_color; border:0px; }
+        // .toolbar-background{background:$menu_bg_color; border:0px; }
+        .toolbar-background{background:$menu_bg_color; border:0px; background-image:url('../assets/images/bg-pattern-1.png');}
          .toolbar-content{
                 ion-item{
                 background: transparent;
@@ -47,7 +49,7 @@ ion-menu{
      ion-content{
         
             background-color:$menu_bg_color !important;
-             
+            background-image:url('../assets/images/bg-pattern-1.png'); 
              ion-list{
                     // .item{background:transparent; color:$menu_font_color;font-size:$menu_font_size;}
                     .item{background:transparent; color:$menu_font_color; font-size:$menu_font_size;}
