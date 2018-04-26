@@ -65,6 +65,7 @@ export class SignupPage {
   }
 
   submitForm(values: any){
+    /*
     console.log("values :: " + JSON.stringify(values));
     console.log("firstname :: " + this.firstName.value);
     console.log("lastName :: " + this.lastName.value);
@@ -73,6 +74,7 @@ export class SignupPage {
     console.log("email :: " + this.email.value);
     console.log("password :: " + this.password.value);
     console.log("accepterms :: " + this.accepterms.value);
+    */
     //  Check if form is valid
 
     if(!this.accepterms.value){
