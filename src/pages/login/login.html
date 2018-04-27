@@ -1,34 +1,43 @@
-<ion-header >
-  <ion-navbar  hideBackButton="true">
-    <!-- <ion-buttons end>
-     <button ion-button icon-right color="light" (click)="dashboardPage()">SKIP<ion-icon name="ios-arrow-forward"></ion-icon></button>
-   </ion-buttons> -->
+<ion-header>
+  <ion-navbar hideBackButton="true">
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <div text-center><img src="assets/images/logo.png" width="100" ></div>
-    
+  <div text-center>
+    <img src="assets/images/logo.png" width="100">
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+
     <ion-list no-lines padding-top>
       <ion-item>
-        <ion-label><ion-icon name="mail"></ion-icon></ion-label>
-        <ion-input [(ngModel)]="username" placeholder="Username" type="text" spellcheck="false" autocapitalize="off" required ></ion-input>
+        <ion-label>
+          <ion-icon name="mail"></ion-icon>
+        </ion-label>
+        <ion-input formControlName="username" placeholder="Username" type="text" spellcheck="false" autocapitalize="off" required></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label><ion-icon name="lock"></ion-icon></ion-label>
-        <ion-input [(ngModel)]="password" placeholder="Password" type="password" required ></ion-input>
+        <ion-label>
+          <ion-icon name="lock"></ion-icon>
+        </ion-label>
+        <ion-input formControlName="password" placeholder="Password" type="password" required></ion-input>
       </ion-item>
     </ion-list>
-    <p text-right ion-text color="secondary" tappable (click)="forgotPasswordPage()"><strong>Forgot Password?</strong></p>
 
-    <button ion-button full (click)="login()" color="primary" class="login-button">Login</button>
+    <button ion-button full type="submit" [disabled]="!form.valid">Login</button>
+    <p text-right ion-text color="secondary" tappable (click)="forgotPasswordPage()">
+      <strong>Forgot Password?</strong>
+    </p>
 
-    <div padding-top>
-    <!-- <button ion-button block color="light" clear (click)="signupPage();">New here ? Sign Up</button> -->
+
+  </form>
+  <div padding-top>
     <div text-center margin-top>
-      <span ion-text color="secondary" tappable (click)="signupPage()">New here? <strong>Sign up</strong></span>
+      <span ion-text color="secondary" tappable (click)="signupPage()">New here?
+        <strong>Sign up</strong>
+      </span>
     </div>
-    <!-- <button ion-button block color="light" clear (click)="forgotPasswordPage();">Forgot Password</button> -->
   </div>
 
 </ion-content>

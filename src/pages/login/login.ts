@@ -4,8 +4,7 @@ import {
   LoadingController, ToastController, MenuController,
   Events
 } from 'ionic-angular';
-//import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { AuthService } from '../../providers/auth-service';
 import { UtilityService } from '../../utility/utility.service';
@@ -19,22 +18,31 @@ export class LoginPage {
 
   loading: any;
   loginData: { username: '', password: '' };
-  data: any;
-  public message: string;
+  data: any; loader; currentUser
+  public message: string; error
   form: FormGroup;
   public alert: boolean; isDeviceOnline;
-  username: string;
-  password: string; error;
-  loader: any;
-  currentUser: any;
+  public username: AbstractControl; password;
+  //username: string;
+  //password: string; error;
+  //loader: any;
+  //currentUser: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public loadingCtrl: LoadingController, public authService: AuthService,
     private toastCtrl: ToastController, public utilityService: UtilityService,
     public menuCtrl: MenuController,
     public storage: Storage,
-    public events: Events
+    public events: Events,
+    public formBuilder: FormBuilder,
   ) {
+    this.form = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
+    this.username = this.form.controls['username'];
+    this.password = this.form.controls['password'];
   }
 
   ionViewDidLoad() {
@@ -61,12 +69,19 @@ export class LoginPage {
   }
 
 
-  login() {
+  submitForm(){
     
     //
+    /*
     let credentials = {
       username: this.username,
       password: this.password
+    };
+    */
+
+    let credentials = {
+      username: this.username.value,
+      password: this.password.value
     };
     
     if (this.utilityService.isOnline()) {
@@ -110,10 +125,7 @@ export class LoginPage {
         // Login successful        
 
         // Determine logged in user type and menu to show in the app
-
-        //var loggedInType = 1;
-        //console.log("result :: " + result);
-        //console.log("result.user :: " + result.user);        
+       
         this.storage.set('currentUser', JSON.stringify(result.user));
         this.storage.set('token', result.token);
         localStorage.setItem('token', result.token);

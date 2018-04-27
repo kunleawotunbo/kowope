@@ -25,7 +25,7 @@ export class NetworkInterceptor implements HttpInterceptor {
         // Used Injector to avoid cyclic dependency error since AuthService has been Injected before
         // in the app.module.ts
         const authService = this.injector.get(AuthService);  // avoid cyclic dependency errors, 
-        authService.justLog();
+        //authService.justLog();
 
         /*
         this.utilityService.onConnect();

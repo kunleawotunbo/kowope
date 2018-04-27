@@ -41,14 +41,7 @@ export class PaymentPage {
     private toastCtrl: ToastController,
     public utilityService: UtilityService,
   ) {
-    /*
-  if(!localStorage.getItem("token")){
-    //navCtrl.setRoot('LoginPage');
-    console.log("I am inside homepage");
-  }else if (localStorage.getItem("token")){
-    this.isLoggedIn = true;
-  }
-  */
+
 
     this.calValue();
   }
@@ -110,7 +103,7 @@ export class PaymentPage {
 
   }
 
-  
+
 
   presentToast(msg) {
     let toast = this.toastCtrl.create({
@@ -123,18 +116,65 @@ export class PaymentPage {
     toast.present();
   }
 
-  makePayment(){
+  makePayment() {
     if (this.utilityService.isOnline()) {
-      this.utilityService.presentLoading();
-      this.payWithPaystack();
+      var publicKey = 'pk_test_abcd9d53c2457dc94e59d41e131439006dc7fa7c';
+      var email = 'customer@email.com';
+      var amount = 10000;
+      var referenceNo = '' + Math.floor((Math.random() * 1000000000) + 1);
+      var displayName = "Mobile Number";
+      var variableName: "mobile_number";
+      var customValue = "+2348012345678";
+
+      this.payWithPaystack(publicKey, email, amount, referenceNo, displayName, variableName, customValue);
     } else {
       this.utilityService.showNoNetworkAlert();
     }
   }
 
+  payWithPaystack(publicKey, email, amount, referenceNo, displayName, variableName, customValue) {
+    // var paystackIframeOpened = false;
+    this.utilityService.presentLoading();
+    // console.log("About to open");
+    var handler = PaystackPop.setup({
+      key: publicKey,
+      email: email,
+      amount: amount,
+      ref: referenceNo, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      metadata: {
+        custom_fields: [
+          {
+            display_name: displayName,
+            variable_name: variableName,
+            value: customValue
+          }
+        ]
+      },
+      callback: function (response) {
+        //this.utilityService.loadingDismiss();
+        console.log("response :: " + JSON.stringify(response));
+        alert('success. transaction ref is ' + response.reference);
+      },
+      onClose: function () {
+        //paystackIframeOpened = false;        
+        //this.utilityService.loadingDismiss();
+        alert('window closed');
+      }
+    });
+    // Payment Request Just Fired  
+    handler.openIframe();
+    // console.log("i am opened");
+    //paystackIframeOpened = true;
+
+    // set timer to disable loading
+
+  }
+
+  /*
   payWithPaystack() {
-   // var paystackIframeOpened = false;
-   // console.log("About to popen");
+    // var paystackIframeOpened = false;
+    this.utilityService.presentLoading();
+    // console.log("About to popen");
     var handler = PaystackPop.setup({
       key: 'pk_test_abcd9d53c2457dc94e59d41e131439006dc7fa7c',
       email: 'customer@email.com',
@@ -153,20 +193,21 @@ export class PaymentPage {
         this.utilityService.loadingDismiss();
         alert('success. transaction ref is ' + response.reference);
       },
-      onClose: function () {        
-        //paystackIframeOpened = false;
-        alert('window closed');
+      onClose: function () {
+        //paystackIframeOpened = false;        
         this.utilityService.loadingDismiss();
+        alert('window closed');
       }
     });
     // Payment Request Just Fired  
     handler.openIframe();
-   // console.log("i am opened");
+    // console.log("i am opened");
     //paystackIframeOpened = true;
-    
+
     // set timer to disable loading
 
   }
+  */
 
   loadImage() {
     alert("Image is loaded");
