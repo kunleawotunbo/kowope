@@ -15,9 +15,9 @@ export class AddvehiclePage {
   private form: FormGroup;
   public modelNo: AbstractControl; plateNo; color; datePurchased; driverId;
 
- 
+
   constructor(public navCtrl: NavController, public quickbooksService: QuickbooksService,
-    public loadingCtrl: LoadingController, public formBuilder: FormBuilder, 
+    public loadingCtrl: LoadingController, public formBuilder: FormBuilder,
     public utilityService: UtilityService
 
   ) {
@@ -37,34 +37,48 @@ export class AddvehiclePage {
     this.driverId = this.form.controls['driverId'];
   }
 
-  ionViewDidLoad() {   
-   this.getDriversList()
+  ionViewDidLoad() {
+    this.getDriversList()
   }
 
-  itemSelected(item){
+  itemSelected(item) {
 
   }
 
-  goBack(){
+  goBack() {
     //this.navCtrl.push('FleetmgtPage');
     this.navCtrl.pop();
   }
 
-  getDriversList(){
+  getDriversList() {
     this.driverList = [
-      {id: 1, name: 'Stanley'},
-      {id: 2, name: 'School Boy'},
-      {id: 3, name: 'Feranmi'}
+      { id: 1, name: 'Stanley' },
+      { id: 2, name: 'School Boy' },
+      { id: 3, name: 'Feranmi' }
     ];
   }
 
-  submitForm(){
+  submitForm() {
+
+    if (this.utilityService.isOnline()) {
+      this.createVehicle(this.modelNo.value, this.plateNo.value,
+        this.color.value,
+        this.datePurchased.value, this.driverId.value
+      )
+      this.form.reset();
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
+
+
+  }
+
+  createVehicle(modelNo, plateNo, color, datePurchased, driverId) {
     this.utilityService.presentLoading();
+
     var result;
-    this.quickbooksService.createVehicle(this.modelNo.value, this.plateNo.value,
-       this.color.value,
-      this.datePurchased.value,this.driverId.value
-    ).map((response: Response) => response).subscribe(
+    this.quickbooksService.createVehicle(modelNo, plateNo, color, datePurchased, driverId)
+      .map((response: Response) => response).subscribe(
       data => {
         result = data;
       },
@@ -74,31 +88,11 @@ export class AddvehiclePage {
       },
       () => {
         //console.log("result :: "  + result);
-       // this.loader.dismiss();
-       this.utilityService.loadingDismiss();
+        // this.loader.dismiss();
+        this.utilityService.loadingDismiss();
         this.utilityService.showNotification("Vehicle created successfully");
       }
-    );
-    this.form.reset();
+      );
   }
-  getTxnsList(){
-    this.utilityService.presentLoading();
-    var result;
-    this.quickbooksService.getTxnsList().subscribe(
-      data => {
-        result = data;
-      },
-      error => {
-        console.log(error);
-        console.log("Error - something went wrong");
-        this.utilityService.loadingDismiss();
-      },
-      () => {
-        //console.log("result :: " + result.txns);
-        this.txnsList = result.txns;
-        this.utilityService.loadingDismiss();
-      });
-  }
-
 
 }

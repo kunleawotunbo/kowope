@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
@@ -14,7 +15,9 @@ export class AuthService {
   public token: string;
 
   constructor(
-    public http: Http, public storage: Storage, 
+    /*public http: Http, */
+    public http: HttpClient,
+    public storage: Storage,
     private configService: ConfigService,
     public events: Events
   ) {
@@ -29,7 +32,7 @@ export class AuthService {
       phone_no: phone_no,
       address: address,
       user_type: user_type,
-      email:  email,
+      email: email,
       password: password
     };
 
@@ -42,10 +45,22 @@ export class AuthService {
       headers: headers
     });
 
+    /*
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    */
+
+    const httpOptions = this.getHeaders();
+
     const body = JSON.stringify(payLoad);
 
     var api = this.API_URL + 'user/signup';
-    return this.http.post(api, body, options)
+    //return this.http.post(api, body, options)
+    return this.http.post(api, body, httpOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -63,14 +78,21 @@ export class AuthService {
       headers: headers
     });
 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-Requested-With': 'XMLHttpRequest', // to suppress 401 browser popup     
+      })
+    };;
+
     var api = this.API_URL + 'user/signin';
-    return this.http.post(api, credentials, options)
+    //return this.http.post(api, credentials, options)
+    return this.http.post(api, credentials, httpOptions)
       .map(this.extractData)
       .catch(this.handleError);
 
   }
 
-  clearStorage(){
+  clearStorage() {
     this.storage.remove('token');
     this.storage.remove('currentUser');
     //localStorage.clear();
@@ -83,6 +105,7 @@ export class AuthService {
     });
   };
 
+  /*
   getUserList() {
 
     //this.token = localStorage.getItem("token");
@@ -103,6 +126,7 @@ export class AuthService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+  */
 
   getToken(): Promise<string> {
     return this.storage.get('token').then((value) => {
@@ -119,8 +143,23 @@ export class AuthService {
     this.events.publish('user:logout');
   }
 
+  getHeaders() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return httpOptions;
+  }
+
+  justLog() {
+    console.log("intercept every call...");
+  }
+
   private extractData(res: Response) {
-    let body = res.json();
+    //let body = res.json();
+    let body = res;
     //console.log("Body :: " + body);
     return body || {};
   }

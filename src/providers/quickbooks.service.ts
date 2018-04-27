@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Storage } from '@ionic/storage';
 //import { Events } from 'ionic-angular';
@@ -12,7 +13,11 @@ export class QuickbooksService {
   public token: string;
 
   constructor(
-    public http: Http, public storage: Storage, 
+    /*
+    public http: Http, 
+    */
+    public http: HttpClient,
+    public storage: Storage, 
     private configService: ConfigService,
     //public events: Events
   ) {
@@ -38,10 +43,12 @@ export class QuickbooksService {
       headers: headers
     });
 
+    const httpOptions = this.getHeaders();
+
     const body = JSON.stringify(payLoad);
 
     var api = this.API_URL + 'vehicle' + '?token=' + token;
-    return this.http.post(api, body, options)
+    return this.http.post(api, body, httpOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -53,15 +60,17 @@ export class QuickbooksService {
 
     const token = this.getToken();
     let headers = new Headers({
-      'Content-Type': 'application/json' // to suppress 401 browser popup
+      'Content-Type': 'application/json' 
     });
 
     let options = new RequestOptions({
       headers: headers
     });
 
+    const httpOptions = this.getHeaders();
+
     var api = this.API_URL + 'vehicles' + '?token=' + token;
-    return this.http.get(api, options)
+    return this.http.get(api, httpOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -77,10 +86,12 @@ export class QuickbooksService {
       headers: headers
     });
 
+    const httpOptions = this.getHeaders();
+
     // var api = this.API_URL + 'txn/getTxnById' + '?token=' + token;
     var buildApi = this.API_URL + 'txn/getTxnById/' + txnId
     var api = buildApi + '?token=' + token;
-    return this.http.get(api, options)
+    return this.http.get(api, httpOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -96,8 +107,10 @@ export class QuickbooksService {
       headers: headers
     });
 
+    const httpOptions = this.getHeaders();
+
     var api = this.API_URL + 'txn/getAllTxn' + '?token=' + token;
-    return this.http.get(api, options)
+    return this.http.get(api, httpOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -121,10 +134,12 @@ export class QuickbooksService {
       headers: headers
     });
 
+    const httpOptions = this.getHeaders();
+
     const body = JSON.stringify(payLoad);
 
     var api = this.API_URL + 'txn/newTxn' + '?token=' + token;
-    return this.http.post(api, body, options)
+    return this.http.post(api, body, httpOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -133,9 +148,19 @@ export class QuickbooksService {
     return localStorage.getItem("token");
   }
 
+  getHeaders() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return httpOptions;
+  }
+
   private extractData(res: Response) {
-    let body = res.json();
-    //console.log("extractData ... Body :: " + body);    
+    //let body = res.json();
+    let body = res;   
     return body || {};
   }
   /**

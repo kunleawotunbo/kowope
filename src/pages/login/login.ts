@@ -22,7 +22,7 @@ export class LoginPage {
   data: any;
   public message: string;
   form: FormGroup;
-  public alert: boolean;
+  public alert: boolean; isDeviceOnline;
   username: string;
   password: string; error;
   loader: any;
@@ -62,28 +62,28 @@ export class LoginPage {
 
 
   login() {
-    this.showLoader();
-    // First clear localStorage
-    //localStorage.clear();
-    this.authService.clearStorage();
-
-    // Check if Internet connection is available
-    /*
-    if (this.utilityService.isOnline()) {
-      // this.getGameList();
-    } else {
-      this.alert = true;
-      this.message = "Unable to connect to the internet. Please check your settings";
-      this.loading.dismiss();
-      this.utilityService.showNoNetworkAlert();
-    }
-    */
-
+    
     //
     let credentials = {
       username: this.username,
       password: this.password
     };
+    
+    if (this.utilityService.isOnline()) {
+      this.sigin(credentials);
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
+  }
+
+  sigin(credentials){
+
+    //this.showLoader();
+    this.utilityService.presentLoading();
+    // First clear localStorage
+    //localStorage.clear();
+    this.authService.clearStorage();
+
     var result;
     this.authService.signIn(credentials).subscribe(
       data => {
@@ -102,7 +102,7 @@ export class LoginPage {
         } else {
           message = error;
         }
-        this.loading.dismiss();
+        this.utilityService.loadingDismiss();
 
         this.presentToast(message);
       },
@@ -132,7 +132,7 @@ export class LoginPage {
         var loggedInType = parseInt(this.currentUser.user_type);
         this.utilityService.determineMenu(loggedInType);
 
-        this.loading.dismiss();
+        this.utilityService.loadingDismiss();
         this.navCtrl.setRoot("HomePage");
       }
     );
@@ -141,6 +141,7 @@ export class LoginPage {
   showLoader() {
 
     this.loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
       content: 'Authenticating...'
     });
 

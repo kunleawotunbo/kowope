@@ -45,7 +45,12 @@ export class VehiclePage {
   }
 
   addVehicle(){
-    this.navCtrl.push('AddvehiclePage');
+    //this.navCtrl.push('AddvehiclePage');
+    if (this.utilityService.isOnline()) {
+      this.navCtrl.push('AddvehiclePage');
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
   }
 
   getVehiclesList(){

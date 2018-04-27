@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, App, LoadingController, ToastController } from 'ionic-angular';
-//import { LoginPage } from '../login/login';
-//import { AuthService } from '../../providers/auth-service';
+import { UtilityService } from '../../utility/utility.service';
+
 declare var PaystackPop: any;
 
 @IonicPage()
@@ -39,6 +39,7 @@ export class PaymentPage {
     //public authService: AuthService,
     public app: App, public loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
+    public utilityService: UtilityService,
   ) {
     /*
   if(!localStorage.getItem("token")){
@@ -99,35 +100,6 @@ export class PaymentPage {
   }
 
 
-
-  /*
-    getUserList() {
-      var addList;
-     // this.gameReady = false;
-     this.showLoader();
-      var data = this.authService.getUserList().map((response: Response) => response).subscribe(
-        data => {
-          addList = data;
-        },
-        error => {
-          console.log(error);
-          //this.alert = true;
-          //this.message = "Unable to fetch games.";
-          console.log("Something went wrong");
-          this.loading.dismiss();
-        },
-        () => {
-          //this.gameList = addList;
-  
-          console.log("addList :: " + addList);
-          //
-         // this.gameReady = true;
-          this.loading.dismiss();
-        });
-  
-    }
-    */
-
   showLoader() {
 
     this.loading = this.loadingCtrl.create({
@@ -138,27 +110,7 @@ export class PaymentPage {
 
   }
 
-  /*
-    logout(){
-      this.authService.logout().then((result) => {
-        this.loading.dismiss();
-        let nav = this.app.getRootNav();
-        nav.setRoot(LoginPage)
-      }, (err) => {
-        this.loading.dismiss();
-        this.presentToast(err);
-      });
-    }
   
-    showLoader(){
-      this.loading = this.loadingCtrl.create({
-        content: 'Authenticating...'
-      });
-  
-      this.loading.present();
-    }
-  
-    */
 
   presentToast(msg) {
     let toast = this.toastCtrl.create({
@@ -169,6 +121,15 @@ export class PaymentPage {
     });
 
     toast.present();
+  }
+
+  makePayment(){
+    if (this.utilityService.isOnline()) {
+      this.utilityService.presentLoading();
+      this.payWithPaystack();
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
   }
 
   payWithPaystack() {
@@ -189,11 +150,13 @@ export class PaymentPage {
         ]
       },
       callback: function (response) {
+        this.utilityService.loadingDismiss();
         alert('success. transaction ref is ' + response.reference);
       },
       onClose: function () {        
         //paystackIframeOpened = false;
         alert('window closed');
+        this.utilityService.loadingDismiss();
       }
     });
     // Payment Request Just Fired  

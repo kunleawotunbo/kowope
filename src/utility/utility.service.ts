@@ -1,6 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Network } from '@ionic-native/network';
-import { Platform, ToastController, LoadingController, MenuController} from 'ionic-angular';
+import { 
+  Platform,
+  ToastController, 
+  LoadingController, 
+  MenuController, 
+  AlertController 
+} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 declare var Connection;
@@ -14,15 +20,52 @@ export class UtilityService {
 
   constructor(
     public platform: Platform,
-     private network: Network,
+    public network: Network,
     public toastCtrl: ToastController,
-     public loadingCtrl: LoadingController,
-     public menuCtrl: MenuController,
-     public storage: Storage
-    ) {
+    public loadingCtrl: LoadingController,
+    public menuCtrl: MenuController,
+    public storage: Storage,    
+    public alertCtrl: AlertController
+  ) {
 
     // To detect if app is running on iOS or Android
     this.onDevice = this.platform.is('cordova');
+  }
+
+  showNoNetworkAlert(){
+    let alert = this.alertCtrl.create({
+      title: 'No Internet Connection',
+      subTitle: 'Please check your internet connection.',
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
+
+  onDisconnect() {
+    // watch network for a disconnect
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      console.log('network was disconnected :-(');
+    });
+    return disconnectSubscription;
+  }
+
+  onConnect(){
+    console.log("inside onConnect");
+    let connectSubscription = this.network.onConnect().subscribe(() => {
+      console.log('network connected!');
+      // We just got a connection but we need to wait briefly
+       // before we determine the connection type. Might need to wait.
+      // prior to doing any api requests as well.
+      /*
+      setTimeout(() => {
+        if (this.network.type === 'wifi') {
+          console.log('we got a wifi connection, woohoo!');
+        }
+      }, 3000);
+      */
+    });
+
+    return connectSubscription;
   }
 
 
@@ -31,14 +74,14 @@ export class UtilityService {
       this.storage.get('currentUser');
     });
   }
-  
+
 
   /**
    * Determine menu to show based on logged in user
    * @param loggedInType 
    */
-  determineMenu(loggedInType){
-    switch(loggedInType){
+  determineMenu(loggedInType) {
+    switch (loggedInType) {
       case 1:
         // Enable admin menu
         //console.log("case 1");
@@ -50,10 +93,10 @@ export class UtilityService {
         this.enableDriverMenu();
         break;
       case 3:
-      //console.log("case 3");
+        //console.log("case 3");
         break;
       default:
-      //console.log("case default");
+        //console.log("case default");
         // When unable to determined logged in user
         this.enableLoggedOutMenu();
     }
@@ -62,25 +105,42 @@ export class UtilityService {
   /**
    * Implemented MenuController, to enable admin menu
    */
-  enableAdminMenu(){
+  enableAdminMenu() {
     this.menuCtrl.enable(true, 'adminMenu');
     this.menuCtrl.enable(false, 'driverMenu');
     this.menuCtrl.enable(false, 'loggedOutMenu');
   }
 
-  enableDriverMenu(){
+  enableDriverMenu() {
     this.menuCtrl.enable(false, 'adminMenu');
     this.menuCtrl.enable(true, 'driverMenu');
     this.menuCtrl.enable(false, 'loggedOutMenu');
   }
 
-  enableLoggedOutMenu(){
+  enableLoggedOutMenu() {
     this.menuCtrl.enable(false, 'adminMenu');
     this.menuCtrl.enable(false, 'driverMenu');
     this.menuCtrl.enable(true, 'loggedOutMenu');
   }
 
 
+  // Check if device is onfline
+  isOnline1(): boolean {
+    //this.network.onConnect
+    /*
+    if (navigator.connection) {
+      console.log("I am online");
+      // console.log("navigator.connection.type :: " + navigator.connection.type);
+      // console.log("Connection.NONE :: " + Connection.NONE);
+      return navigator.connection.type !== Connection.NONE;
+    } else {
+      console.log("isOnline1 else..");
+      return navigator.onLine;
+    }
+    */
+    //this.network.
+    return navigator.onLine;
+  }
 
   // Check if device is onfline
   isOnline(): boolean {
@@ -104,7 +164,7 @@ export class UtilityService {
     }
   }
 
-  showNoNetworkAlert() {
+  showNoNetworkToast() {
     let toast = this.toastCtrl.create({
       message: 'Unable to connect to the internet. Please check your settings',
       duration: 3000,
@@ -197,13 +257,23 @@ export class UtilityService {
 
   presentLoading() {
     this.loader = this.loadingCtrl.create({
-      content: "Please wait...",
+      spinner: 'bubbles',
+      
       duration: 30000
     });
     this.loader.present();
   }
 
-  loadingDismiss(){
+  
+  presentLoadingWithTimer(duration) {
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: duration
+    });
+    this.loader.present();
+  }
+
+  loadingDismiss() {
     this.loader.dismiss();
   }
 
@@ -216,9 +286,8 @@ export class UtilityService {
         </div>
         <div>This is a custom spinner. It will dismiss after 3 seconds.</div>`,
         */
-        content: `
-        <img src="assets/images/spinner.gif" />
-        <div>This is a custom spinner. It will dismiss after 3 seconds.</div>`,
+      content: `
+        <img src="assets/images/spinner.gif" />`,
       duration: 3000
     });
 

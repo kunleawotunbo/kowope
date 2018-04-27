@@ -26,13 +26,23 @@ export class JournalsPage {
   }
 
   ionViewDidLoad() {
-    this.getTxnsList();
+    
+    if (this.utilityService.isOnline()) {
+      this.getTxnsList();
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
   }
 
   itemSelected(item){
-    this.navCtrl.push('TxndetailsPage', {
-      item: item
-    });
+    
+    if (this.utilityService.isOnline()) {
+      this.navCtrl.push('TxndetailsPage', {
+        item: item
+      });
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
   }
 
   getItems(type: any) {
@@ -66,24 +76,14 @@ export class JournalsPage {
       error => {
         console.log(error);
         console.log("Error - something went wrong");
-        this.utilityService.loader.dismiss();
+        this.utilityService.loadingDismiss();
       },
       () => {
         //console.log("result :: " + result.txns);
         this.txnsList = result.txns;
         this.isLoaded = true;
-        this.utilityService.loader.dismiss();
+        this.utilityService.loadingDismiss();
       });
   }
-
-  /*
-  presentLoading() {
-    this.loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
-    });
-    this.loader.present();
-  }
-  */
 
 }

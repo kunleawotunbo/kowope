@@ -44,3 +44,5 @@ chrome://inspect/#devices
             background-image:url('../assets/images/sidemenu-pattern.png'); 
     }
 
+8. Google play console
+https://play.google.com/apps/publish

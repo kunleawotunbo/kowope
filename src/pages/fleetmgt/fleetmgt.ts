@@ -14,7 +14,7 @@ export class FleetmgtPage {
   sectionTab: string = "history"; startDate; endDate;
   isAndroid: boolean = false;
   isLoaded: boolean;
-  subItemsList: Array<{title: string, icon: string, component: any}>;
+  subItemsList: Array<{ title: string, icon: string, component: any }>;
 
   constructor(public navCtrl: NavController, public quickbooksService: QuickbooksService,
     public loadingCtrl: LoadingController, platform: Platform,
@@ -25,47 +25,53 @@ export class FleetmgtPage {
   }
 
   ionViewDidLoad() {
-   // this.getVehiclesList();
-    
+    // this.getVehiclesList();
+
   }
 
-  getSubItemsList(){
+  getSubItemsList() {
     this.subItemsList = [
-      { title: 'Vehicles', icon: 'car', component: 'VehiclePage'},
-      { title: 'Drivers', icon: 'card', component: 'DriversPage'},
+      { title: 'Vehicles', icon: 'car', component: 'VehiclePage' },
+      { title: 'Drivers', icon: 'card', component: 'DriversPage' },
     ];
   }
 
-  itemSelected(item){
-    
-    
+  itemSelected(item) {
+
+    /*
     this.navCtrl.push(item.component, {
       item: item
     });
-    
-   // this.navCtrl.push('VehiclePage');
-    
-    console.log("go to vehicle details")
+    */
+
+    if (this.utilityService.isOnline()) {
+      this.navCtrl.push(item.component, {
+        item: item
+      });
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
+
   }
 
   getItems(type: any) {
     //return this.apps[type];
     this.isLoaded = false;
-    
+
   }
 
-  search(){
+  search() {
     this.startDate;
     this.endDate;
 
-   // this.getTxnsList();
+    // this.getTxnsList();
   }
 
-  addVehicle(){
+  addVehicle() {
     this.navCtrl.push('AddvehiclePage');
   }
 
-  getVehiclesList(){
+  getVehiclesList() {
     this.presentLoading();
     //this.utilityService.presentLoading();
     var result;
@@ -108,8 +114,8 @@ export class FleetmgtPage {
       });
   }
   */
-  
- 
+
+
   presentLoading() {
     this.loader = this.loadingCtrl.create({
       content: "Please wait...",
@@ -117,6 +123,6 @@ export class FleetmgtPage {
     });
     this.loader.present();
   }
-  
+
 
 }

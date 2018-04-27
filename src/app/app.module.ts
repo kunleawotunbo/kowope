@@ -10,6 +10,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Toast } from '@ionic-native/toast';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 //import { File } from '@ionic-native/file';
 
@@ -22,7 +23,7 @@ import { QuickbooksService } from '../providers/quickbooks.service';
 import { ConfigService } from '../utility/config.service';
 import { UtilityService } from '../utility/utility.service';
 import { SampleService } from '../providers/sample.service';
-
+import { NetworkInterceptor } from '../providers/network.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,11 +43,19 @@ import { SampleService } from '../providers/sample.service';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    {
+      provide: ErrorHandler,
+      useClass: IonicErrorHandler
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NetworkInterceptor,
+      multi: true
+    },
     AuthService,
     Camera,
     ImagePicker,
-    Crop,    
+    Crop,
     BarcodeScanner,
     Toast,
     //FileTransfer,
