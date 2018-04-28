@@ -259,7 +259,7 @@ export class UtilityService {
     this.loader = this.loadingCtrl.create({
       spinner: 'bubbles',
       
-      duration: 3000000
+      duration: 40000
     });
     this.loader.present();
   }

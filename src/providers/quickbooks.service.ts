@@ -24,6 +24,51 @@ export class QuickbooksService {
     this.API_URL = configService.getAPIURL();
   }
 
+
+  /**
+   * Get list of vehicles
+   */
+  verifyTransaction(transactionRef, userId) {
+
+    const token = this.getToken();
+    
+    const httpOptions = this.getHeaders();
+
+    //var api = this.API_URL + 'vehicles' + '?token=' + token;
+    var api = this.API_URL + `transaction/verify/${transactionRef}/${userId}` + '?token=' + token;
+    return this.http.get(api, httpOptions)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Initiate transaction
+   * @param userId 
+   * @param email 
+   * @param txnReference 
+   * @param amount 
+   */
+  initiateTxn(userId, email, txnReference, amount) {
+
+    var payLoad = {
+      userId: userId,
+      email: email,
+      txnReference: txnReference,
+      amount: amount
+    };
+
+    const token = this.getToken();
+    
+    const httpOptions = this.getHeaders();
+
+    const body = JSON.stringify(payLoad);
+
+    var api = this.API_URL + 'transaction/initiateTxn' + '?token=' + token;
+    return this.http.post(api, body, httpOptions)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   createVehicle(model_no, plate_no, color, date_purchased, driver_id) {
 
     var payLoad = {
@@ -35,14 +80,7 @@ export class QuickbooksService {
     };
 
     const token = this.getToken();
-    const headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-
-    let options = new RequestOptions({
-      headers: headers
-    });
-
+    
     const httpOptions = this.getHeaders();
 
     const body = JSON.stringify(payLoad);
@@ -59,14 +97,7 @@ export class QuickbooksService {
   getVehiclesList() {
 
     const token = this.getToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json' 
-    });
-
-    let options = new RequestOptions({
-      headers: headers
-    });
-
+    
     const httpOptions = this.getHeaders();
 
     var api = this.API_URL + 'vehicles' + '?token=' + token;
@@ -78,14 +109,7 @@ export class QuickbooksService {
   getTxnById(txnId) {
 
     const token = this.getToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json' // to suppress 401 browser popup
-    });
-
-    let options = new RequestOptions({
-      headers: headers
-    });
-
+    
     const httpOptions = this.getHeaders();
 
     // var api = this.API_URL + 'txn/getTxnById' + '?token=' + token;
@@ -99,14 +123,7 @@ export class QuickbooksService {
   getTxnsList() {
 
     const token = this.getToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json' // to suppress 401 browser popup
-    });
-
-    let options = new RequestOptions({
-      headers: headers
-    });
-
+    
     const httpOptions = this.getHeaders();
 
     var api = this.API_URL + 'txn/getAllTxn' + '?token=' + token;
@@ -126,14 +143,7 @@ export class QuickbooksService {
     };
 
     const token = this.getToken();
-    const headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-
-    let options = new RequestOptions({
-      headers: headers
-    });
-
+    
     const httpOptions = this.getHeaders();
 
     const body = JSON.stringify(payLoad);

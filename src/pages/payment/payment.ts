@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, App, LoadingController, ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { UtilityService } from '../../utility/utility.service';
+import generateReferenceNo from '../../utility/generateReferenceNo';
+import { QuickbooksService } from '../../providers/quickbooks.service';
+import { ConfigService } from '../../utility/config.service';
+
 
 declare var PaystackPop: any;
 
@@ -34,16 +40,36 @@ export class PaymentPage {
   animations: string[] = [];
   gradient: boolean = false;
   realCurrent: number = 0;
+  currentUser: any;
+  form: FormGroup;
+  public amount: AbstractControl;
 
   constructor(public navCtrl: NavController,
     //public authService: AuthService,
     public app: App, public loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     public utilityService: UtilityService,
+    public quickbooksService: QuickbooksService,
+    public storage: Storage,
+    public configService: ConfigService,
+    public formBuilder: FormBuilder,
   ) {
 
 
     this.calValue();
+    this.storage.get('currentUser').then((currentUser) => {
+     // console.log("currentUser :: " + currentUser);
+      this.currentUser = JSON.parse(currentUser);
+
+      //console.log("this.currentUser insdie :: " + this.currentUser);
+    });
+
+    //console.log("this.currentUser up:: " + this.currentUser);
+    this.form = this.formBuilder.group({
+      amount: ['', Validators.required]
+    });
+
+    this.amount = this.form.controls['amount'];
   }
 
   ionViewDidLoad() {
@@ -118,21 +144,29 @@ export class PaymentPage {
 
   makePayment() {
     if (this.utilityService.isOnline()) {
-      var publicKey = 'pk_test_abcd9d53c2457dc94e59d41e131439006dc7fa7c';
-      var email = 'customer@email.com';
-      var amount = 10000;
-      var referenceNo = '' + Math.floor((Math.random() * 1000000000) + 1);
-      var displayName = "Mobile Number";
+      var publicKey = this.configService.getPayStackPublicKey();
+      var email = this.currentUser.email;
+      //var amount = 100 * 100; // Multiply by 100 i.e send value in kobo
+      var amount = this.amount.value * 100; // Multiply by 100 i.e send value in kobo
+      var referenceNo = generateReferenceNo(10, ['alpha', 'number']);
+      var displayName = this.currentUser.first_name + " " +this.currentUser.last_name;
       var variableName: "mobile_number";
-      var customValue = "+2348012345678";
+      var customValue = this.currentUser.phone_no;
+      var userId = this.currentUser.id;
+      var paymentType = '1';
+      var cart_id = paymentType;
 
-      this.payWithPaystack(publicKey, email, amount, referenceNo, displayName, variableName, customValue);
+      this.payWithPaystack(publicKey, email, amount, referenceNo, displayName, variableName, customValue, cart_id);
+      
+      this.initiateTxnToBackend(userId, email, referenceNo, amount);
+
+      this.form.reset();
     } else {
       this.utilityService.showNoNetworkAlert();
     }
   }
 
-  payWithPaystack(publicKey, email, amount, referenceNo, displayName, variableName, customValue) {
+  payWithPaystack(publicKey, email, amount, referenceNo, displayName, variableName, customValue, cart_id) {
     // var paystackIframeOpened = false;
     this.utilityService.presentLoading();
     // console.log("About to open");
@@ -141,23 +175,46 @@ export class PaymentPage {
       email: email,
       amount: amount,
       ref: referenceNo, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      firstname: this.currentUser.first_name,
+      lastname: this.currentUser.last_name,
       metadata: {
+        cart_id:  cart_id,
         custom_fields: [
           {
             display_name: displayName,
             variable_name: variableName,
-            value: customValue
+            value: customValue,
+            cart_id:  cart_id
           }
         ]
       },
+      /*
       callback: function (response) {
         //this.utilityService.loadingDismiss();
         console.log("response :: " + JSON.stringify(response));
-        alert('success. transaction ref is ' + response.reference);
+        //alert('success. transaction ref is ' + response.reference);
+        console.log("this.currentUser :: " + this.currentUser);
+        console.log("this.currentUser.id :: " + this.currentUser.id);
+        this.verifyTransaction(response.reference, this.currentUser.id);
       },
       onClose: function () {
         //paystackIframeOpened = false;        
         //this.utilityService.loadingDismiss();
+        alert('window closed');
+      }
+      */
+      callback: (response) => {
+        //this.utilityService.loadingDismiss();
+        console.log("response :: " + JSON.stringify(response));
+        //alert('success. transaction ref is ' + response.reference);
+        console.log("this.currentUser :: " + this.currentUser);
+        console.log("this.currentUser.id :: " + this.currentUser.id);
+        this.verifyTransaction(response.reference, this.currentUser.id);
+      },
+      onClose:  () => {
+        //paystackIframeOpened = false;        
+        this.utilityService.loadingDismiss();
+
         alert('window closed');
       }
     });
@@ -208,6 +265,52 @@ export class PaymentPage {
 
   }
   */
+
+  initiateTxnToBackend(userId, userEmail, txnReference, amount) {
+    this.utilityService.presentLoading();
+
+    var result;
+    this.quickbooksService.initiateTxn(userId, userEmail, txnReference, amount)
+      .map((response: Response) => response).subscribe(
+      data => {
+        result = data;
+      },
+      error => {
+        console.log(error);
+        this.utilityService.loadingDismiss();
+      },
+      () => {
+        //console.log("result :: "  + result);
+        // this.loader.dismiss();
+        this.utilityService.loadingDismiss();
+        //this.utilityService.showNotification("Payment initiated");
+      }
+      );
+  }
+
+  /**
+   * Verify transaction before giving value
+   */
+  verifyTransaction(transactionRef, userId) {
+    this.utilityService.presentLoading();
+
+    var result;
+    this.quickbooksService.verifyTransaction(transactionRef, userId)
+      .map((response: Response) => response).subscribe(
+      data => {
+        result = data;
+      },
+      error => {
+        console.log(error);
+        this.utilityService.loadingDismiss();
+      },
+      () => {
+        console.log("result :: "  + result);
+        this.utilityService.loadingDismiss();
+        this.utilityService.showNotification(result.message);
+      }
+      );
+  }
 
   loadImage() {
     alert("Image is loaded");

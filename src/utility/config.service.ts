@@ -12,11 +12,11 @@ export class ConfigService {
 
     constructor() {
         this.API_KEY = "1234";
-        //this.API_URL = "http://localhost:8000/api/";
-        this.API_URL = "https://quickbooksbackend.tunbor.com/api/";
+        this.API_URL = "http://localhost:8000/api/";
+        //this.API_URL = "https://quickbooksbackend.tunbor.com/api/";
         this.payStackAPI = "https://api.paystack.co/";
-        this.payStackSecretKey = "sk_test_5ff11aa3c82e782c82054f11d5a19214fef3acc4";
-        this.payStackPublicKey = "";
+        //this.payStackSecretKey = "sk_test_5ff11aa3c82e782c82054f11d5a19214fef3acc4";
+        this.payStackPublicKey = "pk_test_abcd9d53c2457dc94e59d41e131439006dc7fa7c";
 
     }
 
