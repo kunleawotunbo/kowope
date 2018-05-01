@@ -55,13 +55,16 @@ export class PaymentPage {
     public formBuilder: FormBuilder,
   ) {
 
+    var amountDue = 400000;
+    var amountPaid = 150000;
+    //this.calValue(amountPaid, amountDue);
 
-    this.calValue();
     this.storage.get('currentUser').then((currentUser) => {
      // console.log("currentUser :: " + currentUser);
       this.currentUser = JSON.parse(currentUser);
 
       //console.log("this.currentUser insdie :: " + this.currentUser);
+      this.getAmountPaidByUserId(this.currentUser.id);
     });
 
     //console.log("this.currentUser up:: " + this.currentUser);
@@ -103,13 +106,13 @@ export class PaymentPage {
     };
   }
 
-  calValue() {
+  calValue(amountPaid, amountDue) {
     //var result = (35.8 / 100) * 10000;
-    var rentAmount = 400000;
-    var amountPaid = 150000;
+   // var rentAmount = 400000;
+   // var amountPaid = 150000;
 
     // Get percentage paid
-    var result = (amountPaid / rentAmount) * 100;
+    var result = (amountPaid / amountDue) * 100;
 
     this.max = 100;
     this.current = result;
@@ -158,7 +161,7 @@ export class PaymentPage {
 
       this.payWithPaystack(publicKey, email, amount, referenceNo, displayName, variableName, customValue, cart_id);
       
-      this.initiateTxnToBackend(userId, email, referenceNo, amount);
+      this.initiateTxnToBackend(userId, email, referenceNo, this.amount.value);
 
       this.form.reset();
     } else {
@@ -170,6 +173,8 @@ export class PaymentPage {
     // var paystackIframeOpened = false;
     this.utilityService.presentLoading();
     // console.log("About to open");
+    var callback_url = this.configService.getAPIURL() + `webhook/handlePaymentHook`;
+    console.log("callback_url + " + callback_url);
     var handler = PaystackPop.setup({
       key: publicKey,
       email: email,
@@ -188,27 +193,13 @@ export class PaymentPage {
           }
         ]
       },
-      /*
-      callback: function (response) {
-        //this.utilityService.loadingDismiss();
-        console.log("response :: " + JSON.stringify(response));
-        //alert('success. transaction ref is ' + response.reference);
-        console.log("this.currentUser :: " + this.currentUser);
-        console.log("this.currentUser.id :: " + this.currentUser.id);
-        this.verifyTransaction(response.reference, this.currentUser.id);
-      },
-      onClose: function () {
-        //paystackIframeOpened = false;        
-        //this.utilityService.loadingDismiss();
-        alert('window closed');
-      }
-      */
+      callback_url : callback_url,
+
       callback: (response) => {
         //this.utilityService.loadingDismiss();
-        console.log("response :: " + JSON.stringify(response));
+       // console.log("response :: " + JSON.stringify(response));
         //alert('success. transaction ref is ' + response.reference);
-        console.log("this.currentUser :: " + this.currentUser);
-        console.log("this.currentUser.id :: " + this.currentUser.id);
+       
         this.verifyTransaction(response.reference, this.currentUser.id);
       },
       onClose:  () => {
@@ -312,9 +303,29 @@ export class PaymentPage {
       );
   }
 
-  loadImage() {
-    alert("Image is loaded");
+  getAmountPaidByUserId(userId) {
+    this.utilityService.presentLoading();
+
+    var result;
+    this.quickbooksService.getAmountPaidByUserId(userId)
+      .map((response: Response) => response).subscribe(
+      data => {
+        result = data;
+      },
+      error => {
+        console.log(error);
+        this.utilityService.loadingDismiss();
+      },
+      () => {
+        //console.log("result :: "  + result);
+
+        this.calValue(result.amount_paid, result.amount_due);
+        this.utilityService.loadingDismiss();
+       // this.utilityService.showNotification("Vehicle created successfully");
+      }
+      );
   }
+
 
 
 

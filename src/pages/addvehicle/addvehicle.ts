@@ -11,7 +11,6 @@ import { UtilityService } from '../../utility/utility.service';
 })
 export class AddvehiclePage {
   txnsList: any; driverList;
-  //loader: any; driverList;
   private form: FormGroup;
   public modelNo: AbstractControl; plateNo; color; datePurchased; driverId;
 

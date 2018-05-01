@@ -106,9 +106,7 @@ export class LoginPage {
       },
       error => {
         console.log(error);
-        //console.log("status :: " + error.status);
-        //console.log("_body.error) :: " + error._body);
-
+       
         var message = "";
         if (error.status === 401) {
           message = "Incorrect Username/Password";

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Storage } from '@ionic/storage';
-//import { Events } from 'ionic-angular';
 import 'rxjs/add/operator/map';
+import { catchError, retry } from 'rxjs/operators';
 import { ConfigService } from '../utility/config.service';
 
 @Injectable()
@@ -13,15 +14,27 @@ export class QuickbooksService {
   public token: string;
 
   constructor(
-    /*
-    public http: Http, 
-    */
     public http: HttpClient,
     public storage: Storage, 
     private configService: ConfigService,
-    //public events: Events
   ) {
     this.API_URL = configService.getAPIURL();
+  }
+
+  /**
+   * Get list of vehicles
+   */
+  getAmountPaidByUserId(userId) {
+
+    const token = this.getToken();
+    
+    const httpOptions = this.getHeaders();
+
+    var api = this.API_URL + `transaction/${userId}` + '?token=' + token;
+    return this.http.get(api, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
 
@@ -34,11 +47,11 @@ export class QuickbooksService {
     
     const httpOptions = this.getHeaders();
 
-    //var api = this.API_URL + 'vehicles' + '?token=' + token;
     var api = this.API_URL + `transaction/verify/${transactionRef}/${userId}` + '?token=' + token;
     return this.http.get(api, httpOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   /**
@@ -65,8 +78,9 @@ export class QuickbooksService {
 
     var api = this.API_URL + 'transaction/initiateTxn' + '?token=' + token;
     return this.http.post(api, body, httpOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   createVehicle(model_no, plate_no, color, date_purchased, driver_id) {
@@ -87,8 +101,9 @@ export class QuickbooksService {
 
     var api = this.API_URL + 'vehicle' + '?token=' + token;
     return this.http.post(api, body, httpOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   /**
@@ -102,8 +117,9 @@ export class QuickbooksService {
 
     var api = this.API_URL + 'vehicles' + '?token=' + token;
     return this.http.get(api, httpOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   getTxnById(txnId) {
@@ -112,12 +128,12 @@ export class QuickbooksService {
     
     const httpOptions = this.getHeaders();
 
-    // var api = this.API_URL + 'txn/getTxnById' + '?token=' + token;
     var buildApi = this.API_URL + 'txn/getTxnById/' + txnId
     var api = buildApi + '?token=' + token;
     return this.http.get(api, httpOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   getTxnsList() {
@@ -128,8 +144,9 @@ export class QuickbooksService {
 
     var api = this.API_URL + 'txn/getAllTxn' + '?token=' + token;
     return this.http.get(api, httpOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   newTxn(vehicleId, amount, txnType, date, narrative) {
@@ -150,8 +167,9 @@ export class QuickbooksService {
 
     var api = this.API_URL + 'txn/newTxn' + '?token=' + token;
     return this.http.post(api, body, httpOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   getToken() {
@@ -177,6 +195,7 @@ export class QuickbooksService {
 * Generic Error handle
 * @param error The error to be handled
 */
+/*
   private handleError(error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;   
@@ -197,5 +216,21 @@ export class QuickbooksService {
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
+  */
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an ErrorObservable with a user-facing error message
+    return new ErrorObservable(error);
+  };
 
 }

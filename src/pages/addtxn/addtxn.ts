@@ -71,11 +71,22 @@ export class AddtxnPage {
 
   submitForm(){
     this.utilityService.presentLoading();
+    if (this.utilityService.isOnline()) {
+      this.newTxn(this.vehicleId.value, this.amount.value,
+        this.txnType.value, this.date.value,this.narrative.value);
+    
+      // reset form
+      this.form.reset();
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
+
+  }
+
+  newTxn(vehicleId, amount, txnType, date, narrative){
     var result;
-    this.quickbooksService.newTxn(this.vehicleId.value, this.amount.value,
-       this.txnType.value,
-      this.date.value,this.narrative.value
-    ).map((response: Response) => response).subscribe(
+    this.quickbooksService.newTxn(vehicleId, amount, txnType, date, narrative)
+    .map((response: Response) => response).subscribe(
       data => {
         result = data;
       },
@@ -84,11 +95,11 @@ export class AddtxnPage {
         this.utilityService.loader.dismiss();
       },
       () => {
-        console.log("result :: "  + result);
+        //console.log("result :: "  + result);
         this.utilityService.loader.dismiss();
+        this.utilityService.showNotification(result.message);
       }
     );
-    this.form.reset();
   }
   getTxnsList(){
     this.utilityService.presentLoading();
