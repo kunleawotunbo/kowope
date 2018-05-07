@@ -89,5 +89,9 @@
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="phonegap-plugin-barcodescanner" spec="^7.1.1" />
     <plugin name="cordova-plugin-x-toast" spec="^2.6.2" />
+    <plugin name="cordova-plugin-admob-free" spec="^0.16.0" />
+    <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
+    <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
+    <plugin name="cordova-plugin-sms" spec="^1.0.5" />
     <engine name="android" spec="~6.4.0" />
 </widget>

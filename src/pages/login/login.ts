@@ -113,7 +113,10 @@ export class LoginPage {
         } else if (error.status === 500) {
           message = "Unable to login";
         } else {
-          message = error;
+          // message = error;
+          console.log("error :: " + JSON.stringify(error));
+          // message = JSON.stringify(error);
+          message = 'Unable to login';
         }
         this.utilityService.loadingDismiss();
 

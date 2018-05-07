@@ -13,6 +13,7 @@ export class IntroPage {
           title: "Welcome to Quickbooks!",
           description: "<b>Quickbooks</b> showcases a number of useful features that assist in rent management and services.",
           image: "assets/images/ica-slidebox-img-1.png",
+          // image: "assets/images/bg-pattern2.png"
         },
         {
           title: "What is Quickbooks?",

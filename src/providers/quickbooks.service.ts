@@ -21,6 +21,39 @@ export class QuickbooksService {
     this.API_URL = configService.getAPIURL();
   }
 
+   /**
+   * Get verifyOTP
+   */
+  verifyOTP(mobileNo, otp) {
+
+    const token = this.getToken();
+    
+    const httpOptions = this.getHeaders();
+
+    var api = this.API_URL + `sms/verify/${mobileNo}/${otp}` + '?token=' + token;
+    return this.http.get(api, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
+    /**
+   * Get sendSMS with OTP
+   */
+  sendSMS(mobileNo) {
+
+    const token = this.getToken();
+    
+    const httpOptions = this.getHeaders();
+
+    var api = this.API_URL + `sms/send/${mobileNo}` + '?token=' + token;
+    return this.http.get(api, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   /**
    * Get list of vehicles
    */

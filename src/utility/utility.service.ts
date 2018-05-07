@@ -146,7 +146,7 @@ export class UtilityService {
   isOnline(): boolean {
     //this.network.onConnect
     if (this.onDevice && navigator.connection) {
-      console.log("I am online");
+      //console.log("I am online");
       // console.log("navigator.connection.type :: " + navigator.connection.type);
       // console.log("Connection.NONE :: " + Connection.NONE);
       return navigator.connection.type !== Connection.NONE;

@@ -18,11 +18,12 @@
   
   <ion-list>
 
-    <button ion-item *ngFor="let item of vehiclesList" (click)="itemSelected(item)">
+    <button ion-item *ngFor="let item of vehiclesList" (click)="c(item)">
       <h2> {{ item.plate_no }} </h2>
       <p> {{item.model_no}}</p>
       <ion-note item-end color="success">{{item.color}}</ion-note>
     </button>
+
   </ion-list>
 
 

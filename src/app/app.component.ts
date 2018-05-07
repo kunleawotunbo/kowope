@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
 import { Storage } from '@ionic/storage';
 import { AuthService } from '../providers/auth-service';
 import { UtilityService } from '../utility/utility.service';
@@ -30,6 +31,7 @@ export class MyApp {
     { title: 'Scanner', icon: 'qr-scanner', component: 'ScannerPage' },
     { title: 'Support', icon: 'chatbubbles', component: 'SupportPage' },
     { title: 'Payment', icon: 'card', component: 'PaymentPage' },
+    { title: 'Others', icon: 'flower', component: 'OthersPage' },
   ];
   driverPages: PageInterface[] = [
     { title: 'Home', icon: 'home', component: 'HomePage' },
@@ -50,7 +52,8 @@ export class MyApp {
     public menuCtrl: MenuController,
     public events: Events,
     public authService: AuthService,
-    public utilityService: UtilityService
+    public utilityService: UtilityService,
+    public admob: AdMobFree
   ) {
     this.initializeApp();
 
@@ -71,11 +74,11 @@ export class MyApp {
       this.statusBar.styleDefault();
       //http://www.codingandclimbing.co.uk/blog/ionic-2-fix-splash-screen-white-screen-issue
       // Fix issue where you see a blank screen after your splash screen disappears.
-      
+
       setTimeout(() => {
         this.splashScreen.hide();
       }, 100);
-      
+
       //this.splashScreen.hide();
 
       // Set intro page
@@ -97,13 +100,16 @@ export class MyApp {
       //console.log("App.component.after login");
       //this.enableMenu();
 
+      // Load AdMob
+      this.initializeAds();
+
     });
   }
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    if (page.component === 'LoginPage') {      
+    if (page.component === 'LoginPage') {
       this.authService.logout();
     }
     this.nav.setRoot(page.component);
@@ -113,7 +119,7 @@ export class MyApp {
   }
 
   ngAfterViewInit() {
-   // this.getCurrentUser();
+    // this.getCurrentUser();
   }
 
   getCurrentUser() {
@@ -126,30 +132,30 @@ export class MyApp {
     //console.log("ionViewDidLoad app.component");    
   }
 
-  listenToEvents(){
-    
+  listenToEvents() {
+
     // Subscribe to user:login event to set the person name in the side menu    
 
-    this.events.subscribe('user:login', (currentUser) => { 
+    this.events.subscribe('user:login', (currentUser) => {
       this.currentUser = currentUser;
-      if (this.currentUser === undefined){
+      if (this.currentUser === undefined) {
         this.isLoaded = false;
       } else {
         this.isLoaded = true;
       }
     });
 
-    
+
     this.events.subscribe('user:logout', () => {
       this.authService.logout();
       this.nav.setRoot('LoginPage');
     });
 
     // Subscribe to picture events
-    this.events.subscribe('picture:updated', (profilePiture) => { 
+    this.events.subscribe('picture:updated', (profilePiture) => {
       this.profilePicture = profilePiture;
     });
-    
+
   }
 
   editAccount() {
@@ -160,18 +166,35 @@ export class MyApp {
     return page == this.activePage;
   }
 
-  getLoginUserDetails(){
+  getLoginUserDetails() {
     this.events.subscribe('user:login', () => {
 
-    setTimeout(function () {
-      this.currentUser =  this.storage.get('currentUser');
-    }, 5000);
+      setTimeout(function () {
+        this.currentUser = this.storage.get('currentUser');
+      }, 5000);
 
     });
   }
 
-  logout(){
+  logout() {
     //this.authService.logout();
-      this.nav.setRoot('LoginPage');
+    this.nav.setRoot('LoginPage');
+  }
+
+  initializeAds() {
+   
+    let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true,
+      id: 'ca-app-pub-3940256099942544/6300978111', // Test Id
+      //id: ca-app-pub-3608321653585261/7297886466 //My live AdMob Id
+    };
+
+    this.admob.banner.config(bannerConfig);
+
+    this.admob.banner.prepare().then(() => {
+      // success
+    }).catch(e => console.log(e));
+
   }
 }

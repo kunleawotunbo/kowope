@@ -11,6 +11,9 @@ import { Network } from '@ionic-native/network';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Toast } from '@ionic-native/toast';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AdMobFree } from '@ionic-native/admob-free';
+import { CallNumber } from '@ionic-native/call-number';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 //import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 //import { File } from '@ionic-native/file';
 
@@ -52,20 +55,22 @@ import { NetworkInterceptor } from '../providers/network.interceptor';
       useClass: NetworkInterceptor,
       multi: true
     },
-    AuthService,
     Camera,
     ImagePicker,
     Crop,
     BarcodeScanner,
     Toast,
-    //FileTransfer,
-    //FileTransferObject,
-    //File,
+    AdMobFree,
+    CallNumber,
+    AndroidPermissions,
+
+    AuthService,
     ConfigService,
     Network,
     UtilityService,
     QuickbooksService,
-    SampleService
+    SampleService,
+    
   ]
 })
 export class AppModule { }
