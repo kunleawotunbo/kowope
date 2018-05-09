@@ -2,10 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AdMobFree, AdMobFreeBannerConfig, /*AdMobFreeInterstitialConfig */} from '@ionic-native/admob-free';
+import { AdMobFree, AdMobFreeBannerConfig, /*AdMobFreeInterstitialConfig */ } from '@ionic-native/admob-free';
 import { Storage } from '@ionic/storage';
+import { OneSignal } from '@ionic-native/onesignal';
 import { AuthService } from '../providers/auth-service';
 import { UtilityService } from '../utility/utility.service';
+import { ConfigService } from '../utility/config.service';
 
 export interface PageInterface {
   title: string;
@@ -53,7 +55,10 @@ export class MyApp {
     public events: Events,
     public authService: AuthService,
     public utilityService: UtilityService,
-    public admob: AdMobFree
+    public admob: AdMobFree,
+    public configService: ConfigService,
+    private oneSignal: OneSignal,
+
   ) {
     this.initializeApp();
 
@@ -102,6 +107,26 @@ export class MyApp {
 
       // Load AdMob
       this.initializeAds();
+
+      // OneSignal Code start:
+      // Enable to debug issues:
+      //window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+      
+      /*
+        var notificationOpenedCallback = function (jsonData) {
+          console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+        };
+
+        window["plugins"].OneSignal
+          .startInit(this.configService.getOneSignalAppId(), this.configService.getGoogleProjectId())
+          .handleNotificationOpened(notificationOpenedCallback)
+          .endInit();
+      */
+
+      // Initialize oneSignal
+      //this.initOneSignal();
+
+      this.initOneSignal2();
 
     });
   }
@@ -182,7 +207,7 @@ export class MyApp {
   }
 
   initializeAds() {
-   
+
     let bannerConfig: AdMobFreeBannerConfig = {
       isTesting: true, // Remove in production
       autoShow: true,
@@ -196,5 +221,62 @@ export class MyApp {
       // success
     }).catch(e => console.log(e));
 
+  }
+
+  initOneSignal(){
+    // OneSignal Code start:
+      // Enable to debug issues:
+      //window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+      
+        var notificationOpenedCallback = function (jsonData) {
+          console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+          this.nav.setRoot('NotificationPage', {
+            item: JSON.stringify(jsonData)
+          });
+        };
+
+        window["plugins"].OneSignal
+          .startInit(this.configService.getOneSignalAppId(), this.configService.getGoogleProjectId())
+          .handleNotificationOpened(notificationOpenedCallback)
+          .endInit();      
+  }
+
+  initOneSignal2() {
+
+    
+    this.oneSignal.startInit(this.configService.getOneSignalAppId(), this.configService.getGoogleProjectId());
+
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+
+    this.oneSignal.handleNotificationReceived().subscribe((data) => {
+      // do something when notification is received
+      console.log('Tapped', data);
+
+    });
+
+    this.oneSignal.handleNotificationOpened().subscribe((data) => {
+      // do something when a notification is opened
+      //consol
+      var notificationOpenedCallback = function (data) {
+        // console.log('notificationOpenedCallback: ' + JSON.stringify(data));
+        alert('notificationOpenedCallback: ' + JSON.stringify(data));
+      };
+
+      this.nav.setRoot('NotificationPage', {
+        item: JSON.stringify(data)
+      });
+
+      /*
+      let alert = this.alertCtrl.create({
+        title: 'Handle Notification',
+        subTitle: JSON.stringify(data),
+        buttons: ['Ok']
+      });
+      alert.present();
+      */
+    });
+
+    this.oneSignal.endInit();
+  
   }
 }

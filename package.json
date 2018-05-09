@@ -32,6 +32,7 @@
     "@ionic-native/image-picker": "^4.5.3",
     "@ionic-native/local-notifications": "^4.7.0",
     "@ionic-native/network": "^4.5.3",
+    "@ionic-native/onesignal": "^4.7.0",
     "@ionic-native/splash-screen": "4.4.0",
     "@ionic-native/status-bar": "4.4.0",
     "@ionic-native/toast": "^4.7.0",
@@ -41,6 +42,7 @@
     "call-number": "^1.0.1",
     "com.synconset.imagepicker": "^2.1.10",
     "cordova-admob-sdk": "^0.16.0",
+    "cordova-android": "~6.4.0",
     "cordova-plugin-admob-free": "^0.16.0",
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-badge": "^0.8.7",
@@ -61,11 +63,11 @@
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
     "mx.ferreyra.callnumber": "~0.0.2",
+    "onesignal-cordova-plugin": "^2.4.0",
     "phonegap-plugin-barcodescanner": "^7.1.1",
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.18",
-    "cordova-android": "~6.4.0"
+    "zone.js": "0.8.18"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.8",
@@ -89,7 +91,8 @@
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-sms": {},
-      "cordova-plugin-local-notification": {}
+      "cordova-plugin-local-notification": {},
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
       "android"

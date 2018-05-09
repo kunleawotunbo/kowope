@@ -15,6 +15,8 @@ import { AdMobFree } from '@ionic-native/admob-free';
 import { CallNumber } from '@ionic-native/call-number';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { OneSignal } from '@ionic-native/onesignal';
+
 //import { FCM } from '@ionic-native/fcm';
 //import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 //import { File } from '@ionic-native/file';
@@ -66,6 +68,7 @@ import { NetworkInterceptor } from '../providers/network.interceptor';
     CallNumber,
     AndroidPermissions,
     LocalNotifications,
+    OneSignal,
     //FCM,
 
     AuthService,

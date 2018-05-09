@@ -54,3 +54,7 @@ ionic cordova run android -l
 
         ionic platform rm android
         ionic platform add android
+
+11.     ## OneSignal Push Notification
+
+        https://www.youtube.com/watch?v=9iqRTX7RNds
