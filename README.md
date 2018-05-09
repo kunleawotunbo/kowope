@@ -46,3 +46,11 @@ chrome://inspect/#devices
 
 8. Google play console
 https://play.google.com/apps/publish
+
+9.   ## Run on android with live reload
+ionic cordova run android -l
+
+10.     ## Remove and add platform
+
+        ionic platform rm android
+        ionic platform add android

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
+import { AdMobFree, AdMobFreeBannerConfig, /*AdMobFreeInterstitialConfig */} from '@ionic-native/admob-free';
 import { Storage } from '@ionic/storage';
 import { AuthService } from '../providers/auth-service';
 import { UtilityService } from '../utility/utility.service';

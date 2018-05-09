@@ -16,7 +16,9 @@ export class OthersPage {
 
     this.items = [
       { title: 'USSD', icon:'home', component: 'UssdPage' },
-      { title: 'SMS OTP', icon:'lock', component: 'SmsotpPage' }
+      { title: 'SMS OTP', icon:'lock', component: 'SmsotpPage' },
+      { title: 'Verify OTP', icon:'body', component: 'SmsOtpReceivePage' },
+      { title: 'Notification', icon:'alarm', component: 'NotificationPage' }
     ];
   }
 

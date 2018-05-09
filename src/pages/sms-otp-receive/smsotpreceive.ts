@@ -85,10 +85,11 @@ export class SmsOtpReceivePage {
     });
   }
 
-  verifyOTP(mobileNo, otp) {
+  verifyOTP() {
     this.utilityService.presentLoading();
     var result;
-    this.quickbooksService.verifyOTP(mobileNo, otp).subscribe(
+    
+    this.quickbooksService.verifyOTP(this.mobile, this.otp).subscribe(
       data => {
         result = data;
       },
@@ -98,13 +99,10 @@ export class SmsOtpReceivePage {
         this.utilityService.loadingDismiss();
       },
       () => {
-        console.log("result :: " + result);
-        //this.txnsList = result.txns;
-        //this.isLoaded = true;
-
-        //this.navCtrl.push('OtpReceivePage',{mobileno:this.mobile})
+        //console.log("result :: " + result);
 
         this.utilityService.loadingDismiss();
+        this.utilityService.showNotification(result.message);
       });
   }
 

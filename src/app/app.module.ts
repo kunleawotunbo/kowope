@@ -14,6 +14,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdMobFree } from '@ionic-native/admob-free';
 import { CallNumber } from '@ionic-native/call-number';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+//import { FCM } from '@ionic-native/fcm';
 //import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 //import { File } from '@ionic-native/file';
 
@@ -63,6 +65,8 @@ import { NetworkInterceptor } from '../providers/network.interceptor';
     AdMobFree,
     CallNumber,
     AndroidPermissions,
+    LocalNotifications,
+    //FCM,
 
     AuthService,
     ConfigService,

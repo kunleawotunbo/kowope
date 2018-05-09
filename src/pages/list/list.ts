@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
-import { SampleService } from '../../providers/sample.service';
 
 @IonicPage()
 @Component({
@@ -15,7 +14,6 @@ export class ListPage {
   errorMessage: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public sampleService: SampleService
   ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
@@ -35,7 +33,7 @@ export class ListPage {
   }
 
   ionViewDidLoad(){
-    this.getCountries();
+    
   }
 
   itemTapped(event, item) {
@@ -45,13 +43,5 @@ export class ListPage {
     });
   }
 
-  getCountries(){
-    
-    this.sampleService.getCountries()
-      .subscribe(
-        countries => this.countries = countries,
-        error => this.errorMessage = <any>error
-      );
-      
-  }
+ 
 }

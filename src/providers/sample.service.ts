@@ -17,7 +17,7 @@ export class SampleService {
   private apiUrl = 'https://restcountries.eu/rest/v2/all';
 
   constructor(public http: HttpClient) {
-    console.log('Hello AuthServiceProvider Provider');
+    //console.log('Hello AuthServiceProvider Provider');
   }
 
   getProducts(){

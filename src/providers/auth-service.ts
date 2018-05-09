@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { ConfigService } from '../utility/config.service';
 import { Events } from 'ionic-angular';
 
@@ -37,7 +37,7 @@ export class AuthService {
       password: password
     };
 
-    const token = this.getToken();
+    //const token = this.getToken();
 
     const httpOptions = this.getHeaders();
 
