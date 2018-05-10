@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, PopoverController, DateTime } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { GpslocationPopoverPage } from '../gpslocation-popover/gpslocation-popover';
-import { SharePopoverPage} from '../share-popover/share-popover';
+import { SharePopoverPage } from '../share-popover/share-popover';
 import { UtilityService } from '../../utility/utility.service';
 
 @IonicPage()
@@ -44,7 +45,8 @@ export class GpslocationPage {
   constructor(public navCtrl: NavController,
     private geolocation: Geolocation,
     public popoverCtrl: PopoverController,
-    public utilityService: UtilityService
+    public utilityService: UtilityService,
+    private launchNavigator: LaunchNavigator
   ) {
 
 
@@ -113,20 +115,55 @@ export class GpslocationPage {
   }
 
   presentPopover(event: Event) {
-    let popover = this.popoverCtrl.create(GpslocationPopoverPage);
+
+    var item = 'Just for testing purpose';
+
+    //let popover = this.popoverCtrl.create(GpslocationPopoverPage);
+
+    // Pass data to the popover and also add cssClass to customize the popover
+    // the cssClass is located in the app.scss
+    let popover = this.popoverCtrl.create(GpslocationPopoverPage, {
+      item: item
+    }, {
+      cssClass: 'custom-popover'
+      }
+    );
+
     popover.present({ ev: event });
   }
 
-  share(event: Event){
+  share(event: Event) {
     // var msg = this.quotes[index].content + "-" + this.quotes[index].title ;
     var msg = this.location.latitude;
 
-    // let popover = this.popoverCtrl.create(SharePopoverPage);
+    // Pass data to the popover and also add cssClass to customize the popover
+    // the cssClass is located in the app.scss
     let popover = this.popoverCtrl.create(SharePopoverPage, {
       msg: msg
-    });
+    }, {
+      cssClass: 'custom-popover'
+      }
+    );
+
+
     console.log("event :: " + event);
-    popover.present({ev: event});
+    popover.present({ ev: event });
+  }
+
+  launchMapNavigator(lat, lng){
+    let options: LaunchNavigatorOptions = {
+      //start: 'London, ON',
+     // app: LaunchNavigator.APPS.UBER
+    };
+    
+   // destination	string|Array.<number>	Location name or coordinates (as string or array)
+   let destination = lat +','+lng;
+    // this.launchNavigator.navigate('Toronto, ON', options)
+    this.launchNavigator.navigate(destination, options)
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
   }
 
 

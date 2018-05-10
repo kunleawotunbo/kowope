@@ -92,3 +92,8 @@ ion-menu{
   .activeHighlight{
     background-color: map-get($colors, dblack) !important;
 }
+
+.custom-popover .popover-content{
+    width: 50%;
+    $item-md-detail-push-show: false;
+  }

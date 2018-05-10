@@ -18,6 +18,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { OneSignal } from '@ionic-native/onesignal';
 import { Geolocation } from '@ionic-native/geolocation';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 
 
@@ -77,6 +78,7 @@ import { SharePopoverPage } from '../pages/share-popover/share-popover';
     OneSignal,
     Geolocation,
     SocialSharing,
+    LaunchNavigator,
 
     AuthService,
     ConfigService,

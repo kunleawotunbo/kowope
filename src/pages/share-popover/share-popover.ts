@@ -4,13 +4,14 @@ import { App, NavController, ModalController, ViewController, NavParams } from '
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
+    selector: 'page-share-popover',
     template: `
-    <ion-list no-lines detail-none>      
-      <button ion-item (click)="whatsappShare()"><ion-icon class="share-icon" name="logo-whatsapp"></ion-icon> WhatsApp</button>
-      <button ion-item (click)="twitterShare()"><ion-icon class="share-icon" name="logo-twitter"></ion-icon> Twitter</button>
-      <button ion-item (click)="facebookShare()"><ion-icon class="share-icon" name="logo-facebook"></ion-icon> Facebook</button>
-      <button ion-item (click)="smsShare()"><ion-icon class="share-icon" name="logo-sms"></ion-icon>SMS</button>
-      <button ion-item (click)="otherShare()">Others</button>
+    <ion-list no-lines>      
+      <button ion-item detail-none (click)="whatsappShare()"><ion-icon class="share-icon" name="logo-whatsapp"></ion-icon> WhatsApp</button>
+      <button ion-item detail-none (click)="twitterShare()"><ion-icon class="share-icon" name="logo-twitter"></ion-icon> Twitter</button>
+      <button ion-item detail-none (click)="facebookShare()"><ion-icon class="share-icon" name="logo-facebook"></ion-icon> Facebook</button>
+      <button ion-item detail-none (click)="smsShare()"><ion-icon class="share-icon" name="logo-sms"></ion-icon>SMS</button>
+      <button ion-item detail-none (click)="otherShare()">Others</button>
     </ion-list>
   `
 })

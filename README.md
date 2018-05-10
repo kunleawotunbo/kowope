@@ -7,7 +7,9 @@
 
 2.  ## Build before opening the project in android studio
 
-        ionic cordova build --release android
+        //ionic cordova build --release android
+
+        ionic cordova build android --prod --release
 
         Then go to android studio, open the android folder of the ionic project with android studio. 
         Goto build -> Generate Signed APK -> Select keystore -> check sign jar and apk
@@ -79,10 +81,19 @@
 16.     ## Double tap back button to exit
 
         https://pointdeveloper.com/ionic-double-tap-back-button-exit/
-        
+
 17.     ## Social Sharing
         https://pointdeveloper.com/add-social-sharing-to-your-ionic-2-app/
         https://medium.com/@mikeyny/easy-social-sharing-with-ionic-3-and-ionic-native-f2c42807f43c
 
         ## Pass data to popover
         https://stackoverflow.com/a/45096561/2105396
+
+18.     ## Style Ionic Popover
+        The style should be done in app.scss
+
+        https://stackoverflow.com/a/45825084/2105396
+
+19.     ## Map Launch Navigator
+
+        https://stackoverflow.com/a/45996649/2105396
