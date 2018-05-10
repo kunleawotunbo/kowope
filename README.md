@@ -79,3 +79,10 @@
 16.     ## Double tap back button to exit
 
         https://pointdeveloper.com/ionic-double-tap-back-button-exit/
+        
+17.     ## Social Sharing
+        https://pointdeveloper.com/add-social-sharing-to-your-ionic-2-app/
+        https://medium.com/@mikeyny/easy-social-sharing-with-ionic-3-and-ionic-native-f2c42807f43c
+
+        ## Pass data to popover
+        https://stackoverflow.com/a/45096561/2105396

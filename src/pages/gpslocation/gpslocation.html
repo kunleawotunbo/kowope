@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>GPS Location</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only color="royal">
+      <button ion-button icon-only color="royal" (click)="share($event)">
         <ion-icon name="share"></ion-icon>
       </button>
       <button ion-button icon-only (click)="presentPopover($event)">

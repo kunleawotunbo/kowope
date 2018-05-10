@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage, PopoverController, DateTime } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GpslocationPopoverPage } from '../gpslocation-popover/gpslocation-popover';
+import { SharePopoverPage} from '../share-popover/share-popover';
 import { UtilityService } from '../../utility/utility.service';
 
 @IonicPage()
@@ -114,6 +115,18 @@ export class GpslocationPage {
   presentPopover(event: Event) {
     let popover = this.popoverCtrl.create(GpslocationPopoverPage);
     popover.present({ ev: event });
+  }
+
+  share(event: Event){
+    // var msg = this.quotes[index].content + "-" + this.quotes[index].title ;
+    var msg = this.location.latitude;
+
+    // let popover = this.popoverCtrl.create(SharePopoverPage);
+    let popover = this.popoverCtrl.create(SharePopoverPage, {
+      msg: msg
+    });
+    console.log("event :: " + event);
+    popover.present({ev: event});
   }
 
 

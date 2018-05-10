@@ -17,10 +17,9 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { OneSignal } from '@ionic-native/onesignal';
 import { Geolocation } from '@ionic-native/geolocation';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
-//import { FCM } from '@ionic-native/fcm';
-//import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-//import { File } from '@ionic-native/file';
+
 
 import { MyApp } from './app.component';
 
@@ -33,11 +32,13 @@ import { UtilityService } from '../utility/utility.service';
 import { SampleService } from '../providers/sample.service';
 import { NetworkInterceptor } from '../providers/network.interceptor';
 import { GpslocationPopoverPage } from '../pages/gpslocation-popover/gpslocation-popover';
+import { SharePopoverPage } from '../pages/share-popover/share-popover';
 
 @NgModule({
   declarations: [
     MyApp,
-    GpslocationPopoverPage
+    GpslocationPopoverPage,
+    SharePopoverPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,8 @@ import { GpslocationPopoverPage } from '../pages/gpslocation-popover/gpslocation
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    GpslocationPopoverPage
+    GpslocationPopoverPage,
+    SharePopoverPage
   ],
   providers: [
     StatusBar,
@@ -74,6 +76,7 @@ import { GpslocationPopoverPage } from '../pages/gpslocation-popover/gpslocation
     LocalNotifications,
     OneSignal,
     Geolocation,
+    SocialSharing,
 
     AuthService,
     ConfigService,
