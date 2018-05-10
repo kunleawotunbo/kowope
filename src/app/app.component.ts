@@ -259,21 +259,15 @@ export class MyApp {
       //consol
       var notificationOpenedCallback = function (data) {
         // console.log('notificationOpenedCallback: ' + JSON.stringify(data));
-        alert('notificationOpenedCallback: ' + JSON.stringify(data));
+        // alert('notificationOpenedCallback: ' + JSON.stringify(data));
+        alert('notificationOpenedCallback: ' + data);
       };
 
       this.nav.setRoot('NotificationPage', {
-        item: JSON.stringify(data)
+        //item: JSON.stringify(data)
+        item: data
       });
 
-      /*
-      let alert = this.alertCtrl.create({
-        title: 'Handle Notification',
-        subTitle: JSON.stringify(data),
-        buttons: ['Ok']
-      });
-      alert.present();
-      */
     });
 
     this.oneSignal.endInit();

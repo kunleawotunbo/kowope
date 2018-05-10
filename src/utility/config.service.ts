@@ -14,8 +14,8 @@ export class ConfigService {
 
     constructor() {
         this.API_KEY = "1234";
-        // this.API_URL = "http://localhost:8000/api/";
-         this.API_URL = "http://10.0.2.2:8000/api/";
+        this.API_URL = "http://localhost:8000/api/";
+        //  this.API_URL = "http://10.0.2.2:8000/api/";
         // this.API_URL = "http://192.168.100:8000/api/";
         //this.API_URL = "https://quickbooksbackend.tunbor.com/api/";
         this.payStackAPI = "https://api.paystack.co/";

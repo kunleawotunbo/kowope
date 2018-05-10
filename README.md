@@ -58,3 +58,12 @@ ionic cordova run android -l
 11.     ## OneSignal Push Notification
 
         https://www.youtube.com/watch?v=9iqRTX7RNds
+
+12.     ## Auto Hiding Header on Scroll in Ionic
+        https://www.youtube.com/watch?v=abDaZnx6tkU
+
+13.     ## Building an Accordion Component in Ionic 3
+        https://www.youtube.com/watch?v=47DP2db-4k8
+
+14.     ## Show/Hide password icon
+        https://stackoverflow.com/a/49099347/2105396

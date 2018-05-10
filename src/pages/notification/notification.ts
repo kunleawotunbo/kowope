@@ -23,8 +23,9 @@ export class NotificationPage {
     public alertCtrl: AlertController,
     public navParams: NavParams
   ) {
-    console.log("Inside notification page");
-    this.data = this.navParams.get('item');
+    console.log("Inside notification pageInside notification page");
+     this.data = this.navParams.get('item');
+    //this.data = JSON.parse(this.navParams.get('item'));
 
     this.platform.ready().then((readySource) => {
       //this.localNotifications.on('click');
@@ -32,13 +33,18 @@ export class NotificationPage {
     });
 
     //this.onNotification();
-
+    
   }
 
   ionViewDidLoad(){
+    /*
+    this.data.notification.payload.notificationID;
+    this.data.notification.payload.title;
+    this.data.notification.payload.body;
+    */
     let alert = this.alertCtrl.create({
-      title: 'Simple Notification',
-      subTitle: this.data,
+      title: this.data.notification.payload.title,
+      subTitle: this.data.notification.payload.body,
       buttons: ['Ok']
     });
     alert.present();

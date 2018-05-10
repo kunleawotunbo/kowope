@@ -13,5 +13,12 @@
         .centerAlign { display: table-cell; vertical-align: middle; border:#ff0000 1px solid; }
   
         .item{border:$border-color 1px solid !important; margin-bottom:10px;}
+
+        .passwordIcon{
+          font-size:32px !important;
+          position: relative !important;
+          // top: 22px !important;
+          margin: 0 auto !important;
+       }
     }
   }

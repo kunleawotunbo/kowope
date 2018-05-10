@@ -23,10 +23,8 @@ export class LoginPage {
   form: FormGroup;
   public alert: boolean; isDeviceOnline;
   public username: AbstractControl; password;
-  //username: string;
-  //password: string; error;
-  //loader: any;
-  //currentUser: any;
+  passwordType: string = 'password';
+  passwordIcon: string = 'eye-off';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public loadingCtrl: LoadingController, public authService: AuthService,
@@ -69,8 +67,8 @@ export class LoginPage {
   }
 
 
-  submitForm(){
-    
+  submitForm() {
+
     //
     /*
     let credentials = {
@@ -83,7 +81,7 @@ export class LoginPage {
       username: this.username.value,
       password: this.password.value
     };
-    
+
     if (this.utilityService.isOnline()) {
       this.sigin(credentials);
     } else {
@@ -91,7 +89,7 @@ export class LoginPage {
     }
   }
 
-  sigin(credentials){
+  sigin(credentials) {
 
     //this.showLoader();
     this.utilityService.presentLoading();
@@ -106,7 +104,7 @@ export class LoginPage {
       },
       error => {
         console.log(error);
-       
+
         var message = "";
         if (error.status === 401) {
           message = "Incorrect Username/Password";
@@ -126,7 +124,7 @@ export class LoginPage {
         // Login successful        
 
         // Determine logged in user type and menu to show in the app
-       
+
         this.storage.set('currentUser', JSON.stringify(result.user));
         this.storage.set('token', result.token);
         localStorage.setItem('token', result.token);
@@ -140,7 +138,7 @@ export class LoginPage {
         this.events.publish('user:login', this.currentUser);
         //this.events.publish('user:login');
 
-        
+
         //console.log("this.currentUser.user_type :: " + this.currentUser.user_type);
         var loggedInType = parseInt(this.currentUser.user_type);
         this.utilityService.determineMenu(loggedInType);
@@ -149,6 +147,11 @@ export class LoginPage {
         this.navCtrl.setRoot("HomePage");
       }
     );
+  }
+
+  hideShowPassword() {
+    this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+    this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
   }
 
   showLoader() {
