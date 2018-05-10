@@ -9,20 +9,22 @@ import { UtilityService } from '../../utility/utility.service';
 })
 export class OthersPage {
 
-  items: Array<{title: string, icon: string, component: any}>;
+  items: Array<{ title: string, icon: string, component: any }>;
   constructor(public navCtrl: NavController,
     public utilityService: UtilityService
   ) {
 
     this.items = [
-      { title: 'USSD', icon:'home', component: 'UssdPage' },
-      { title: 'SMS OTP', icon:'lock', component: 'SmsotpPage' },
-      { title: 'Verify OTP', icon:'body', component: 'SmsOtpReceivePage' },
-      { title: 'Notification', icon:'alarm', component: 'NotificationPage' }
+      { title: 'USSD', icon: 'home', component: 'UssdPage' },
+      { title: 'SMS OTP', icon: 'lock', component: 'SmsotpPage' },
+      { title: 'Verify OTP', icon: 'body', component: 'SmsOtpReceivePage' },
+      { title: 'Notification', icon: 'alarm', component: 'NotificationPage' },
+      { title: 'GPS Location', icon: 'locate', component: 'GpslocationPage' },
+      { title: 'Scanner', icon: 'qr-scanner', component: 'ScannerPage' },
     ];
   }
 
-  itemSelected(item){
+  itemSelected(item) {
     if (this.utilityService.isOnline()) {
       this.navCtrl.push(item.component, {
         item: item

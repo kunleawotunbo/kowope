@@ -33,7 +33,7 @@
 
 7.  ##  Added background image to the side menu
     Check inside the app.scss to add the background-image in the toolbar
-    
+
         ion-toolbar{         
                 .toolbar-background{background:$menu_bg_color; border:0px; background-image:url('../assets/images/sidemenu-pattern.png');
                 }
@@ -51,7 +51,8 @@
         https://play.google.com/apps/publish
 
 9.   ## Run on android with live reload
-ionic cordova run android -l
+
+        ionic cordova run android -l
 
 10.     ## Remove and add platform
 

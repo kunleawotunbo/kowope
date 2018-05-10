@@ -16,6 +16,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { OneSignal } from '@ionic-native/onesignal';
+import { Geolocation } from '@ionic-native/geolocation';
 
 //import { FCM } from '@ionic-native/fcm';
 //import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
@@ -31,10 +32,12 @@ import { ConfigService } from '../utility/config.service';
 import { UtilityService } from '../utility/utility.service';
 import { SampleService } from '../providers/sample.service';
 import { NetworkInterceptor } from '../providers/network.interceptor';
+import { GpslocationPopoverPage } from '../pages/gpslocation-popover/gpslocation-popover';
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    GpslocationPopoverPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { NetworkInterceptor } from '../providers/network.interceptor';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    GpslocationPopoverPage
   ],
   providers: [
     StatusBar,
@@ -69,7 +73,7 @@ import { NetworkInterceptor } from '../providers/network.interceptor';
     AndroidPermissions,
     LocalNotifications,
     OneSignal,
-    //FCM,
+    Geolocation,
 
     AuthService,
     ConfigService,

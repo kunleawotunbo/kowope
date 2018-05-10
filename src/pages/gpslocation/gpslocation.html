@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>GPS Location</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal">
+        <ion-icon name="share"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="presentPopover($event)">
+          <ion-icon name="more"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card *ngIf="isReady">
+    <!-- <ion-card-header>
+      Header
+    </ion-card-header> -->
+
+    <ion-card-content>
+
+      <ion-list>
+
+        <ion-item>
+          <ion-icon name="locate" item-start></ion-icon>
+          <h2>Latitude</h2>
+          <p>{{location.latitude}}</p>
+          <p>{{dms.latDegrees}}&deg; {{dms.latMinutes}}&#8217; {{dms.latSeconds}}&quot; {{dms.latCardinal}} </p>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="locate" item-start></ion-icon>
+          <h2>Longitude</h2>
+          <p>{{location.longitude}}</p>
+          <p>{{dms.lngDegrees}}&deg; {{dms.lngMinutes}}&#8217; {{dms.lngSeconds}}&quot; {{dms.lngCardinal}} </p>
+        </ion-item>
+      </ion-list>
+
+      <div class="line"></div>
+
+      <ion-list>
+        <ion-item>
+          <ion-icon name="paper-plane" item-start></ion-icon>
+          <h2>Altitude</h2>
+          <p>{{location.altitude}} meters</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="information-circle" item-start></ion-icon>
+          <h2>Accuracy</h2>
+          <p>{{location.accuracy}} meters</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="timer" item-start></ion-icon>
+          <h2>Last Update</h2>
+          <p>{{date | date: 'LLL dd, yyyy h:mm a'}}</p>
+        </ion-item>
+<!-- 
+        <ion-item>
+            <ion-icon name="planet" item-start></ion-icon>
+            <h2>Coordinates</h2>
+            <p>{{geoposition.cords}}</p>
+          </ion-item> -->
+
+      </ion-list>
+
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

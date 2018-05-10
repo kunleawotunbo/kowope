@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Network } from '@ionic-native/network';
-import { 
+import {
   Platform,
-  ToastController, 
-  LoadingController, 
-  MenuController, 
-  AlertController 
+  ToastController,
+  LoadingController,
+  MenuController,
+  AlertController
 } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
@@ -24,7 +24,7 @@ export class UtilityService {
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     public menuCtrl: MenuController,
-    public storage: Storage,    
+    public storage: Storage,
     public alertCtrl: AlertController
   ) {
 
@@ -32,7 +32,65 @@ export class UtilityService {
     this.onDevice = this.platform.is('cordova');
   }
 
-  showNoNetworkAlert(){
+  // https://stackoverflow.com/a/37893239/2105396
+  toDegreesMinutesAndSeconds(coordinate) {
+    var absolute = Math.abs(coordinate);
+    var degrees = Math.floor(absolute);
+    var minutesNotTruncated = (absolute - degrees) * 60;
+    var minutes = Math.floor(minutesNotTruncated);
+    var seconds = Math.floor((minutesNotTruncated - minutes) * 60);
+
+    return degrees + " " + minutes + " " + seconds;    
+  }
+
+  toDegreesMinutesAndSeconds2(coordinate) {
+    var absolute = Math.abs(coordinate);
+    var degrees = Math.floor(absolute);
+    var minutesNotTruncated = (absolute - degrees) * 60;
+    var minutes = Math.floor(minutesNotTruncated);
+    var seconds = Math.floor((minutesNotTruncated - minutes) * 60);
+
+    //return degrees + " " + minutes + " " + seconds;
+    let values = {
+      degrees: degrees,
+      minutes: minutes,
+      seconds: seconds
+    }
+    return values;
+  }
+
+  convertDMS(lat, lng) {
+    var latitude = this.toDegreesMinutesAndSeconds(lat);
+    var latitudeCardinal = Math.sign(lat) >= 0 ? "N" : "S";    
+
+    var longitude = this.toDegreesMinutesAndSeconds(lng);
+    var longitudeCardinal = Math.sign(lng) >= 0 ? "E" : "W";
+
+    return latitude + " " + latitudeCardinal + "\n" + longitude + " " + longitudeCardinal;
+  }
+
+  convertDMSLat(lat) {
+    var latitude = this.toDegreesMinutesAndSeconds(lat);
+    var latitudeCardinal = Math.sign(lat) >= 0 ? "N" : "S";
+    //console.log("")
+
+    //var longitude = this.toDegreesMinutesAndSeconds(lng);
+    //var longitudeCardinal = Math.sign(lng) >= 0 ? "E" : "W";
+
+    return latitude + " " + latitudeCardinal;
+  }
+
+  convertDMSLng(lat, lng) {
+    var latitude = this.toDegreesMinutesAndSeconds(lat);
+    var latitudeCardinal = Math.sign(lat) >= 0 ? "N" : "S";
+    //console.log("")
+
+    var longitude = this.toDegreesMinutesAndSeconds(lng);
+    var longitudeCardinal = Math.sign(lng) >= 0 ? "E" : "W";
+
+    return latitude + " " + latitudeCardinal + "\n" + longitude + " " + longitudeCardinal;
+  }
+  showNoNetworkAlert() {
     let alert = this.alertCtrl.create({
       title: 'No Internet Connection',
       subTitle: 'Please check your internet connection.',
@@ -49,12 +107,12 @@ export class UtilityService {
     return disconnectSubscription;
   }
 
-  onConnect(){
+  onConnect() {
     console.log("inside onConnect");
     let connectSubscription = this.network.onConnect().subscribe(() => {
       console.log('network connected!');
       // We just got a connection but we need to wait briefly
-       // before we determine the connection type. Might need to wait.
+      // before we determine the connection type. Might need to wait.
       // prior to doing any api requests as well.
       /*
       setTimeout(() => {
@@ -258,13 +316,13 @@ export class UtilityService {
   presentLoading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'bubbles',
-      
+
       duration: 40000
     });
     this.loader.present();
   }
 
-  
+
   presentLoadingWithTimer(duration) {
     this.loader = this.loadingCtrl.create({
       content: "Please wait...",

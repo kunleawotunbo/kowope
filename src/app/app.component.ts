@@ -31,10 +31,9 @@ export class MyApp {
     { title: 'Profile', icon: 'contact', component: 'ProfilePage' },
     { title: 'Fleet Management', icon: 'car', component: 'FleetmgtPage' },
     { title: 'Journals', icon: 'card', component: 'JournalsPage' },
-    { title: 'Scanner', icon: 'qr-scanner', component: 'ScannerPage' },
     { title: 'Support', icon: 'chatbubbles', component: 'SupportPage' },
     { title: 'Payment', icon: 'card', component: 'PaymentPage' },
-    { title: 'Others', icon: 'flower', component: 'OthersPage' },
+    { title: 'Others', icon: 'apps', component: 'OthersPage' },
   ];
   driverPages: PageInterface[] = [
     { title: 'Home', icon: 'home', component: 'HomePage' },
