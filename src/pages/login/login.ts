@@ -25,6 +25,7 @@ export class LoginPage {
   public username: AbstractControl; password;
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
+  isReady: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public loadingCtrl: LoadingController, public authService: AuthService,
@@ -33,7 +34,26 @@ export class LoginPage {
     public storage: Storage,
     public events: Events,
     public formBuilder: FormBuilder,
-  ) {
+  ) {    
+
+    this.initForm();
+    
+    // Get username/email stored in local storage and set it in the email field
+    this.storage.get('username').then((username) => {
+      //console.log("username :: " + username);
+      if(username){
+        this.form.controls['username'].setValue(username);
+      } else {
+        this.form.controls['username'].setValue('');
+      }
+      this.isReady = true;
+    });
+    
+
+  }
+
+  initForm(){
+
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -45,19 +65,19 @@ export class LoginPage {
 
   ionViewDidLoad() {
 
+    // this.initForm();
+    /*
     if (this.utilityService.isOnline()) {
-      // this.getGameList();
+      
     } else {
       this.alert = true;
       this.message = "Unable to connect to the internet. Please check your settings";
       this.loader.dismiss();
       this.utilityService.showNoNetworkAlert();
     }
+    */
   }
 
-  // dashboardPage() {
-  //   this.navCtrl.push('HomePage');
-  // }
   signupPage() {
     this.navCtrl.push('SignupPage');
   }
@@ -68,14 +88,6 @@ export class LoginPage {
 
 
   submitForm() {
-
-    //
-    /*
-    let credentials = {
-      username: this.username,
-      password: this.password
-    };
-    */
 
     let credentials = {
       username: this.username.value,
@@ -128,6 +140,7 @@ export class LoginPage {
         this.storage.set('currentUser', JSON.stringify(result.user));
         this.storage.set('token', result.token);
         localStorage.setItem('token', result.token);
+        this.storage.set('username', result.user.email);
 
         //Publish login event
         // Events is a publish-subscribe style event system for sending and responding 

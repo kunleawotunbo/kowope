@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, Events } from 'ionic-angular';
+import { Nav, Platform, MenuController, Events, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AdMobFree, AdMobFreeBannerConfig, /*AdMobFreeInterstitialConfig */ } from '@ionic-native/admob-free';
@@ -25,6 +25,7 @@ export class MyApp {
   profilePicture: string;
   currentUser: any;
   isLoaded: boolean;
+  counter = 0;
   pages: PageInterface[] = [
     { title: 'Home', icon: 'home', component: 'HomePage' },
     { title: 'Profile', icon: 'contact', component: 'ProfilePage' },
@@ -58,6 +59,7 @@ export class MyApp {
     public admob: AdMobFree,
     public configService: ConfigService,
     private oneSignal: OneSignal,
+    public toastCtrl: ToastController
 
   ) {
     this.initializeApp();
@@ -79,10 +81,10 @@ export class MyApp {
       this.statusBar.styleDefault();
       //http://www.codingandclimbing.co.uk/blog/ionic-2-fix-splash-screen-white-screen-issue
       // Fix issue where you see a blank screen after your splash screen disappears.
-
+      
       setTimeout(() => {
         this.splashScreen.hide();
-      }, 100);
+      }, 100);      
 
       //this.splashScreen.hide();
 
@@ -108,25 +110,21 @@ export class MyApp {
       // Load AdMob
       this.initializeAds();
 
-      // OneSignal Code start:
-      // Enable to debug issues:
-      //window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-      
-      /*
-        var notificationOpenedCallback = function (jsonData) {
-          console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-        };
-
-        window["plugins"].OneSignal
-          .startInit(this.configService.getOneSignalAppId(), this.configService.getGoogleProjectId())
-          .handleNotificationOpened(notificationOpenedCallback)
-          .endInit();
-      */
 
       // Initialize oneSignal
-      //this.initOneSignal();
+      this.initOneSignal();
 
-      this.initOneSignal2();
+      this.platform.registerBackButtonAction(() => {
+        if(this.counter == 0) {
+          this.counter++;
+          this.presentToast();
+          setTimeout(() => {
+            this.counter = 0
+          }, 3000);
+        } else {
+          this.platform.exitApp();
+        }
+      }, 0);
 
     });
   }
@@ -223,25 +221,7 @@ export class MyApp {
 
   }
 
-  initOneSignal(){
-    // OneSignal Code start:
-      // Enable to debug issues:
-      //window["plugins"].OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-      
-        var notificationOpenedCallback = function (jsonData) {
-          console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-          this.nav.setRoot('NotificationPage', {
-            item: JSON.stringify(jsonData)
-          });
-        };
-
-        window["plugins"].OneSignal
-          .startInit(this.configService.getOneSignalAppId(), this.configService.getGoogleProjectId())
-          .handleNotificationOpened(notificationOpenedCallback)
-          .endInit();      
-  }
-
-  initOneSignal2() {
+  initOneSignal() {
 
     
     this.oneSignal.startInit(this.configService.getOneSignalAppId(), this.configService.getGoogleProjectId());
@@ -272,5 +252,14 @@ export class MyApp {
 
     this.oneSignal.endInit();
   
+  }
+
+  presentToast(){
+    let toast = this.toastCtrl.create({
+      message: "Press again to exit",
+      duration: 3000,
+      position: "middle"
+    });
+    toast.present();
   }
 }

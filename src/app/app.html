@@ -9,8 +9,8 @@
           <h2>{{currentUser.first_name}}</h2>
           <p>{{currentUser.phone_no}}</p>
         </div>
-
       </ion-item>
+      <!-- <p *ngIf="isLoaded">Last login : {{currentUser.last_login_date.date}}</p> -->
       <ion-buttons end>
         <button menuClose ion-button icon-only tappable (click)="editAccount()">
           <ion-icon name="settings"></ion-icon>
@@ -48,6 +48,7 @@
           <p>{{currentUser.phone_no}}</p>
         </div>
       </ion-item>
+      <!-- <p *ngIf="isLoaded">Last login : {{currentUser.last_login_date.date}}</p> -->
       <ion-buttons end>
         <button menuClose ion-button icon-only tappable (click)="editAccount()">
           <ion-icon name="settings"></ion-icon>
