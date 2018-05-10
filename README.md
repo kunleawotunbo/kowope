@@ -22,22 +22,25 @@
 
 4.  ##  To generate resources i.e icon and splash
 
-ionic cordova resources
+        ionic cordova resources
+
 5.  ##  When splashscreen is blank
         https://stackoverflow.com/questions/36132883/ionic-app-splash-screen-are-not-shown
 
 6.  ##  Inspect devices
 
-chrome://inspect/#devices
+        chrome://inspect/#devices
 
 7.  ##  Added background image to the side menu
     Check inside the app.scss to add the background-image in the toolbar
+    
         ion-toolbar{         
                 .toolbar-background{background:$menu_bg_color; border:0px; background-image:url('../assets/images/sidemenu-pattern.png');
                 }
         }
 
     And also inside the background image in the ion-content
+
         ion-content{
                 
                 background-color:$menu_bg_color !important;
@@ -69,7 +72,9 @@ ionic cordova run android -l
         https://stackoverflow.com/a/49099347/2105396
 15.     ## Remove splash screen spinner
         Add this in the config
+        
         <preference name="ShowSplashScreenSpinner" value="false"/>
+
 16.     ## Double tap back button to exit
 
         https://pointdeveloper.com/ionic-double-tap-back-button-exit/
