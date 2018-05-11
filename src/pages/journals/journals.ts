@@ -13,7 +13,7 @@ export class JournalsPage {
 
   txnsList: any;
   loader: any;
-  sectionTab: string = "history"; startDate; endDate;
+  sectionTab: string = "history"; startDate; endDate; currencyCode;
   isAndroid: boolean = false;
   isLoaded: boolean;
 
@@ -23,6 +23,7 @@ export class JournalsPage {
   ) {
     this.isAndroid = platform.is('android');
    // this.presentLoading();
+   this.currencyCode = "&#x20A6;";
   }
 
   ionViewDidLoad() {
@@ -84,6 +85,13 @@ export class JournalsPage {
         this.isLoaded = true;
         this.utilityService.loadingDismiss();
       });
+  }
+
+  presentMorePopover(event: Event) {
+
+    var item = 'Just for testing purpose';   
+
+    this.utilityService.presentMorePopover(event, item);
   }
 
 }

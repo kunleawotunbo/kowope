@@ -6,5 +6,11 @@
             margin: 0px;
             padding: 0px
         }
+
+        ion-list {
+            .item {
+                padding: 0px !important;
+            }
+        }
     }
 }

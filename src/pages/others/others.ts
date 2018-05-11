@@ -21,6 +21,7 @@ export class OthersPage {
       { title: 'Notification', icon: 'alarm', component: 'NotificationPage' },
       { title: 'GPS Location', icon: 'locate', component: 'GpslocationPage' },
       { title: 'Scanner', icon: 'qr-scanner', component: 'ScannerPage' },
+      { title: 'Map', icon: 'map', component: 'MapPage' },
     ];
   }
 
@@ -32,6 +33,13 @@ export class OthersPage {
     } else {
       this.utilityService.showNoNetworkAlert();
     }
+  }
+
+  presentMorePopover(event: Event) {
+
+    var item = 'Just for testing purpose';   
+
+    this.utilityService.presentMorePopover(event, item);
   }
 
 }

@@ -5,9 +5,11 @@ import {
   ToastController,
   LoadingController,
   MenuController,
-  AlertController
+  AlertController,
+  PopoverController,
 } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { MorePopoverPage } from '../pages/more-popover/more-popover';
 
 declare var Connection;
 declare var navigator;
@@ -25,11 +27,28 @@ export class UtilityService {
     public loadingCtrl: LoadingController,
     public menuCtrl: MenuController,
     public storage: Storage,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public popoverCtrl: PopoverController
   ) {
 
     // To detect if app is running on iOS or Android
     this.onDevice = this.platform.is('cordova');
+  }
+
+  presentMorePopover(event: Event, item: any) {
+
+    //var item = 'Just for testing purpose';
+
+    // Pass data to the popover and also add cssClass to customize the popover
+    // the cssClass is located in the app.scss
+    let popover = this.popoverCtrl.create(MorePopoverPage, {
+      item: item
+    }, {
+      cssClass: 'custom-popover'
+      }
+    );
+
+    popover.present({ ev: event });
   }
 
   // https://stackoverflow.com/a/37893239/2105396
@@ -95,6 +114,16 @@ export class UtilityService {
       title: 'No Internet Connection',
       subTitle: 'Please check your internet connection.',
       buttons: ['Ok']
+    });
+    alert.present();
+  }
+
+  showNoNetworkAlertTest() {
+    let alert = this.alertCtrl.create({
+      title: 'No Internet Connection',
+      subTitle: 'Please check your internet connection.',
+      buttons: ['Ok'],
+      cssClass: 'alertCustomCss'
     });
     alert.present();
   }

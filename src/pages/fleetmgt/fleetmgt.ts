@@ -124,5 +124,12 @@ export class FleetmgtPage {
     this.loader.present();
   }
 
+  presentMorePopover(event: Event) {
+
+    var item = 'Just for testing purpose';   
+
+    this.utilityService.presentMorePopover(event, item);
+  }
+
 
 }

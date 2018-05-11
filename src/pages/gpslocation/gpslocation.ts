@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, IonicPage, PopoverController, DateTime } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, IonicPage, PopoverController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { GpslocationPopoverPage } from '../gpslocation-popover/gpslocation-popover';
@@ -11,7 +11,7 @@ import { UtilityService } from '../../utility/utility.service';
   selector: 'page-gpslocation',
   templateUrl: 'gpslocation.html'
 })
-export class GpslocationPage {
+export class GpslocationPage implements OnInit{
 
   location: {
     latitude: number,
@@ -50,6 +50,11 @@ export class GpslocationPage {
   ) {
 
 
+    this.utilityService.presentLoading();
+    //this.getCurrentPosition();
+  }
+
+  ngOnInit(){
     this.getCurrentPosition();
   }
 
@@ -99,9 +104,10 @@ export class GpslocationPage {
 
       this.date = Date.now();
       this.isReady = true;
+      this.utilityService.loadingDismiss();
 
     }).catch((error) => {
-      console.log(error);
+      console.log("Unable to get geolocation", error);
     });
   }
 

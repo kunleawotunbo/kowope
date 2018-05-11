@@ -7,6 +7,8 @@ import { Crop } from '@ionic-native/crop';
 //import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { AuthService } from '../../providers/auth-service';
 import { Storage } from '@ionic/storage';
+import { UtilityService } from '../../utility/utility.service';
+
 
 @IonicPage()
 @Component({
@@ -31,7 +33,8 @@ export class ProfilePage {
     public cropService: Crop,
     public authService: AuthService,
     public events: Events,
-    public storage: Storage
+    public storage: Storage,
+    public utilityService: UtilityService
   ) {
     this.username = "Olakunle";
     this.profilePiture = "assets/images/avatar.png";
@@ -171,6 +174,13 @@ export class ProfilePage {
     }, function(error) {
       console.log(error);
     });
+  }
+
+  presentMorePopover(event: Event) {
+
+    var item = 'Just for testing purpose';   
+
+    this.utilityService.presentMorePopover(event, item);
   }
 
 }

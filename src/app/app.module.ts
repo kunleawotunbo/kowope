@@ -34,12 +34,14 @@ import { SampleService } from '../providers/sample.service';
 import { NetworkInterceptor } from '../providers/network.interceptor';
 import { GpslocationPopoverPage } from '../pages/gpslocation-popover/gpslocation-popover';
 import { SharePopoverPage } from '../pages/share-popover/share-popover';
+import { MorePopoverPage } from '../pages/more-popover/more-popover';
 
 @NgModule({
   declarations: [
     MyApp,
     GpslocationPopoverPage,
-    SharePopoverPage
+    SharePopoverPage,
+    MorePopoverPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { SharePopoverPage } from '../pages/share-popover/share-popover';
   entryComponents: [
     MyApp,
     GpslocationPopoverPage,
-    SharePopoverPage
+    SharePopoverPage,
+    MorePopoverPage
   ],
   providers: [
     StatusBar,

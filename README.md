@@ -97,3 +97,14 @@
 19.     ## Map Launch Navigator
 
         https://stackoverflow.com/a/45996649/2105396
+
+20.     ## Ionic 3 and Angular 4 Multi Level Accordion Menu Example
+
+        Dynamic Menu
+        https://www.djamware.com/post/58fdf9f080aca7414e78a63a/ionic-3-and-angular-4-multi-level-accordion-menu-example
+
+21.     ## Center ion-title in header
+
+        https://stackoverflow.com/a/43650789/2105396
+
+22.     ##

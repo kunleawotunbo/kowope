@@ -1,6 +1,10 @@
 page-others {
     ion-content{
-        
+        ion-list {
+            .item {
+                padding: 0px !important;
+            }
+        }
         
     }
 }

@@ -24,4 +24,11 @@ export class SupportPage {
     console.log("this.segment :: " + this.segment);
   }
 
+  presentMorePopover(event: Event) {
+
+    var item = 'Just for testing purpose';   
+
+    this.utilityService.presentMorePopover(event, item);
+  }
+
 }

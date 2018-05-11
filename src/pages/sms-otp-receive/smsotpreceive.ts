@@ -106,4 +106,12 @@ export class SmsOtpReceivePage {
       });
   }
 
+  testAlert(){
+    this.utilityService.showNoNetworkAlert();
+  }
+
+  customAlert(){
+    this.utilityService.showNoNetworkAlertTest();
+  }
+
 }

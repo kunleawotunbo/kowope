@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
   <title>Ionic App</title>
@@ -30,6 +31,7 @@
   <link href="build/main.css" rel="stylesheet">
 
 </head>
+
 <body>
 
   <!-- Ionic's root component and where the app will load -->
@@ -45,7 +47,11 @@
   <!-- The main bundle js is generated during the build process -->
   <script src="build/main.js"></script>
 
-   <!--PayStack js-->
-   <script src="https://js.paystack.co/v1/inline.js"></script>
+  <!--PayStack js-->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+
+  <!-- google maps script is loaded last as to not block rendering -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js"></script>
 </body>
+
 </html>

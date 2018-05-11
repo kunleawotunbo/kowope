@@ -5,15 +5,13 @@ import { GpslocationPopoverPage } from '../gpslocation-popover/gpslocation-popov
 
 @NgModule({
     declarations: [
-        GpslocationPage,
-        //GpslocationPopoverPage
+        GpslocationPage
     ],
     imports: [
         IonicPageModule.forChild(GpslocationPage)
     ],
     entryComponents: [
-        GpslocationPage,
-        //GpslocationPopoverPage
+        GpslocationPage
     ]
 })
 export class GpslocationPageModule { }

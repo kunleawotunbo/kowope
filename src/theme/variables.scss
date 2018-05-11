@@ -61,7 +61,9 @@ $colors: (
   dblack:    black,
   success:   #32db64,
   dgrey:     #505050,
-  dwhite:  #FFFFFF	
+  dwhite:  #FFFFFF	,
+  desert: #e8e7e6,
+  yellow: yellow
 );
 
 $size_extrasmall:1.0rem;
@@ -79,7 +81,7 @@ $border:#ccc;
 $button:#0d47a1;
 $loginSignupGradiant:#768fff;
 // Manage toolbar color
-$toolbar-background:color($colors, primary);
+$toolbar-background:color($colors, yellow);
 
 
 // Manage Menu Style
