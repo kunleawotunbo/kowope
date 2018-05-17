@@ -22,6 +22,7 @@ export class OthersPage {
       { title: 'GPS Location', icon: 'locate', component: 'GpslocationPage' },
       { title: 'Scanner', icon: 'qr-scanner', component: 'ScannerPage' },
       { title: 'Map', icon: 'map', component: 'MapPage' },
+      { title: 'Fingerprint', icon: 'lock', component: 'FingerprintPage' },
     ];
   }
 

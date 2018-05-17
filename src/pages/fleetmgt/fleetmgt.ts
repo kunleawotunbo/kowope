@@ -72,8 +72,8 @@ export class FleetmgtPage {
   }
 
   getVehiclesList() {
-    this.presentLoading();
-    //this.utilityService.presentLoading();
+    //this.presentLoading();
+    this.utilityService.presentLoading();
     var result;
     this.quickbooksService.getVehiclesList().subscribe(
       data => {
@@ -82,14 +82,14 @@ export class FleetmgtPage {
       error => {
         console.log(error);
         console.log("Error - something went wrong");
-        this.loader.dismiss();
-        //this.utilityService.loader.dismiss();
+        //this.loader.dismiss();
+        this.utilityService.loadingDismiss();
       },
       () => {
         this.vehiclesList = result.vehicles;
         this.isLoaded = true;
-        this.loader.dismiss();
-        //this.utilityService.loader.dismiss();
+        //this.loader.dismiss();
+        this.utilityService.loadingDismiss();
       });
   }
 

@@ -26,14 +26,41 @@ export class JournalsPage {
    this.currencyCode = "&#x20A6;";
   }
 
+  /**
+   * Fired just once and caches the page in the DOM
+   * So when back button is clicked, it won't be fired again
+   */
   ionViewDidLoad() {
-    
+    /*
+    if (this.utilityService.isOnline()) {
+      this.getTxnsList();
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
+    */
+  }
+
+  /**
+   * Fired everytime the page are available before loading
+   * Fired everytime even when back button is clicked to this page
+   */
+  ionViewWillEnter(){
+    if (this.utilityService.isOnline()) {
+      this.getTxnsList();
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
+  } 
+
+  /*
+  ngOnInit(){
     if (this.utilityService.isOnline()) {
       this.getTxnsList();
     } else {
       this.utilityService.showNoNetworkAlert();
     }
   }
+  */
 
   itemSelected(item){
     

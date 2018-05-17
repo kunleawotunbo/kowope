@@ -55,8 +55,8 @@ export class PaymentPage {
     public formBuilder: FormBuilder,
   ) {
 
-    var amountDue = 400000;
-    var amountPaid = 150000;
+    //var amountDue = 400000;
+    //var amountPaid = 150000;
     //this.calValue(amountPaid, amountDue);
 
     this.storage.get('currentUser').then((currentUser) => {

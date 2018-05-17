@@ -1,6 +1,110 @@
 page-profile {
+    /*
     img {
         max-width: 140px;
         border-radius: 50%;
       }
+      */
+      img {
+        max-width: 140px;
+        border-radius: 50%;
+      }
+
+      img #a {
+        max-width: 140px;
+        border-radius: 50%;
+        // border-radius: 50%;
+        // background-color: tomato;
+        box-shadow: 0 0 4px 3px #ccc;
+        height: 100%;
+        width: 100%;
+      }
+
+      .ion-item{
+        position: relative;
+        height: 100px;
+        width: 100px;
+      }
+      
+      .ion-avatar{
+        border-radius: 50%;
+        background-color: tomato;
+        box-shadow: 0 0 4px 3px #ccc;
+        height: 100%;
+        width: 100%;
+      }
+      /*
+      button{
+        position: absolute;
+        right: -5px;
+        bottom: -5px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background-color: blue;
+        border: gray 1px solid;
+        cursor: pointer;
+        color: white;
+      }
+      */
+
+      #notification-button {
+        position: absolute;
+        width: 42px;
+        top: -10px;
+        left: 50px;
+        overflow: visible !important;
+    }
+
+
+
+    // 2
+
+    .ion-item2{
+        position: relative;
+        height: 100px;
+        width: 100px;
+      }
+
+    .ion-avatar2{
+        border-radius: 50%;
+        background-color: tomato;
+        box-shadow: 0 0 4px 3px #ccc;
+        height: 100%;
+        width: 100%;
+      }
+      /*
+      button{
+        position: absolute;
+        right: -5px;
+        bottom: -5px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background-color: blue;
+        border: gray 1px solid;
+        cursor: pointer;
+        color: white;
+      }
+      */
+
+      #notification-button2 {
+        position: relative;
+        width: 42px;
+        top: -10px;
+        left: 100px;
+        overflow: visible !important;
+
+        // position: absolute;
+        right: -20px;
+        bottom: -50px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background-color: blue;
+        border: gray 1px solid;
+        cursor: pointer;
+        color: white;
+    }
+
 }

@@ -3,7 +3,7 @@
     <ion-toolbar>
       <ion-item no-lines>
         <ion-avatar menuClose (click)="editAccount()" item-left>
-          <img [src]="profilePicture">
+          <img [src]="_DomSanitizer.bypassSecurityTrustUrl(profilePicture)" alt="avatar" />
         </ion-avatar>
         <div *ngIf="isLoaded">
           <h2>{{currentUser.first_name}}</h2>
@@ -39,9 +39,9 @@
 <ion-menu id="driverMenu" [content]="content" type="overlay" persistent="true">
   <ion-header>
     <ion-toolbar>
-      <ion-item no-lines>
+      <ion-item no-lines *ngIf="isLoaded">
         <ion-avatar menuClose (click)="editAccount()" item-left>
-          <img [src]="profilePicture">
+          <img [src]="_DomSanitizer.bypassSecurityTrustUrl(profilePicture)" alt="avatar" />
         </ion-avatar>
         <div *ngIf="isLoaded">
           <h2>{{currentUser.first_name}}</h2>

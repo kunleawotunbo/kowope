@@ -12,8 +12,10 @@
         //.scroll-content { display: table; width: 100%; height: 100%; }
         .centerAlign { display: table-cell; vertical-align: middle; border:#ff0000 1px solid; }
   
-        .item{border:$border-color 1px solid !important; margin-bottom:10px;}
-
+        //.item{border:$border-color 1px solid !important; margin-bottom:10px;}
+        ion-icon{
+          border:0px
+        }
         .passwordIcon{
           font-size:32px !important;
           position: relative !important;

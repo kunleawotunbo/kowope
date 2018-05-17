@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, LoadingController, Refresher, ToastController } from 'ionic-angular';
-import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+//import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { QuickbooksService } from '../../providers/quickbooks.service';
 import { UtilityService } from '../../utility/utility.service';
 
@@ -16,14 +16,14 @@ export class VehiclePage {
   sectionTab: string = "history"; startDate; endDate;
   isAndroid: boolean = false;
   isLoaded: boolean;
-  public modelNo: AbstractControl; plateNo; color; datePurchased; driverId;
+  //public modelNo: AbstractControl; plateNo; color; datePurchased; driverId;
 
  
   constructor(
     public navCtrl: NavController, 
     public quickbooksService: QuickbooksService,
     public loadingCtrl: LoadingController,
-    public formBuilder: FormBuilder, 
+    //public formBuilder: FormBuilder, 
     public utilityService: UtilityService,
     public toastCtrl: ToastController,
 
@@ -31,8 +31,18 @@ export class VehiclePage {
     
   }
 
+  /*
   ionViewDidLoad() {
     this.getVehiclesList();
+  }
+  */
+
+  ionViewWillEnter(){
+    if (this.utilityService.isOnline()) {
+      this.getVehiclesList();
+    } else {
+      this.utilityService.showNoNetworkAlert();
+    }
   }
 
   itemSelected(item){
@@ -40,12 +50,10 @@ export class VehiclePage {
   }
 
   goBack(){
-    //this.navCtrl.push('FleetmgtPage');
     this.navCtrl.pop();
   }
 
   addVehicle(){
-    //this.navCtrl.push('AddvehiclePage');
     if (this.utilityService.isOnline()) {
       this.navCtrl.push('AddvehiclePage');
     } else {
@@ -54,7 +62,6 @@ export class VehiclePage {
   }
 
   getVehiclesList(){
-    //this.presentLoading();
     this.utilityService.presentLoading();
     var result;
     this.quickbooksService.getVehiclesList().subscribe(
@@ -64,19 +71,16 @@ export class VehiclePage {
       error => {
         console.log(error);
         console.log("Error - something went wrong");
-        //this.loader.dismiss();
         this.utilityService.loadingDismiss();
       },
       () => {
         this.vehiclesList = result.vehicles;
         this.isLoaded = true;
-        //this.loader.dismiss();
         this.utilityService.loadingDismiss();
       });
   }
 
   getTxnsList(){
-    //this.presentLoading();
     this.utilityService.presentLoading();
     var result;
     this.quickbooksService.getTxnsList().subscribe(
@@ -86,13 +90,10 @@ export class VehiclePage {
       error => {
         console.log(error);
         console.log("Error - something went wrong");
-        //this.loader.dismiss();
         this.utilityService.loadingDismiss();
       },
       () => {
-        //console.log("result :: " + result.txns);
         this.txnsList = result.txns;
-        //this.loader.dismiss();
         this.utilityService.loadingDismiss();
       });
   }

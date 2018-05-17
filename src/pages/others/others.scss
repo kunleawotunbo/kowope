@@ -4,6 +4,14 @@ page-others {
             .item {
                 padding: 0px !important;
             }
+
+            ion-icon {
+                width: 10px !important;
+                height: 10px !important;
+                vertical-align: middle;
+                font-size: 1.9em !important;
+                color: $menu_icon_color
+              }
         }
         
     }

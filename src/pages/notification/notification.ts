@@ -77,10 +77,12 @@ export class NotificationPage {
 
     this.oneSignal.handleNotificationOpened().subscribe((data) => {
       // do something when a notification is opened
+      /*
       //consol
       var notificationOpenedCallback = function (data) {
         console.log('notificationOpenedCallback: ' + JSON.stringify(data));
       };
+      */
 
       let alert = this.alertCtrl.create({
         title: 'Handle Notification',

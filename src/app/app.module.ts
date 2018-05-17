@@ -19,7 +19,8 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { Geolocation } from '@ionic-native/geolocation';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
-
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
+import { Base64 } from '@ionic-native/base64';
 
 
 import { MyApp } from './app.component';
@@ -35,13 +36,15 @@ import { NetworkInterceptor } from '../providers/network.interceptor';
 import { GpslocationPopoverPage } from '../pages/gpslocation-popover/gpslocation-popover';
 import { SharePopoverPage } from '../pages/share-popover/share-popover';
 import { MorePopoverPage } from '../pages/more-popover/more-popover';
+// import { ParallaxHeaderDirective } from '../directives/parallax-header/parallax-header';
 
 @NgModule({
   declarations: [
     MyApp,
     GpslocationPopoverPage,
     SharePopoverPage,
-    MorePopoverPage
+    MorePopoverPage,
+    //ParallaxHeaderDirective
   ],
   imports: [
     BrowserModule,
@@ -82,6 +85,8 @@ import { MorePopoverPage } from '../pages/more-popover/more-popover';
     Geolocation,
     SocialSharing,
     LaunchNavigator,
+    FingerprintAIO,
+    Base64,
 
     AuthService,
     ConfigService,

@@ -92,11 +92,11 @@ export class AddtxnPage {
       },
       error => {
         console.log(error);
-        this.utilityService.loader.dismiss();
+        this.utilityService.loadingDismiss();
       },
       () => {
         //console.log("result :: "  + result);
-        this.utilityService.loader.dismiss();
+        this.utilityService.loadingDismiss();
         this.utilityService.showNotification(result.message);
       }
     );
@@ -111,23 +111,14 @@ export class AddtxnPage {
       error => {
         console.log(error);
         console.log("Error - something went wrong");
-        this.utilityService.loader.dismiss();
+        this.utilityService.loadingDismiss();
       },
       () => {
         //console.log("result :: " + result.txns);
         this.txnsList = result.txns;
-        this.utilityService.loader.dismiss();
+        this.utilityService.loadingDismiss();
       });
   }
 
-  /*
-  presentLoading() {
-    this.loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
-    });
-    this.loader.present();
-  }
-  */
 
 }

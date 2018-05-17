@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
-import { GpslocationPage } from './gpslocation';
+import { FingerprintPage } from './fingerprint';
 import { IonicPageModule } from 'ionic-angular';
 
 @NgModule({
     declarations: [
-        GpslocationPage
+        FingerprintPage
     ],
     imports: [
-        IonicPageModule.forChild(GpslocationPage)
+        IonicPageModule.forChild(FingerprintPage)
     ],
     entryComponents: [
-        GpslocationPage
+        FingerprintPage
     ]
 })
-export class GpslocationPageModule { }
+export class FingerprintPageModule { }

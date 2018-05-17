@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AdMobFree, AdMobFreeBannerConfig, /*AdMobFreeInterstitialConfig */ } from '@ionic-native/admob-free';
 import { Storage } from '@ionic/storage';
 import { OneSignal } from '@ionic-native/onesignal';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../providers/auth-service';
 import { UtilityService } from '../utility/utility.service';
 import { ConfigService } from '../utility/config.service';
@@ -58,12 +59,13 @@ export class MyApp {
     public admob: AdMobFree,
     public configService: ConfigService,
     private oneSignal: OneSignal,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,    
+    public _DomSanitizer: DomSanitizer,
 
   ) {
     this.initializeApp();
 
-    this.profilePicture = "assets/images/avatar.png";
+    //this.profilePicture = "assets/images/avatar.png";
 
     // Listen to events
     this.listenToEvents();
@@ -132,8 +134,9 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     if (page.component === 'LoginPage') {
+      
       this.authService.logout();
-    }
+    } 
     this.nav.setRoot(page.component);
 
     // set active page
@@ -160,6 +163,7 @@ export class MyApp {
 
     this.events.subscribe('user:login', (currentUser) => {
       this.currentUser = currentUser;
+      this.profilePicture = this.currentUser.profile_picture;
       if (this.currentUser === undefined) {
         this.isLoaded = false;
       } else {
@@ -235,12 +239,14 @@ export class MyApp {
 
     this.oneSignal.handleNotificationOpened().subscribe((data) => {
       // do something when a notification is opened
+      /*
       //consol
       var notificationOpenedCallback = function (data) {
         // console.log('notificationOpenedCallback: ' + JSON.stringify(data));
         // alert('notificationOpenedCallback: ' + JSON.stringify(data));
         alert('notificationOpenedCallback: ' + data);
       };
+      */
 
       this.nav.setRoot('NotificationPage', {
         //item: JSON.stringify(data)

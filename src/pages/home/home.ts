@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, PopoverController } from 'ionic-angular';
 import { UtilityService } from '../../utility/utility.service';
-import { MorePopoverPage } from '../more-popover/more-popover';
+//import { MorePopoverPage } from '../more-popover/more-popover';
 
 
 @IonicPage()

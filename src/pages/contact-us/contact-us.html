@@ -5,7 +5,28 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content parallax-header>
+
+
+  <!-- 
+    <div class="header-image"></div>
+ 
+    <div class="main-content">
+   
+          <h2>Parallax Header</h2>
+   
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+   
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+   
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+   
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+   
+    </div>
+   -->
+
+
 
   <div class="about-header">
     <img src="assets/images/ionic-logo-white.svg" alt="ionic logo">
@@ -13,11 +34,10 @@
 
   <div padding>
     <p>Email: info@tunbor.com </p>
-    <p>Phone: (+234) 7031528126</p>
+    <p>Phone: (+234) 7031528126 </p>
     <p>Address: Mobil Road, Ilaje, Ajah, Lagos State, Nigeria</p>
 
-    <!-- Create accordion using ion-card -->
-    <ion-card>
+    <!-- <ion-card>
       <ion-card-header (click)="toggleAccordion()">
         Olakunle
       </ion-card-header>
@@ -49,9 +69,7 @@
     </ion-list>
 
     <ion-list class="accordion-list">
-      <!-- First Level -->
       <ion-list-header *ngFor="let item of information; let i = index" no-lines no-padding>
-        <!-- Toggle Button -->
         <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
           <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
           <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
@@ -59,16 +77,13 @@
         </button>
 
         <ion-list *ngIf="item.children && item.open" no-lines>
-          <!-- Second Level -->
           <ion-list-header *ngFor="let child of item.children; let j = index" no-padding>
-            <!-- Toggle Button -->
             <button ion-item (click)="toggleItem(i, j)" *ngIf="child.children" class="child" detail-none>
               <ion-icon item-left name="add" *ngIf="!child.open"></ion-icon>
               <ion-icon item-left name="close" *ngIf="child.open"></ion-icon>
               {{ child.name }}
             </button>
 
-            <!-- Direct Add Button as Fallback -->
             <ion-item *ngIf="!child.children" ion-item detail-none class="child-item" text-wrap>
               <h2>{{ child.name }}</h2>
               <p text-lowercase>{{ child.information }}</p>
@@ -76,11 +91,9 @@
             </ion-item>
 
             <ion-list *ngIf="child.children && child.open">
-              <!-- Third Level -->
               <ion-item *ngFor="let item of child.children; let k = index" detail-none class="child-item" text-wrap>
                 <h2>{{ item.name }}</h2>
                 <p text-lowercase>{{ item.information }}</p>
-                <!-- Direct Add Button -->
                 <button ion-button outline item-end (click)="buyItem(item)">{{ item.price }}</button>
               </ion-item>
             </ion-list>
@@ -89,14 +102,31 @@
         </ion-list>
 
       </ion-list-header>
-    </ion-list>
+    </ion-list> -->
+
+    <ion-card (click)="callPhoneNumber()">
+        <ion-icon name="call" color="success" item-start></ion-icon>
+        <h2>Call Now</h2>
+        <ion-note item-end>{{phoneNumber}}</ion-note>
+    </ion-card>
+
+    <ion-card>
+      Another card
+    </ion-card>
 
     <ion-list no-lines>
+      <ion-item (click)="callPhoneNumber()">
+        <ion-icon name="call" color="success" item-start></ion-icon>
+        <h2>Call Now</h2>
+        <ion-note item-end>{{phoneNumber}}</ion-note>
+
+      </ion-item>
+
       <ion-item>
-          <ion-icon name="locate" item-start></ion-icon> 
-          <h2>Location</h2>
-          <p>52Km from your current location</p>
-              </ion-item>
+        <ion-icon name="locate" color="danger" item-start></ion-icon>
+        <h2>Location</h2>
+        <p>52Km from your current location</p>
+      </ion-item>
     </ion-list>
   </div>
 

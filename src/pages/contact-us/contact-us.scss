@@ -1,72 +1,108 @@
 page-contact-us {
-
-    .about-header {
-        background-color: #434954;
-        padding: 16px;
-        width: 100%;
-        min-height: 150px;
-        text-align: center;
-    }
-
-    .map-footer {
-        //background-color: #434954;
-        padding: 16px;
-        width: 100%;
-        min-height: 150px;
-        text-align: center;
-       // max-height: 50px;
-    }
-
-    .card-header{
-        background-color: map-get($colors, primary);
-        color: #fff;
-    }
-    .card-content {
-        padding: 0px 16px;
-        max-height: 0px;
-    }
-
+  ion-content {
+    //background-color: $menu_bg_color !important;
+    //background-image: url('../assets/images/sidemenu-pattern.png');
     ion-list {
-        .item {
-            padding: 0px !important;
+      // .item{background:transparent; color:$menu_font_color;font-size:$menu_font_size;}
+      /*
+      .item {
+        background: transparent;
+        color: $menu_font_color;
+        font-size: $menu_font_size;
+      }
+      .item-inner {
+        border-bottom: 1px solid $menu_separator_line_color !important;
+        img {
+          width: 25px;
+          height: 25px;
+          vertical-align: middle;
+          margin-right: 10px;
+          margin-bottom: 5px;
         }
-    }
+        ion-icon {
+          width: 30px;
+          height: 30px;
+          vertical-align: middle;
+          font-size: 1.9em;
+          color: $menu_icon_color
+        }
+      }
+      */
 
-    .accordion-list {
-        background: color($colors, light);
-        height: 100%;
+      ion-icon {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        font-size: 1.9em;
+        color: $menu_icon_color
+      }
     }
-    .section {
-        background: #fff;
-        color: #000;
-        margin-bottom: 4px;
+  }
+  .about-header {
+    background-color: #434954;
+    padding: 16px;
+    width: 100%;
+    min-height: 150px;
+    text-align: center;
+  }
+  .map-footer {
+    //background-color: #434954;
+    padding: 16px;
+    width: 100%;
+    min-height: 150px;
+    text-align: center; // max-height: 50px;
+  }
+  .card-header {
+    background-color: map-get($colors, primary);
+    color: #fff;
+  }
+  .card-content {
+    padding: 0px 16px;
+    max-height: 0px;
+  }
+  ion-list {
+    .item {
+      padding: 0px !important;
     }
-    .section-active {
-        background: #ffc400;
-        color: #fff;
-    }
- 
-    .child {
-        background: #e8e7e6;
-        color: #000;
-        margin-bottom: 4px;
-    }
-    .child-item {
-        background: #f3f2f1;
-        padding: 10px;
-    }
-    .label {
-        margin: 0px;
-    }
-    .list {
-        margin-bottom: 4px;
-    }
-
-
-    // Map
-    #map {
-        width: 100%;
-        height: 50%;
-        
-    }
+  }
+  .accordion-list {
+    background: color($colors, light);
+    height: 100%;
+  }
+  .section {
+    background: #fff;
+    color: #000;
+    margin-bottom: 4px;
+  }
+  .section-active {
+    background: #ffc400;
+    color: #fff;
+  }
+  .child {
+    background: #e8e7e6;
+    color: #000;
+    margin-bottom: 4px;
+  }
+  .child-item {
+    background: #f3f2f1;
+    padding: 10px;
+  }
+  .label {
+    margin: 0px;
+  }
+  .list {
+    margin-bottom: 4px;
+  } // Map
+  #map {
+    width: 100%;
+    height: 50%;
+  }
+  .header-image {
+    background-image: url(https://ununsplash.imgix.net/photo-1421091242698-34f6ad7fc088?fit=crop&fm=jpg&h=650&q=75&w=950);
+    height: 40vh;
+  }
+  .main-content {
+    padding: 20px;
+    background-color: white;
+  }
 }

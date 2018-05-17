@@ -10,7 +10,17 @@
   
   <ion-content padding>
     USSD page
+    <ion-item>
+      <button ion-button (click)="callIt('*556#')">Dial Now! Check balance </button>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label floating>Phone Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="phoneNumber"></ion-input>      
+    </ion-item>
 
-    <button ion-button (click)="callIT('*556#')">Dial Now! Check balance </button>
+    <button ion-button (click)="callPhoneNumber()">
+      <ion-icon name="call"></ion-icon>
+    </button>
 
   </ion-content>

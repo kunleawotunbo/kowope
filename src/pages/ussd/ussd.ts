@@ -10,6 +10,8 @@ import { CallNumber } from '@ionic-native/call-number';
 // https://forum.ionicframework.com/t/dialing-ussd-with-ionic2/73127/4
 export class UssdPage {
 
+  phoneNumber: number;
+
   constructor(
     public navCtrl: NavController,
     private callNumber: CallNumber
@@ -27,11 +29,19 @@ export class UssdPage {
         console.log('Error launching dailer');
       });
       */
+     console.log("passedNumber :: " + passedNumber);
      this.callNumber.callNumber(passedNumber, true)
       .then((data) => {
         console.log('Launched dialer!'+ data);
       })
       .catch(() => console.log('Error launching dialer'));
+  }
+
+   callPhoneNumber(){
+     console.log("Phone number :: " + String(this.phoneNumber));
+    this.callNumber.callNumber(String(this.phoneNumber), true)
+    .then(res => console.log('Launched dialer!', res))
+    .catch(err => console.log('Error launching dialer', err));
   }
 
 }

@@ -16,12 +16,60 @@
 <ion-content padding>
 
   <div padding-top text-center *ngIf="username">
-    <!-- <img src="http://www.gravatar.com/avatar?d=mm&s=140" alt="avatar"> -->
-    <img src="{{profilePiture}}" alt="avatar" (click)="updatePicture()">
-    <h2>{{username}}</h2>
+
+    <!-- <div class="ion-item2">
+
+      <div class="ion-avatar2">
+        <div>
+          <button id="notification-button2">
+            <div class="ion-icon">
+              !!!!!!
+              <img id="a" src="{{profilePiture}}" alt="avatar" (click)="updatePicture()">
+            </div>
+          </button>
+        </div>
+
+
+      </div>
+    </div> -->
+
+
+    <!-- https://stackoverflow.com/a/49630026/2105396 -->
+
+    <!-- <div class="ion-item">
+      <div class="ion-avatar">
+        <div>
+          <button id="notification-button">
+            <div class="ion-icon">
+              !!!
+            </div>
+          </button>
+        </div>
+      </div>
+      <h2>Woody</h2>
+      <p>This town ain't big enough for the two of us!</p>
+      <p>3:43 pm
+        <p>
+    </div>
+   -->
+
+
+
+    <div *ngIf="isLoaded">
+    <img [src]="_DomSanitizer.bypassSecurityTrustUrl(profilePicture)" alt="avatar" (click)="presentActionSheet()"/>
+    <div *ngIf="pictureTaken">
+      <button ion-button (click)="presentActionSheet()">RETAKE</button>
+      <button ion-button (click)="savePicture()">SAVE</button>
+
+    </div>
+    <h2>{{currentUser.first_name}}</h2>
+    </div>
+
+
+    
 
     <ion-list inset>
-      <button ion-item (click)="updatePicture()">Update Picture</button>
+      <button ion-item (click)="presentActionSheet()">Update Picture</button>
       <button ion-item (click)="changeUsername()">Change Username</button>
       <button ion-item (click)="changePassword()">Change Password</button>
       <!-- <button ion-item (click)="support()">Support</button> -->
@@ -29,21 +77,5 @@
     </ion-list>
   </div>
 
-  <h3>The profile page</h3>
-  <button ion-button secondary (click)="takePicture()">Take Piture</button>
-
-  Latest Picture:
-  <img [src]="base64Image" *ngIf="base64Image" />
-
-  <ion-card *ngFor="let photo of photos">
-    <img src="{{photo}}" />
-  </ion-card>
-
 </ion-content>
 
-
-<ion-footer>
-  <ion-toolbar>
-    <button ion-button block (click)="presentActionSheet()">Select Pictures</button>
-  </ion-toolbar>
-</ion-footer>

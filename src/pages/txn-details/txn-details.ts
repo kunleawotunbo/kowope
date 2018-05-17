@@ -20,7 +20,7 @@ export class TxndetailsPage {
     public utilityService: UtilityService
   ) {
     this.item = navParams.get('item');
-    console.log("item.id :: " + this.item.id);
+    //console.log("item.id :: " + this.item.id);
   }
 
   ionViewDidLoad() {
@@ -50,23 +50,14 @@ export class TxndetailsPage {
       error => {
         console.log(error);
         console.log("Error - something went wrong");
-        this.utilityService.loader.dismiss();
+        this.utilityService.loadingDismiss();
       },
       () => {
         this.txnDetails = result.txn;
         this.isLoaded = true;
-        this.utilityService.loader.dismiss();
+        this.utilityService.loadingDismiss();
       });
   }
 
-  /*
-  presentLoading() {
-    this.loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
-    });
-    this.loader.present();
-  }
-  */
 
 }

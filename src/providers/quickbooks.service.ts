@@ -21,6 +21,28 @@ export class QuickbooksService {
     this.API_URL = this.configService.getAPIURL();
   }
 
+  updateProfilePicture(user_id, profile_picture) {
+
+    var payLoad = {
+      user_id: user_id,
+      profile_picture: profile_picture
+    };
+
+    const token = this.getToken();
+
+    const httpOptions = {
+      headers: this.getHeaders()
+    };
+
+    const body = JSON.stringify(payLoad);
+
+    var api = this.API_URL + `user/updatePicture?token=${token}`;
+    return this.http.post(api, body, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   /**
   * Get verifyOTP
   */
