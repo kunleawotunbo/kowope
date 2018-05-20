@@ -1,4 +1,6 @@
-<ion-header>
+<!--
+  
+  <ion-header>
   <ion-navbar hideBackButton="true">
   </ion-navbar>
 </ion-header>
@@ -27,10 +29,6 @@
         </button>
       </ion-item>
 
-      <!-- <button ion-button clear item-end type="button" (click)='hideShowPassword()'>
-        <ion-icon item-end [name]="passwordIcon" class="passwordIcon"></ion-icon>
-      </button> -->
-
     </ion-list>
 
     <button ion-button full type="submit" [disabled]="!form.valid">Login</button>
@@ -48,4 +46,51 @@
     </div>
   </div>
 
+</ion-content>
+
+ -->
+
+
+
+<ion-content class="background">
+  <div text-center>
+    <img src="assets/images/logo.png" width="100">
+  </div>
+  <ion-card>
+    <ion-card-header>
+      Login Form
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+        <ion-list no-line padding-top>
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input formControlName="username" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input formControlName="password" placeholder="Password" [type]="passwordType" clearOnEdit="false" required></ion-input>
+            <button ion-button clear item-end type="button" (click)='hideShowPassword()'>
+              <ion-icon item-end [name]="passwordIcon" class="passwordIcon"></ion-icon>
+            </button>
+          </ion-item>
+          <a tappable (click)="forgotPasswordPage()">Forgot your login detail?
+            <b>Get help signing in</b>
+          </a>
+          <button ion-button block outline color="light" type="submit" [disabled]="!form.valid">Log in</button>
+
+          <p>OR</p>
+            <button class="bottom" ion-button clear full color="light" type="button" (click)="signupPage()">Don't have an account? Sign up</button>
+          <!-- 
+            <button ion-button block color="facebook" (click)="facebookLogin()">
+            <ion-icon name="logo-facebook"></ion-icon> Login with facebook
+          </button> -->
+        </ion-list>
+
+      </form>
+
+    </ion-card-content>
+  </ion-card>
+  <!-- <button class="bottom" ion-button clear full color="light" (click)="signupPage()">Don't have an account? Sign up</button> -->
 </ion-content>

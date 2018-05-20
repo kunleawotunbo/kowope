@@ -1,25 +1,9 @@
-<ion-header>
+<!--
+  
+  <ion-header>
 </ion-header>
 <ion-content padding>
-  <!-- <ion-list no-lines padding-top>
 
-    <ion-item>
-      <ion-input type="text" placeholder="First Name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" placeholder="Last Name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="email" placeholder="Email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="password" placeholder="Password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="password" placeholder="Confirm Password"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button ion-button block round color="primary">Submit</button> -->
   <form [formGroup]="form" (ngSubmit)="submitForm(form.value)" >
    
 
@@ -44,12 +28,6 @@
         <ion-label stacked>Address</ion-label>
         <ion-input type="text" formControlName="address" required></ion-input>
       </ion-item>
-
-      <!-- <ion-item>
-        <ion-label stacked>userType</ion-label>
-        <ion-input type="text" formControlName="userType"></ion-input>
-      </ion-item> -->
-
       <ion-item>
         <ion-label stacked>Email</ion-label>
         <ion-input type="text" formControlName="email" required></ion-input>
@@ -67,10 +45,7 @@
 
       <ion-checkbox color="primary"  formControlName="accepterms"></ion-checkbox> 
       I have read and accept <button (click)="terms()">Terms &amp; Conditions </button>
-      <!-- <ion-item>
-        <ion-label>Daenerys Targaryen</ion-label>
-        <ion-checkbox color="dark"  formControlName="accepterms"></ion-checkbox>
-      </ion-item> -->
+      
       
 
     </ion-list>
@@ -78,9 +53,215 @@
 
     <button ion-button block round type="submit" [disabled]="!form.valid">Submit</button>
   </form>
+
+
+  
   <div padding-top>
     <button ion-button block color="secondary" clear (click)="loginPage();">If already have an account ? LOGIN</button>
     <button ion-button block color="secondary" clear (click)="forgotPasswordPage();">Forgot Password</button>
   </div>
+
+</ion-content>
+
+-->
+
+
+
+
+<ion-header>
+  <ion-navbar color="primary" hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button *ngIf="!firstSlide" icon-left (click)="prev()">
+        <ion-icon name="arrow-back"></ion-icon>
+        Prev
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Sign Up
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-right *ngIf="!lastSlide" (click)="next()">Next
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-slides #signupSlider (ionSlideDidChange)="slideChanged()">
+
+    <ion-slide>
+      <button class="bottom" ion-button clear full color="primary" type="button" (click)="loginPage()">Already have an account? Sigin</button>
+
+      <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
+
+      <ion-list no-lines>
+
+        <form [formGroup]="slideOneForm">
+
+          <!-- <ion-item>
+            <ion-label floating>First Name</ion-label>
+            <ion-input formControlName="firstName" type="text" [class.invalid]="!slideOneForm.controls.firstName.valid && (slideOneForm.controls.firstName.dirty || submitAttempt)"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="!slideOneForm.controls.firstName.valid  && (slideOneForm.controls.firstName.dirty || submitAttempt)">
+            <p>Please enter a valid name.</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Last Name</ion-label>
+            <ion-input formControlName="lastName" type="text" [class.invalid]="!slideOneForm.controls.lastName.valid && (slideOneForm.controls.age.dirty || submitAttempt)"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="!slideOneForm.controls.lastName.valid  && (slideOneForm.controls.lastName.dirty || submitAttempt)">
+            <p>Please enter a valid name.</p>
+          </ion-item> -->
+
+          <ion-item>
+            <ion-label floating>First Name</ion-label>
+            <ion-input formControlName="firstName" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Last Name</ion-label>
+            <ion-input formControlName="lastName" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Phone Number</ion-label>
+            <ion-input formControlName="phoneNo" type="text"></ion-input>
+          </ion-item>
+
+          <!-- <ion-item *ngIf="!slideOneForm.controls.phoneNo.valid  && (slideOneForm.controls.phoneNo.dirty || submitAttempt)">
+            <p>Please enter a valid age.</p>
+          </ion-item> -->
+
+        </form>
+
+      </ion-list>
+
+    </ion-slide>
+
+    <ion-slide>
+
+      <br />
+      <ion-list no-lines>
+
+        <!-- <form [formGroup]="slideTwoForm">
+
+          <ion-item>
+            <ion-label floating>Address</ion-label>
+            <ion-input formControlName="address" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="!slideOneForm.controls.address.valid  && (slideOneForm.controls.address.dirty || submitAttempt)">
+              <p>Please enter a valid address.</p>
+            </ion-item>
+
+          <ion-item>
+              <ion-label floating>Email</ion-label>
+              <ion-input [class.invalid]="!slideTwoForm.controls.email.valid && (slideTwoForm.controls.email.dirty || submitAttempt)" formControlName="email" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="slideTwoForm.controls.email.pending">
+              <p>Checking username...</p>
+          </ion-item>
+
+          <ion-item *ngIf="!slideTwoForm.controls.email.valid && !slideTwoForm.controls.email.pending && (slideTwoForm.controls.email.dirty || submitAttempt)">
+              <p>Sorry, that username can not be used!</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="!slideOneForm.controls.password.valid  && (slideOneForm.controls.password.dirty || submitAttempt)">
+              <p>Please enter a valid password.</p>
+            </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Retype Password</ion-label>
+            <ion-input formControlName="confirmPassword" type="password"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="!slideOneForm.controls.confirmPassword.valid  && (slideOneForm.controls.confirmPassword.dirty || submitAttempt)">
+              <p>Please enter a valid password.</p>
+            </ion-item>
+
+          <ion-checkbox color="primary" formControlName="accepterms"></ion-checkbox>
+          I have read and accept
+          <button (click)="terms()">Terms &amp; Conditions </button>
+
+
+
+        </form> -->
+
+        <form [formGroup]="slideTwoForm">
+
+          <ion-item>
+            <ion-label floating>Address</ion-label>
+            <ion-input formControlName="address" type="text"></ion-input>
+          </ion-item>
+          <!--   
+            <ion-item *ngIf="!slideOneForm.controls.address.valid  && (slideOneForm.controls.address.dirty || submitAttempt)">
+                <p>Please enter a valid address.</p>
+              </ion-item>
+  
+            <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input [class.invalid]="!slideTwoForm.controls.email.valid && (slideTwoForm.controls.email.dirty || submitAttempt)" formControlName="email" type="text"></ion-input>
+            </ion-item>
+  
+            <ion-item *ngIf="slideTwoForm.controls.email.pending">
+                <p>Checking username...</p>
+            </ion-item>
+  
+            <ion-item *ngIf="!slideTwoForm.controls.email.valid && !slideTwoForm.controls.email.pending && (slideTwoForm.controls.email.dirty || submitAttempt)">
+                <p>Sorry, that username can not be used!</p>
+            </ion-item> -->
+
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input formControlName="email" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+
+          <!-- <ion-item *ngIf="!slideOneForm.controls.password.valid  && (slideOneForm.controls.password.dirty || submitAttempt)">
+                <p>Please enter a valid password.</p>
+              </ion-item> -->
+
+          <ion-item>
+            <ion-label floating>Retype Password</ion-label>
+            <ion-input formControlName="confirmPassword" type="password"></ion-input>
+          </ion-item>
+
+          <!-- <ion-item *ngIf="!slideOneForm.controls.confirmPassword.valid  && (slideOneForm.controls.confirmPassword.dirty || submitAttempt)">
+                <p>Please enter a valid password.</p>
+              </ion-item>
+   -->
+          <ion-checkbox color="primary" formControlName="accepterms"></ion-checkbox>
+          I have read and accept
+          <button (click)="terms()">Terms &amp; Conditions </button>
+
+
+
+        </form>
+
+      </ion-list>
+
+      <button ion-button full color="primary" (click)="save()">Create Account!</button>
+    </ion-slide>
+
+
+  </ion-slides>
+
+  <button class="bottom" ion-button clear full color="primary" type="button" (click)="loginPage()">Already have an account? Sigin</button>
 
 </ion-content>

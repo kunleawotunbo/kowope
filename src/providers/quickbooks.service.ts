@@ -21,6 +21,28 @@ export class QuickbooksService {
     this.API_URL = this.configService.getAPIURL();
   }
 
+    /**
+  * validateUsername
+  */
+ validateUsername( email) {
+
+  const token = this.getToken();
+  let queryParams = {
+    email: email
+  }
+
+  const httpOptions = {
+    headers: this.getHeaders(),
+    params: queryParams
+  };
+
+  var api = this.API_URL + `user/validate_username?token=${token}`;
+  return this.http.get(api, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
   updateProfilePicture(user_id, profile_picture) {
 
     var payLoad = {

@@ -232,6 +232,9 @@ export class ProfilePage {
           this.storage.set('currentUser', JSON.stringify(result.user));
           // Notify events
           this.events.publish('picture:updated', profile_picture);
+
+          // Remove retake and save picture button after save is successful
+          this.pictureTaken = false;
           this.utilityService.loadingDismiss();
           this.utilityService.showNotification(result.message);
         }

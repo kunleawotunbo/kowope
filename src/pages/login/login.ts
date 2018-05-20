@@ -78,6 +78,19 @@ export class LoginPage {
     */
   }
 
+  ionViewWillEnter(){
+    // Remove adds on login age
+    this.utilityService.removeBannerAds();
+  }
+
+  ionViewWillLeave(){
+    this.utilityService.launchInterstitial();
+  }
+
+  facebookLogin(){
+
+  }
+
   signupPage() {
     this.navCtrl.push('SignupPage');
   }

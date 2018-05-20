@@ -1,26 +1,212 @@
-.ios,.md,.wp{
-    page-login {
-        .toolbar-background{ background:transparent; border-style:none;}
-        .toolbar::after,.header-md::after{ background-image:none;}
-        ion-content{
-          background-color:color($colors,primary);
-           background-image:url('../assets/images/bg-pattern.png');
-           background-size:100% auto;
+.ios,
+.md,
+.wp {
+  page-login {
+    
+
+      ion-content {
+       background-image: url('../assets/images/bg.jpg');
+      } 
+
+     
+      .scroll-content { 
+        display: table; 
+        width: 100%;
+        height: 100%;
+        align-content: center;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+      }
+
+       /*
+       .scroll-content {
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+      */
+
+       ion-card {
+        box-shadow: none;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+      }
+
+      a, p,
+      ion-card-header.card-header {
+        color: #fff!important;
+        text-align: center;
+      }
+
+
+
+      .item{
+        background:transparent;
+        background: rgba(255, 255, 255, 0.5) !important;
+        border: medium none !important;
+        color:$menu_font_color; 
+        margin-bottom:10px;
+        //border-bottom: 1px solid $menu_separator_line_color !important;
+
+      }
+
+      ion-label{
+        color: color($colors, primary) !important;
+      }
+
+
+      
+      //.item{border:$border-color 1px solid !important; margin-bottom:10px;}
+      ion-icon {
+        // border: 0px;
+        padding-right: 10px;
+      }
+
+      .passwordIcon {
+        font-size: 32px !important;
+        position: relative !important; // top: 22px !important;
+        margin: 0 auto !important;
+      }
+
+      
+    
+    // .toolbar-background{ background:transparent; border-style:none;}
+    //  .toolbar::after,.header-md::after{ background-image:none;}
+    /*
+    ion-content {
+      //background-color: color($colors, primary);
+      background-image: url('../assets/images/bg.jpg');
+      background-size: 100% auto;
+
+      .passwordIcon {
+        font-size: 32px !important;
+        position: relative !important; // top: 22px !important;
+        margin: 0 auto !important;
+      }
+
+      ion-card {
+        box-shadow: none;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+      }
+
+      a, p,
+      ion-card-header.card-header {
+        color: #fff!important;
+        text-align: center;
+      }
+
+      .item{
+        background:transparent;
+        background: rgba(255, 255, 255, 0.5) !important;
+        border: medium none !important;
+        color:$menu_font_color; 
+         //font-size:$menu_font_size;
+         //border:$border-color 1px solid !important;
+         // margin-bottom:10px;
+         border-bottom: 1px solid $menu_separator_line_color !important;
+      }
+
+      
+
+       
+
+        .list > .item-block:first-child {
+          border: medium none !important;
         }
-  
-  
-        //.scroll-content { display: table; width: 100%; height: 100%; }
-        .centerAlign { display: table-cell; vertical-align: middle; border:#ff0000 1px solid; }
-  
-        //.item{border:$border-color 1px solid !important; margin-bottom:10px;}
-        ion-icon{
-          border:0px
-        }
-        .passwordIcon{
-          font-size:32px !important;
-          position: relative !important;
-          // top: 22px !important;
-          margin: 0 auto !important;
-       }
+
     }
+    */ //.scroll-content { display: table; width: 100%; height: 100%; }
+    /*
+    .centerAlign {
+      display: table-cell;
+      vertical-align: middle;
+      border: #ff0000 1px solid;
+    } //.item{border:$border-color 1px solid !important; margin-bottom:10px;}
+    ion-icon {
+      border: 0px
+    }
+    */
+
+
+
+    /*
+       .background {
+        background-image: url('../assets/images/bg.jpg');
+      }
+    
+      .scroll-content {
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+    
+      ion-card.card {
+        box-shadow: none;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+      }
+    
+      a, p,
+      ion-card-header.card-header {
+        color: #fff!important;
+      }
+    
+      .list > .item-block:first-child {
+        border: medium none;
+      }
+    
+      .item {
+        margin-bottom: 10px;
+        background: rgba(255, 255, 255, 0.5);
+        border: medium none;
+    
+        .text-input, {
+          color: #fff;
+        }
+    
+        input::-moz-placeholder  {
+          color: #fff!important;
+        }
+    
+        input:-moz-placeholder {
+          color: #fff!important;
+        }
+    
+        *::-webkit-input-placeholder  {
+          color: #fff!important;
+        }
+    
+        *:-ms-input-placeholder  {
+          color: #fff!important;
+        }
+    
+        *:-moz-placeholder  {
+          color: #fff!important;
+        }
+      }
+    
+      .icon {
+        padding-right: 10px;
+      }
+    
+      .bottom {
+        position: absolute;
+        bottom: 0;
+      }
+
+      .passwordIcon{
+        font-size:32px !important;
+        position: relative !important;
+        // top: 22px !important;
+        margin: 0 auto !important;
+     }
+     */
+     
   }
+}

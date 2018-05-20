@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, ViewChild } from "@angular/core";
 import { Network } from '@ionic-native/network';
 import {
   Platform,
@@ -7,9 +7,13 @@ import {
   MenuController,
   AlertController,
   PopoverController,
+  Nav
 } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
+import { OneSignal } from '@ionic-native/onesignal';
 import { MorePopoverPage } from '../pages/more-popover/more-popover';
+import { ConfigService } from '../utility/config.service';
 
 declare var Connection;
 declare var navigator;
@@ -19,6 +23,7 @@ export class UtilityService {
 
   onDevice: boolean;
   loader: any;
+  @ViewChild(Nav) nav: Nav;
 
   constructor(
     public platform: Platform,
@@ -28,11 +33,140 @@ export class UtilityService {
     public menuCtrl: MenuController,
     public storage: Storage,
     public alertCtrl: AlertController,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    public admob: AdMobFree,
+    public oneSignal: OneSignal,
+    public configService: ConfigService,
+    //public nav: Nav
+
   ) {
 
     // To detect if app is running on iOS or Android
     this.onDevice = this.platform.is('cordova');
+  }
+
+  initOneSignal() {
+
+    if (this.onDevice) {
+      this.oneSignal.startInit(this.configService.getOneSignalAppId(), this.configService.getGoogleProjectId());
+
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+
+      this.oneSignal.handleNotificationReceived().subscribe((data) => {
+        // do something when notification is received
+        console.log('Tapped', data);
+
+      });
+
+      this.oneSignal.handleNotificationOpened().subscribe((data) => {
+        // do something when a notification is opened
+
+        this.nav.setRoot('NotificationPage', {
+          //item: JSON.stringify(data)
+          item: data
+        });
+
+      });
+
+      this.oneSignal.endInit();
+
+    } else {
+      console.log("Can not hide Ads, Not running on device");
+    }
+
+
+  }
+
+  removeBannerAds() {
+    if (this.onDevice) {
+      this.admob.banner.hide();
+    } else {
+      console.log("Can not hide Ads, Not running on device");
+    }
+
+  }
+
+  removeInterstitialAds() {
+    //this.admob.interstitial.
+    if (this.onDevice) {
+      //this.admob.banner.hide();
+    } else {
+      console.log("Can not hide Ads, Not running on device");
+    }
+  }
+
+  launchInterstitial() {
+
+    if (this.onDevice) {
+
+      let interstitialConfig: AdMobFreeInterstitialConfig = {
+        isTesting: true, // Remove in production
+        autoShow: true,
+        id: 'ca-app-pub-3940256099942544/6300978111', // Test Id
+        //id: ca-app-pub-3608321653585261/7297886466 //My live AdMob Id
+      };
+
+      this.admob.interstitial.config(interstitialConfig);
+
+      this.admob.interstitial.prepare().then(() => {
+        // success
+      });
+    } else {
+      console.log("Not running on a platform");
+    }
+
+    /*
+    let interstitialConfig: AdMobFreeInterstitialConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true,
+      id: 'ca-app-pub-3940256099942544/6300978111', // Test Id
+      //id: ca-app-pub-3608321653585261/7297886466 //My live AdMob Id
+    };
+
+    this.admob.interstitial.config(interstitialConfig);
+
+    this.admob.interstitial.prepare().then(() => {
+      // success
+    });
+    */
+
+  }
+
+  showBanner() {
+
+    if (this.onDevice) {
+
+      let bannerConfig: AdMobFreeBannerConfig = {
+        isTesting: true, // Remove in production
+        autoShow: true,
+        id: 'ca-app-pub-3940256099942544/6300978111', // Test Id
+        //id: ca-app-pub-3608321653585261/7297886466 //My live AdMob Id
+      };
+
+      this.admob.banner.config(bannerConfig);
+
+      this.admob.banner.prepare().then(() => {
+        // success
+      }).catch(e => console.log(e));
+
+    } else {
+      console.log("Not running on a platform");
+    }
+    /*
+    let bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: true, // Remove in production
+      autoShow: true,
+      id: 'ca-app-pub-3940256099942544/6300978111', // Test Id
+      //id: ca-app-pub-3608321653585261/7297886466 //My live AdMob Id
+    };
+
+    this.admob.banner.config(bannerConfig);
+
+    this.admob.banner.prepare().then(() => {
+      // success
+    }).catch(e => console.log(e));
+    */
+
   }
 
   presentMorePopover(event: Event, item: any) {
@@ -44,7 +178,7 @@ export class UtilityService {
     let popover = this.popoverCtrl.create(MorePopoverPage, {
       item: item
     }, {
-      cssClass: 'custom-popover'
+        cssClass: 'custom-popover'
       }
     );
 
@@ -59,7 +193,7 @@ export class UtilityService {
     var minutes = Math.floor(minutesNotTruncated);
     var seconds = Math.floor((minutesNotTruncated - minutes) * 60);
 
-    return degrees + " " + minutes + " " + seconds;    
+    return degrees + " " + minutes + " " + seconds;
   }
 
   toDegreesMinutesAndSeconds2(coordinate) {
@@ -80,7 +214,7 @@ export class UtilityService {
 
   convertDMS(lat, lng) {
     var latitude = this.toDegreesMinutesAndSeconds(lat);
-    var latitudeCardinal = Math.sign(lat) >= 0 ? "N" : "S";    
+    var latitudeCardinal = Math.sign(lat) >= 0 ? "N" : "S";
 
     var longitude = this.toDegreesMinutesAndSeconds(lng);
     var longitudeCardinal = Math.sign(lng) >= 0 ? "E" : "W";

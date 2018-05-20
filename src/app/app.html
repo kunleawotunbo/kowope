@@ -1,11 +1,11 @@
 <ion-menu id="adminMenu" [content]="content" type="overlay" persistent="true">
   <ion-header>
     <ion-toolbar>
-      <ion-item no-lines>
+      <ion-item no-lines *ngIf="isLoaded">
         <ion-avatar menuClose (click)="editAccount()" item-left>
           <img [src]="_DomSanitizer.bypassSecurityTrustUrl(profilePicture)" alt="avatar" />
         </ion-avatar>
-        <div *ngIf="isLoaded">
+        <div>
           <h2>{{currentUser.first_name}}</h2>
           <p>{{currentUser.phone_no}}</p>
         </div>
@@ -43,7 +43,7 @@
         <ion-avatar menuClose (click)="editAccount()" item-left>
           <img [src]="_DomSanitizer.bypassSecurityTrustUrl(profilePicture)" alt="avatar" />
         </ion-avatar>
-        <div *ngIf="isLoaded">
+        <div>
           <h2>{{currentUser.first_name}}</h2>
           <p>{{currentUser.phone_no}}</p>
         </div>

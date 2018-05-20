@@ -36,6 +36,7 @@ import { NetworkInterceptor } from '../providers/network.interceptor';
 import { GpslocationPopoverPage } from '../pages/gpslocation-popover/gpslocation-popover';
 import { SharePopoverPage } from '../pages/share-popover/share-popover';
 import { MorePopoverPage } from '../pages/more-popover/more-popover';
+import { UsernameValidator } from '../pages/signup/usernamevalidator';
 // import { ParallaxHeaderDirective } from '../directives/parallax-header/parallax-header';
 
 @NgModule({
@@ -48,7 +49,13 @@ import { MorePopoverPage } from '../pages/more-popover/more-popover';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    /*
+    IonicModule.forRoot(MyApp, { 
+      scrollAssist: false,
+      autoFocusAssist: false
+    })
+    */
+   IonicModule.forRoot(MyApp),
     HttpModule,
     HttpClientModule,
     IonicStorageModule.forRoot()
@@ -94,6 +101,7 @@ import { MorePopoverPage } from '../pages/more-popover/more-popover';
     UtilityService,
     QuickbooksService,
     SampleService,
+    UsernameValidator,
     
   ]
 })
