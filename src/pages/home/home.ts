@@ -3,6 +3,8 @@ import { NavController, IonicPage, PopoverController } from 'ionic-angular';
 import { UtilityService } from '../../utility/utility.service';
 //import { MorePopoverPage } from '../more-popover/more-popover';
 
+declare var jquery: any;
+declare var $: any;
 
 @IonicPage()
 @Component({
@@ -35,6 +37,10 @@ export class HomePage {
     */
 
     this.utilityService.presentMorePopover(event, item);
+  }
+
+  toggle(){
+    $('.title').slideToggle();
   }
 
 }

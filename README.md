@@ -121,7 +121,9 @@
         https://webcake.co/page-lifecycle-hooks-in-ionic-2/
 
 
+24.     ## Integrate JQuery into Ionic
 
+        https://www.youtube.com/watch?v=xWIzZ8wBqk0
 
 
 

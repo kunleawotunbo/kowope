@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { CallNumber } from '@ionic-native/call-number';
 
+declare var jquery: any;
+declare var $: any;
+
 @IonicPage()
 @Component({
   selector: 'page-ussd',
@@ -11,12 +14,13 @@ import { CallNumber } from '@ionic-native/call-number';
 export class UssdPage {
 
   phoneNumber: number;
+  phoneNumber2: number;
 
   constructor(
     public navCtrl: NavController,
     private callNumber: CallNumber
   ) {
-
+    this.intializeIntlTelInput();
   }
 
   callIt(passedNumber){
@@ -42,6 +46,11 @@ export class UssdPage {
     this.callNumber.callNumber(String(this.phoneNumber), true)
     .then(res => console.log('Launched dialer!', res))
     .catch(err => console.log('Error launching dialer', err));
+  }
+
+  intializeIntlTelInput(){
+    // $('.title').slideToggle();
+    $("#phoneNumber2").intlTelInput();
   }
 
 }
