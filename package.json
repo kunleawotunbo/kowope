@@ -83,6 +83,7 @@
     "sw-toolbox": "3.6.0",
     "uk.co.workingedge.phonegap.plugin.launchnavigator": "^4.2.0",
     "zone.js": "0.8.18"
+    
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.8",
