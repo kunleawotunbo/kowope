@@ -46,7 +46,10 @@ export class VehiclePage {
   }
 
   itemSelected(item){
-
+    this.toastCtrl.create({
+      message: '' + item.model_no + ' clicked',
+      duration: 3000
+    });
   }
 
   goBack(){
